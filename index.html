@@ -22,6 +22,10 @@
     --shadow-brutal: 6px 6px 0px var(--ink-main);
     --shadow-hover: 8px 8px 0px var(--safety-orange);
     --med-alert: #d92525;
+    --gold: #C9A84C;
+    --gold-light: #E8D09A;
+    --gold-dim: rgba(201,168,76,0.18);
+    --lux-ease: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   body::after {
@@ -244,6 +248,287 @@
   .footer-branding { font-family: 'Fira Code', monospace; font-weight: bold; font-size: 1.1rem; margin-bottom: 5px; color: var(--surface); }
   .footer-disclaimer { font-family: 'Karla', sans-serif; font-size: 0.85rem; color: #888; max-width: 600px; margin: 0 auto; padding: 0 20px; }
 
+  /* WELCOME ANIMATION OVERLAY */
+  #welcome-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--tactical-green); z-index: 20000;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #welcome-overlay.show { opacity: 1; pointer-events: all; }
+  #welcome-overlay.fade-out { opacity: 0; pointer-events: none; transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  .welcome-box { text-align: center; padding: 40px; max-width: 640px; width: 90%; }
+
+  .welcome-greeting {
+    font-family: 'Fira Code', monospace; color: var(--safety-orange);
+    font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 22px; opacity: 0; transform: translateY(18px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .welcome-greeting.reveal { opacity: 1; transform: translateY(0); }
+
+  .welcome-divider {
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--safety-orange), transparent);
+    margin: 0 auto 28px; transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .welcome-divider.expand { width: 75%; }
+
+  .welcome-pre {
+    font-family: 'Oswald', sans-serif; color: rgba(245,245,240,0.55);
+    font-size: clamp(1rem, 3vw, 1.3rem); text-transform: uppercase;
+    letter-spacing: 3px; margin-bottom: 6px;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+  }
+  .welcome-pre.reveal { opacity: 1; transform: translateY(0); }
+
+  .welcome-name {
+    font-family: 'Oswald', sans-serif; color: var(--surface);
+    font-size: clamp(2.8rem, 8vw, 5.5rem); text-transform: uppercase;
+    line-height: 1; margin-bottom: 28px;
+    min-height: 1.1em;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+  }
+  .welcome-name.reveal { opacity: 1; transform: translateY(0); }
+
+  .welcome-cursor {
+    display: inline-block; width: 3px; height: 0.85em;
+    background: var(--safety-orange); margin-left: 4px;
+    vertical-align: middle; border-radius: 1px;
+    animation: blinkCursor 0.75s step-end infinite;
+  }
+  @keyframes blinkCursor { 0%,100%{opacity:1} 50%{opacity:0} }
+  .welcome-cursor.done { animation: none; opacity: 0; transition: opacity 0.6s ease 0.4s; }
+
+  .welcome-coffee {
+    font-family: 'Karla', sans-serif; color: #FFD700; font-style: italic;
+    font-size: clamp(1.1rem, 3vw, 1.4rem); line-height: 1.5;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 1.4s ease, transform 1.4s ease;
+  }
+  .welcome-coffee.reveal { opacity: 1; transform: translateY(0); }
+
+  .welcome-dismiss {
+    margin-top: 36px; font-family: 'Fira Code', monospace;
+    font-size: 0.75rem; color: rgba(245,245,240,0.32); letter-spacing: 2px;
+    opacity: 0; transition: opacity 1.4s ease;
+    cursor: pointer;
+  }
+  .welcome-dismiss.reveal { opacity: 1; }
+  .welcome-dismiss:hover { color: rgba(245,245,240,0.65); }
+
+  .pre-error { color: var(--safety-orange); font-family: 'Fira Code', monospace; font-size: 0.85rem; margin-top: 8px; display: none; }
+  .pre-flight-box .name-label { color: #888; font-family: 'Fira Code', monospace; font-size: 0.75rem; text-align: left; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ═══════════════════════════════════════
+     LUXURY LAYER — refinements only
+  ═══════════════════════════════════════ */
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg-base); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a8872e; }
+
+  /* Selection */
+  ::selection { background: rgba(201,168,76,0.22); color: var(--ink-main); }
+
+  /* Smoother global transitions */
+  a { transition: color 0.3s var(--lux-ease), opacity 0.3s var(--lux-ease); }
+  .btn { transition: all 0.3s var(--lux-ease) !important; }
+  .btn-orange:hover { box-shadow: 0 6px 20px rgba(255,69,0,0.28), 4px 4px 0 var(--ink-main); transform: translate(-2px,-2px); }
+  .btn-amazon { transition: all 0.3s var(--lux-ease) !important; }
+
+  /* Nav luxury */
+  .nav-btn { transition: all 0.3s var(--lux-ease) !important; position: relative; overflow: hidden; }
+  .nav-btn::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--gold);
+    transition: width 0.35s var(--lux-ease);
+  }
+  .nav-btn:hover::after, .nav-btn.active::after { width: 100%; }
+
+  /* Panel entrance — refined */
+  .panel.active { animation: lux-panel-in 0.55s var(--lux-ease) forwards; }
+  @keyframes lux-panel-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Cards */
+  .data-card { transition: box-shadow 0.3s var(--lux-ease), transform 0.3s var(--lux-ease); }
+  .data-card:hover { box-shadow: 8px 8px 0px var(--ink-main), 0 8px 28px rgba(0,0,0,0.07); }
+  .logistics-box { transition: transform 0.3s var(--lux-ease), box-shadow 0.3s var(--lux-ease); }
+  .logistics-box:hover { transform: translateY(-2px); box-shadow: 6px 8px 0 rgba(0,0,0,0.13); }
+  .arsenal-item { transition: box-shadow 0.3s var(--lux-ease), transform 0.3s var(--lux-ease) !important; }
+  .arsenal-item:not(.checked):hover { transform: translateY(-1px); box-shadow: 6px 6px 0 rgba(0,0,0,0.13); }
+
+  /* Timer shimmer */
+  .timer-module {
+    background: linear-gradient(135deg, var(--ink-main), #1c1c1c) !important;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.3s var(--lux-ease) !important;
+  }
+  .timer-module:hover { box-shadow: 8px 8px 0 var(--gold) !important; }
+  .timer-module::before {
+    content: ''; position: absolute; top: 0; left: -120%; width: 80%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.07), transparent);
+    animation: timerShimmer 5s ease infinite;
+    pointer-events: none;
+  }
+  @keyframes timerShimmer { 0%,100% { left: -120%; } 50% { left: 120%; } }
+
+  /* Header title lift on hover */
+  .header-left h1 { transition: color 0.35s ease, letter-spacing 0.35s ease !important; }
+  .header-left h1:hover { letter-spacing: 2.5px; }
+
+  /* Gold accent on active nav + sop headers */
+  .nav-btn.active { border-bottom: 3px solid var(--gold) !important; }
+  .sop-header { transition: all 0.3s var(--lux-ease) !important; }
+
+  /* Itinerary hover */
+  .itinerary-day { transition: padding-left 0.3s var(--lux-ease); }
+  .itinerary-day:hover { padding-left: 24px; }
+
+  /* Arsenal checkbox glow */
+  .custom-checkbox:checked { box-shadow: 0 0 0 2px rgba(59,69,43,0.3); }
+
+  /* ─── LUXURY LOADING SCREEN ─── */
+  #luxury-loader {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--ink-main); z-index: 15000;
+    display: none; flex-direction: column; justify-content: center; align-items: center;
+    transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  #luxury-loader.lift { transform: translateY(-100%); }
+
+  .ldr-eyebrow {
+    font-family: 'Fira Code', monospace; color: var(--gold);
+    font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s;
+  }
+  .ldr-eyebrow.show { opacity: 1; transform: translateY(0); }
+
+  .ldr-title {
+    font-family: 'Oswald', sans-serif; text-transform: uppercase;
+    color: var(--surface); font-size: clamp(2rem, 6vw, 3.8rem);
+    letter-spacing: 8px; line-height: 1;
+    margin-bottom: 6px;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+  }
+  .ldr-title.show { opacity: 1; transform: translateY(0); }
+
+  .ldr-sub {
+    font-family: 'Fira Code', monospace; color: rgba(245,245,240,0.35);
+    font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 44px;
+    opacity: 0; transition: opacity 0.9s ease 0.8s;
+  }
+  .ldr-sub.show { opacity: 1; }
+
+  .ldr-track {
+    width: min(300px, 75vw); height: 1px;
+    background: rgba(201,168,76,0.15); position: relative;
+  }
+  .ldr-fill {
+    position: absolute; top: 0; left: 0; height: 1px;
+    background: linear-gradient(90deg, rgba(201,168,76,0.4), var(--gold), #fff8e1, var(--gold));
+    width: 0;
+    transition: width 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1s;
+    box-shadow: 0 0 8px var(--gold);
+  }
+  .ldr-fill.fill { width: 100%; }
+
+  .ldr-pct {
+    font-family: 'Fira Code', monospace; color: rgba(201,168,76,0.4);
+    font-size: 0.68rem; letter-spacing: 3px; margin-top: 14px;
+    opacity: 0; transition: opacity 0.8s ease 1.2s;
+  }
+  .ldr-pct.show { opacity: 1; }
+
+  /* ─── OPERATOR BADGE (top-right) ─── */
+  #operator-badge {
+    position: fixed; top: 18px; right: 20px; z-index: 8000;
+    display: flex; flex-direction: column; align-items: flex-end;
+    opacity: 0; transform: translateY(-10px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    pointer-events: none;
+  }
+  #operator-badge.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+
+  .badge-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--ink-main);
+    border: 1px solid rgba(201,168,76,0.45);
+    padding: 7px 14px 7px 10px; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(201,168,76,0.08);
+    transition: all 0.3s var(--lux-ease);
+    user-select: none;
+  }
+  .badge-pill:hover {
+    border-color: var(--gold);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.3);
+    transform: translateY(-1px);
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 6px var(--gold);
+    animation: pulseDot 2.8s ease infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulseDot {
+    0%,100% { opacity: 1; box-shadow: 0 0 5px var(--gold); }
+    50%      { opacity: 0.55; box-shadow: 0 0 12px var(--gold); }
+  }
+
+  .badge-label {
+    font-family: 'Fira Code', monospace; font-size: 0.78rem;
+    color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .badge-dropdown {
+    margin-top: 5px;
+    background: var(--ink-main);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0 18px; max-height: 0; overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    transition: max-height 0.5s var(--lux-ease), padding 0.4s ease, opacity 0.4s ease;
+    opacity: 0; min-width: 230px; text-align: right;
+  }
+  .badge-dropdown.open { max-height: 150px; padding: 18px 18px; opacity: 1; }
+
+  .badge-full-name {
+    font-family: 'Oswald', sans-serif; text-transform: uppercase;
+    color: var(--surface); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .badge-coffee-line {
+    font-family: 'Karla', sans-serif; font-style: italic;
+    color: var(--gold); font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;
+  }
+  .badge-active-line {
+    font-family: 'Fira Code', monospace; font-size: 0.68rem;
+    color: rgba(201,168,76,0.4); letter-spacing: 2px;
+  }
+
+  @media (max-width: 480px) {
+    #operator-badge { top: 12px; right: 12px; }
+    .badge-pill { padding: 6px 10px 6px 8px; }
+    .badge-label { font-size: 0.7rem; }
+    .badge-dropdown { min-width: 190px; }
+    .badge-full-name { font-size: 1.2rem; }
+  }
+
   /* MOBILE OPTIMIZATION OVERHAULS */
   @media (max-width: 768px) {
     .header-left h1 { font-size: 2.8rem; }
@@ -283,16 +568,53 @@
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
+<div id="welcome-overlay">
+  <div class="welcome-box">
+    <div class="welcome-greeting" id="wc-greeting">// OPERATOR IDENTITY VERIFIED //</div>
+    <div class="welcome-divider" id="wc-divider"></div>
+    <div class="welcome-pre" id="wc-pre">Welcome,</div>
+    <div class="welcome-name" id="wc-name"><span id="wc-typed"></span><span class="welcome-cursor" id="wc-cursor"></span></div>
+    <div class="welcome-coffee" id="wc-coffee">Hope you have a great cup of coffee today ☕</div>
+    <div class="welcome-dismiss" id="wc-dismiss" onclick="dismissWelcome()">[ tap anywhere to continue ]</div>
+  </div>
+</div>
+
+<!-- OPERATOR BADGE -->
+<div id="operator-badge">
+  <div class="badge-pill" onclick="toggleBadge(event)">
+    <span class="badge-dot"></span>
+    <span class="badge-label" id="badge-short">M. NEST</span>
+  </div>
+  <div class="badge-dropdown" id="badge-dropdown">
+    <div class="badge-full-name" id="badge-full">Master Nest</div>
+    <div class="badge-coffee-line">Hope you have a great cup of coffee today ☕</div>
+    <div class="badge-active-line">● OPERATOR ACTIVE</div>
+  </div>
+</div>
+
+<!-- LUXURY LOADING SCREEN -->
+<div id="luxury-loader">
+  <div class="ldr-eyebrow" id="ldr-eyebrow">OP AREA: DHARAMSHALA / MCLEOD GANJ</div>
+  <div class="ldr-title"   id="ldr-title">THE MCLEOD RUN</div>
+  <div class="ldr-sub"     id="ldr-sub">PREPARING YOUR BRIEFING</div>
+  <div class="ldr-track">
+    <div class="ldr-fill" id="ldr-fill"></div>
+  </div>
+  <div class="ldr-pct" id="ldr-pct">LOADING...</div>
+</div>
+
 <div id="pre-flight">
   <div class="pre-flight-box">
     <h1>OPERATOR LOGIN</h1>
-    <p>JAKE NEST // STATUS: PENDING</p>
+    <p>ACCESS RESTRICTED // IDENTIFY YOURSELF</p>
     <div class="input-grid">
-      <input type="text" id="coffee-log" placeholder="Log today's coffee tasting notes...">
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button class="btn btn-orange btn-hover-fx" style="flex: 1; min-width: 140px;" onclick="initializeSystem()">AUTHORIZE</button>
-        <button class="btn btn-hover-fx" style="flex: 1; min-width: 100px;" onclick="initializeSystem()">BYPASS</button>
+      <div>
+        <div class="name-label">Operator Name</div>
+        <input type="text" id="operator-name" placeholder="Enter your name..." autocomplete="off"
+          onkeydown="if(event.key==='Enter') initializeSystem()">
+        <div class="pre-error" id="name-error">⚠ UNRECOGNIZED OPERATOR. ACCESS DENIED.</div>
       </div>
+      <button class="btn btn-orange btn-hover-fx" style="width:100%;" onclick="initializeSystem()">AUTHORIZE</button>
     </div>
   </div>
 </div>
@@ -326,9 +648,9 @@
   <header>
     <div class="header-left" onclick="activatePanel('panel-home')">
       <h1 title="Return to Basecamp">THE MCLEOD RUN</h1>
-      <p>OP AREA: DHARAMSHALA / MCLEOD GANJ</p>
+      <p style="cursor:pointer;" onclick="activatePanel('panel-home')" title="Return to Home Base">OP AREA: DHARAMSHALA / MCLEOD GANJ</p>
     </div>
-    <div class="timer-module" id="countdown-timer">SYNCING CLOCK...</div>
+    <div class="timer-module" id="countdown-timer" onclick="addToCalendar()" style="cursor:pointer;" title="Click to add bus departure to your calendar">SYNCING CLOCK...</div>
   </header>
 
   <nav class="nav-console">
@@ -355,7 +677,7 @@
         "Travel isn’t always pretty. It isn’t always comfortable. Sometimes it hurts, it even breaks your heart. But that’s okay. The journey changes you; it should change you. It leaves marks on your memory, on your consciousness, on your heart, and on your body. You take something with you. Hopefully, you leave something good behind."
       </div>
 
-      <p class="slogan">Life is short and enjoy it like others think you're mad.</p>
+      <p class="slogan">Life is short and fast, so run and chase every second; be mad.</p>
     </div>
   </div>
 
@@ -377,7 +699,7 @@
           <div id="yt-player-2"></div>
         </div>
         <div class="video-container">
-          <div id="yt-player-3"></div>
+          <div id="yt-player-4"></div>
         </div>
       </div>
     </div>
@@ -613,6 +935,13 @@
 </div>
 
 <footer>
+  <div class="footer-logo" onclick="activatePanel('panel-home')" style="cursor:pointer; padding: 25px 20px 5px; text-align:center;">
+    <div style="font-family:'Oswald',sans-serif; font-size:2.2rem; color:var(--surface); letter-spacing:2px; text-transform:uppercase; line-height:1;">THE MCLEOD RUN</div>
+    <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange); letter-spacing:3px; margin-top:5px;">OP AREA: DHARAMSHALA / MCLEOD GANJ</div>
+  </div>
+  <div style="font-family:'Karla',sans-serif; font-style:italic; color:#FFD700; font-size:1.05rem; margin: 12px auto 20px; max-width:500px; text-align:center; padding:0 20px;">
+    Life is short and fast, so run and chase every second; be mad.
+  </div>
   <div class="sitemap">
     <a onclick="activatePanel('panel-home')">Home</a> |
     <a onclick="activatePanel('panel-guide')">EDC Briefing</a> |
@@ -621,11 +950,13 @@
     <a onclick="activatePanel('panel-logistics')">Logistics</a> |
     <a onclick="activatePanel('panel-finances')">Finances</a> |
     <a onclick="activatePanel('panel-itinerary')">Itinerary</a> |
-    <a onclick="activatePanel('panel-debating')">Still Debating</a>
+    <a onclick="activatePanel('panel-debating')">Still Debating</a> |
+    <a href="mailto:contact.jakenest@gmail.com?subject=Message from THE MCLEOD RUN webpage&body=Hi,%0A%0AI'm reaching out from THE MCLEOD RUN webpage.%0A%0A">Contact Us</a>
   </div>
   <div class="footer-branding">MADE BY JAKE NEST FOR JAKE NEST</div>
   <div class="footer-disclaimer">
-    * End product can be different, images are for representation purposes only.
+    This website may or may not be synthetically altered. Copyright to the owner.<br>
+    * End product can be different. Images are for representation purposes only.
   </div>
 </footer>
 
@@ -635,7 +966,8 @@
     { elementId: 'yt-player-0', videoId: 'HQLuuEd1fsY', title: "Frequent Flyer's EDC" },
     { elementId: 'yt-player-1', videoId: '4q7fYqIyg4k', title: "Travel EDC | 100 hrs/yr" },
     { elementId: 'yt-player-2', videoId: 'bA3aX3rOUzA', title: "Premium Travel Kit & EDC" },
-    { elementId: 'yt-player-3', videoId: 'QxMnDqsPwVA', title: "Unique Travel Kit" }
+    { elementId: 'yt-player-3', videoId: 'QxMnDqsPwVA', title: "Unique Travel Kit" },
+    { elementId: 'yt-player-4', videoId: 'x0tgdtpjnpc', title: "51 Tiny Essentials We ACTUALLY Use" }
   ];
   
   let players = [];
@@ -820,19 +1152,172 @@
       document.getElementById('pre-flight').style.display = 'none';
       document.getElementById('main-hud').style.display = 'block';
       setTimeout(() => document.getElementById('media-widget').classList.add('visible'), 1000);
+      const saved = sessionStorage.getItem('operatorLastName');
+      if (saved) setTimeout(() => populateBadge(saved), 400);
     }
   };
   
-  function initializeSystem() {
-    sessionStorage.setItem('systemAuthorized', 'true');
-    document.getElementById('pre-flight').style.transform = 'translateY(-100%)';
-    document.getElementById('main-hud').style.display = 'block';
-    setTimeout(() => document.getElementById('pre-flight').style.display = 'none', 600);
-    
-    setTimeout(() => {
-      document.getElementById('media-widget').classList.add('visible');
-    }, 1000);
+  const AUTHORIZED_NAMES = ['Jake Nest', 'Tejasv Sopory'];
+  let welcomeCallback = null;
+  let welcomeDismissable = false;
+
+  function typeWriter(targetId, text, speed, callback) {
+    const el = document.getElementById(targetId);
+    el.textContent = '';
+    let i = 0;
+    function tick() {
+      if (i < text.length) {
+        el.textContent += text.charAt(i++);
+        setTimeout(tick, speed);
+      } else {
+        if (callback) callback();
+      }
+    }
+    tick();
   }
+
+  function dismissWelcome() {
+    if (!welcomeDismissable) return;
+    const overlay = document.getElementById('welcome-overlay');
+    overlay.classList.add('fade-out');
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      if (welcomeCallback) welcomeCallback();
+    }, 2200);
+  }
+
+  function showWelcomeAnimation(lastName, callback) {
+    welcomeCallback = callback;
+    welcomeDismissable = false;
+    const overlay = document.getElementById('welcome-overlay');
+    overlay.style.display = 'flex';
+    overlay.classList.remove('fade-out', 'show');
+
+    // Reset all child elements
+    ['wc-greeting','wc-pre','wc-name','wc-coffee','wc-dismiss'].forEach(id => {
+      document.getElementById(id).classList.remove('reveal');
+    });
+    document.getElementById('wc-divider').classList.remove('expand');
+    document.getElementById('wc-cursor').classList.remove('done');
+    document.getElementById('wc-typed').textContent = '';
+
+    // -- TIMING SEQUENCE (total ~13-14s before auto-dismiss) --
+    // t=0:    overlay fades in (1.5s)
+    // t=1200: "// OPERATOR IDENTITY VERIFIED //" lifts in
+    // t=2400: divider glides out
+    // t=3600: "Welcome," rises in
+    // t=4600: name container becomes visible, then typewriter begins
+    // t=done: cursor blinks then fades (1s after typing)
+    // t+1400: coffee line drifts in
+    // t+2800: dismiss hint appears, tap enabled
+    // t+8000: auto-dismiss (2.2s smooth fade)
+
+    requestAnimationFrame(() => {
+      // small rAF gap ensures transition fires
+      requestAnimationFrame(() => {
+        overlay.classList.add('show');
+
+        setTimeout(() => document.getElementById('wc-greeting').classList.add('reveal'), 1200);
+        setTimeout(() => document.getElementById('wc-divider').classList.add('expand'),  2400);
+        setTimeout(() => document.getElementById('wc-pre').classList.add('reveal'),      3600);
+        setTimeout(() => document.getElementById('wc-name').classList.add('reveal'),     3600);
+
+        // Typewriter starts after name container is visible
+        setTimeout(() => {
+          const nameText = 'Master ' + lastName + '.';
+          typeWriter('wc-typed', nameText, 90, () => {
+            // Cursor fades 1s after typing finishes
+            setTimeout(() => document.getElementById('wc-cursor').classList.add('done'), 1000);
+
+            // Coffee line 1400ms after typing done
+            setTimeout(() => document.getElementById('wc-coffee').classList.add('reveal'), 1400);
+
+            // Dismiss hint 2800ms after typing done, tap enabled
+            setTimeout(() => {
+              document.getElementById('wc-dismiss').classList.add('reveal');
+              welcomeDismissable = true;
+            }, 2800);
+
+            // Auto-dismiss 8000ms after typing done
+            setTimeout(dismissWelcome, 8000);
+          });
+        }, 4600);
+      });
+    });
+
+    // Tap anywhere also dismisses (after hint is shown)
+    overlay.addEventListener('click', () => dismissWelcome(), { once: true });
+  }
+
+  function initializeSystem() {
+    const nameInput = document.getElementById('operator-name');
+    const nameError = document.getElementById('name-error');
+    const enteredName = nameInput ? nameInput.value.trim() : '';
+    const isVerified = AUTHORIZED_NAMES.includes(enteredName);
+
+    if (!isVerified) {
+      nameError.style.display = 'block';
+      nameInput.style.borderColor = 'var(--safety-orange)';
+      nameInput.focus();
+      return;
+    }
+
+    nameError.style.display = 'none';
+    sessionStorage.setItem('systemAuthorized', 'true');
+    const lastName = enteredName.split(' ').pop();
+    sessionStorage.setItem('operatorLastName', lastName);
+
+    document.getElementById('pre-flight').style.transform = 'translateY(-100%)';
+    setTimeout(() => document.getElementById('pre-flight').style.display = 'none', 700);
+
+    showWelcomeAnimation(lastName, () => {
+      showLuxuryLoader(lastName);
+    });
+  }
+
+  /* ── LUXURY LOADER ── */
+  function showLuxuryLoader(lastName) {
+    const loader = document.getElementById('luxury-loader');
+    loader.style.display = 'flex';
+    loader.classList.remove('lift');
+
+    // Reveal HUD invisibly behind loader so it's ready
+    document.getElementById('main-hud').style.display = 'block';
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      ['ldr-eyebrow','ldr-title','ldr-sub','ldr-pct'].forEach(id => {
+        document.getElementById(id).classList.add('show');
+      });
+      setTimeout(() => document.getElementById('ldr-fill').classList.add('fill'), 80);
+
+      // After bar completes, lift loader away
+      setTimeout(() => {
+        loader.classList.add('lift');
+        setTimeout(() => {
+          loader.style.display = 'none';
+          setTimeout(() => document.getElementById('media-widget').classList.add('visible'), 600);
+          populateBadge(lastName);
+        }, 1000);
+      }, 3200);
+    }));
+  }
+
+  /* ── OPERATOR BADGE ── */
+  function populateBadge(lastName) {
+    document.getElementById('badge-short').textContent = 'M. ' + lastName.toUpperCase();
+    document.getElementById('badge-full').textContent = 'Master ' + lastName;
+    setTimeout(() => document.getElementById('operator-badge').classList.add('visible'), 200);
+  }
+
+  function toggleBadge(e) {
+    if (e) e.stopPropagation();
+    document.getElementById('badge-dropdown').classList.toggle('open');
+  }
+
+  // Close badge when clicking outside
+  document.addEventListener('click', () => {
+    document.getElementById('badge-dropdown').classList.remove('open');
+  });
 
   // CLOCK
   const tZero = new Date('June 27, 2026 17:31:00').getTime();
@@ -845,6 +1330,15 @@
     document.getElementById('countdown-timer').innerHTML = `T MINUS: ${d}D : ${String(h).padStart(2,'0')}H : ${String(m).padStart(2,'0')}M : ${String(s).padStart(2,'0')}S`;
   }
   setInterval(syncClock, 1000); syncClock();
+
+  function addToCalendar() {
+    const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=HRTC+Bus+%E2%80%93+Delhi+to+Dharamshala' +
+      '&dates=20260627T151500Z%2F20260627T163100Z' +
+      '&details=HRTC+Non-AC+Seater%0APNR%3A+20260525000009679523%0ASeat%3A+10%0A%F0%9F%9A%8C+REACH+ISBT+BY+17%3A15+%7C+Bus+departs+17%3A31' +
+      '&location=Delhi+ISBT+Kashmiri+Gate%2C+New+Delhi';
+    window.open(gcalUrl, '_blank');
+  }
 
   // NAV & SOP TOGGLERS
   function activatePanel(panelId) {
