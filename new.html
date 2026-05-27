@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jake's Tactical Arsenal</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/200/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎒</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Karla:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #E8E8E3;
+    --surface: #F5F5F0;
+    --ink-main: #121212;
+    --ink-muted: #4A4A4A;
+    --tactical-green: #3B452B;
+    --safety-orange: #FF4500;
+    --amazon-yellow: #FF9900;
+    --border-heavy: 4px solid var(--ink-main);
+    --border-light: 2px solid var(--ink-main);
+    --shadow-brutal: 6px 6px 0px var(--ink-main);
+    --shadow-hover: 8px 8px 0px var(--safety-orange);
+    --med-alert: #d92525;
+  }
+
+  body::after {
+    content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/200/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999;
+  }
+
+  body { font-family: 'Karla', sans-serif; background-color: var(--bg-base); color: var(--ink-main); margin: 0; padding: 0; line-height: 1.5; overflow-x: hidden; }
+  h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; margin: 0; line-height: 1.1; }
+  a { color: var(--safety-orange); text-decoration: none; font-weight: bold; }
+  a:hover { text-decoration: underline; }
+  
+  /* PRE-FLIGHT CHECK */
+  #pre-flight {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--tactical-green); color: var(--surface);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 10000; transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+  }
+  
+  .pre-flight-box {
+    background: var(--ink-main); border: 4px solid var(--safety-orange); padding: 40px;
+    max-width: 500px; width: 90%; box-shadow: 12px 12px 0px rgba(0,0,0,0.5); text-align: center; box-sizing: border-box;
+  }
+  
+  .pre-flight-box h1 { font-size: 3rem; color: var(--surface); margin-bottom: 10px; }
+  .pre-flight-box p { font-family: 'Fira Code', monospace; color: var(--safety-orange); font-size: 1rem; margin-bottom: 25px; }
+  
+  .input-grid { display: grid; gap: 15px; }
+  .input-grid input {
+    background: transparent; border: 2px solid var(--surface); padding: 15px;
+    color: var(--surface); font-family: 'Fira Code', monospace; font-size: 1rem; width: 100%; box-sizing: border-box; outline: none;
+  }
+  
+  .btn {
+    background: var(--surface); color: var(--ink-main); border: 2px solid var(--surface);
+    padding: 15px 20px; font-family: 'Oswald', sans-serif; font-size: 1.2rem; cursor: pointer; text-transform: uppercase;
+    transition: all 0.1s ease; letter-spacing: 1px; display: inline-block; text-decoration: none; text-align: center;
+  }
+  .btn-orange { background: var(--safety-orange); border-color: var(--safety-orange); color: var(--surface); }
+  .btn-amazon { background: var(--ink-main); color: var(--amazon-yellow); border-color: var(--ink-main); font-family: 'Fira Code'; font-size: 0.9rem; font-weight: bold; margin-top: 15px; width: auto; box-sizing: border-box; margin-right: 10px; margin-bottom: 10px;}
+  .btn-amazon:hover { background: var(--amazon-yellow); color: var(--ink-main); box-shadow: 4px 4px 0px var(--ink-main); }
+  .btn:active { transform: translate(4px, 4px); box-shadow: none; }
+  .btn-hover-fx:hover { box-shadow: 4px 4px 0px var(--surface); transform: translate(-2px, -2px); }
+  
+  /* MAIN HUD */
+  .hud-container { max-width: 1200px; margin: 0 auto; padding: 30px 30px 100px 30px; display: none; }
+  header { border-bottom: var(--border-heavy); padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; }
+  
+  .header-left h1 { font-size: 4rem; letter-spacing: 1px; cursor: pointer; transition: color 0.2s; }
+  .header-left h1:hover { color: var(--safety-orange); }
+  .header-left p { font-family: 'Fira Code', monospace; font-weight: 600; background: var(--safety-orange); color: #fff; display: inline-block; padding: 5px 10px; margin-top: 10px; }
+  .timer-module { background: var(--ink-main); color: var(--safety-orange); font-family: 'Fira Code', monospace; padding: 20px; border: var(--border-light); font-size: 1.2rem; box-shadow: var(--shadow-brutal); }
+
+  /* NAVIGATION */
+  .nav-console { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 40px; }
+  .nav-btn {
+    background: var(--surface); border: var(--border-heavy); padding: 12px; font-family: 'Oswald', sans-serif; font-size: 1.1rem;
+    text-align: left; cursor: pointer; box-shadow: var(--shadow-brutal); transition: all 0.2s ease; position: relative; overflow: hidden;
+  }
+  .nav-btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hover); }
+  .nav-btn.active { background: var(--tactical-green); color: var(--surface); box-shadow: var(--shadow-hover); border-color: var(--ink-main); }
+
+  .panel { display: none; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .panel.active { display: block; }
+  @keyframes popIn { 0% { opacity: 0; transform: scale(0.98) translateY(10px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
+  .data-card { background: var(--surface); border: var(--border-heavy); padding: 30px; box-shadow: var(--shadow-brutal); margin-bottom: 30px; position: relative; }
+  .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .grid-2col { grid-template-columns: 1fr; } }
+
+  /* HOME PANEL TYPOGRAPHY */
+  .home-manifesto h2 { font-size: 3.5rem; color: var(--ink-main); margin-bottom: 20px; line-height: 1; }
+  .home-manifesto .highlight-text { background: var(--safety-orange); color: #fff; padding: 5px 10px; display: inline-block; margin-bottom: 20px; font-family: 'Fira Code'; font-size: 1.2rem; }
+  .home-manifesto p { font-size: 1.2rem; margin-bottom: 20px; border-left: 4px solid var(--tactical-green); padding-left: 15px; }
+  .home-manifesto .quote { font-family: 'Karla', sans-serif; font-style: italic; font-size: 1.5rem; color: #ffb800; margin: 30px 0; border: none; padding-left: 0; }
+  .home-manifesto .slogan { color: var(--safety-orange); font-family: 'Oswald'; font-size: 1.8rem; text-transform: uppercase; border: none; padding: 0; margin-top: 40px; }
+
+  /* LOGISTICS TABLES */
+  .logistics-box { border: var(--border-light); padding: 20px; background: #fff; margin-bottom: 20px; box-shadow: 4px 4px 0px rgba(0,0,0,0.1); }
+  .logistics-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; border-bottom: 2px dashed #ccc; padding-bottom: 10px; }
+  .logistics-header h3 { color: var(--tactical-green); margin: 0; padding: 0; font-size: 1.3rem; border: none; }
+  .log-logo { height: 35px; width: auto; object-fit: contain; }
+  
+  .logistics-box p { margin: 5px 0; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
+  .logistics-box .highlight { background: var(--safety-orange); color: #fff; padding: 2px 5px; }
+
+  /* ITINERARY */
+  .itinerary-day { border-left: 4px solid var(--safety-orange); padding-left: 20px; margin-bottom: 30px; }
+  .itinerary-day h3 { color: var(--ink-main); font-size: 1.5rem; margin-bottom: 10px; }
+  .itinerary-day ul { list-style-type: square; padding-left: 20px; margin-top: 0; }
+  .itinerary-day li { margin-bottom: 8px; }
+
+  /* STEP BY STEP PACKING GUIDE */
+  .sop-header { background: var(--safety-orange); color: #fff; padding: 15px 20px; font-family: 'Oswald'; font-size: 1.4rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: var(--border-heavy); margin-bottom: 20px; transition: all 0.2s; }
+  .sop-header:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0px var(--ink-main); }
+  .sop-body { display: none; background: #fff; border: var(--border-light); padding: 20px; margin-bottom: 30px; border-top: none; }
+  .sop-body.open { display: block; animation: slideDown 0.3s ease; }
+  
+  .sop-step { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #ccc; }
+  .sop-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .sop-step h4 { font-size: 1.2rem; color: var(--tactical-green); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+  .sop-step .badge { background: var(--ink-main); color: #fff; font-family: 'Fira Code'; padding: 2px 8px; font-size: 0.9rem; }
+  .sop-step p { margin: 0; font-size: 1.05rem; }
+
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* EXPANDABLE ARSENAL CARDS */
+  .arsenal-item { border: var(--border-light); background: #fff; margin-bottom: 15px; box-shadow: 4px 4px 0px rgba(0,0,0,0.1); transition: all 0.3s ease; overflow: hidden; }
+  .arsenal-item.checked { opacity: 0.6; background: #e0e0dc; border-color: #a0a09e; box-shadow: none; }
+  
+  .priority-item { border: 4px solid var(--med-alert); box-shadow: 6px 6px 0px rgba(217, 37, 37, 0.3); }
+  .priority-item .arsenal-header { background: rgba(217, 37, 37, 0.05); }
+  .priority-item .title { color: var(--med-alert); font-size: 1.6rem; font-weight: bold; }
+  .priority-item .spec { color: #800; font-weight: bold; }
+  
+  .arsenal-header { display: flex; align-items: center; padding: 15px 20px; cursor: pointer; transition: background 0.2s; user-select: none; }
+  .arsenal-header:hover { background: rgba(0,0,0,0.03); }
+  
+  .custom-checkbox { appearance: none; min-width: 32px; height: 32px; border: 3px solid var(--ink-main); background: var(--surface); cursor: pointer; margin-right: 20px; position: relative; transition: all 0.2s; flex-shrink: 0; }
+  .custom-checkbox:checked { background: var(--tactical-green); border-color: var(--tactical-green); }
+  .custom-checkbox:checked::after { content: "✓"; position: absolute; color: #fff; font-size: 26px; top: -4px; left: 3px; font-family: sans-serif; font-weight: bold; }
+  .priority-item .custom-checkbox { border-color: var(--med-alert); }
+  .priority-item .custom-checkbox:checked { background: var(--med-alert); border-color: var(--med-alert); }
+  
+  .header-titles { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .header-titles .title { font-family: 'Oswald', sans-serif; font-size: 1.4rem; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .header-titles .spec { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--ink-muted); margin-top: 4px; }
+  .arsenal-item.checked .title, .arsenal-item.checked .spec { text-decoration: line-through; }
+  
+  .expand-icon { font-family: 'Fira Code'; font-size: 1.5rem; font-weight: bold; transition: transform 0.3s ease; padding-left: 10px; }
+  .arsenal-item.open .expand-icon { transform: rotate(45deg); color: var(--safety-orange); }
+  
+  .arsenal-body { display: none; padding: 20px; border-top: 2px dashed #ccc; background: #fafafa; }
+  .arsenal-item.open .arsenal-body { display: grid; grid-template-columns: minmax(150px, 30%) 1fr; gap: 20px; align-items: start; }
+  @media (max-width: 600px) { .arsenal-item.open .arsenal-body { grid-template-columns: 1fr; } }
+
+  .arsenal-images { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+  .arsenal-images img { width: 100%; max-width: 150px; max-height: 150px; object-fit: contain; background: #fff; border: 1px solid #ddd; padding: 5px; box-sizing: border-box; }
+  
+  .product-details p { margin: 0 0 10px 0; font-size: 1.05rem; }
+  .product-details .specs-list { font-family: 'Fira Code'; font-size: 0.85rem; background: var(--surface); padding: 10px; border: 1px solid #ccc; margin-bottom: 15px; }
+  .buy-links-container { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* NOTIFICATION MEDIA PLAYER */
+  .media-player-widget {
+    position: fixed; bottom: 20px; right: 20px; width: 380px; /* Widened for desktop text fit */
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px); border-radius: 16px; padding: 15px; display: flex; flex-direction: column; gap: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999; border: 1px solid rgba(255,255,255,0.1);
+    transform: translateY(150%); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+    box-sizing: border-box;
+  }
+  .media-player-widget.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .media-player-widget.hidden { transform: translateY(150px) scale(0.8); opacity: 0; pointer-events: none; }
+  
+  .media-top-row { display: flex; align-items: center; gap: 15px; width: 100%; position: relative; }
+  
+  .media-thumb { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.2); }
+  .media-info { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding-right: 5px; }
+  .media-info .title { color: #fff; font-family: 'Karla', sans-serif; font-weight: 700; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+  /* Subtitle text wrapping fixed */
+  .media-info .subtitle { color: #aaa; font-family: 'Fira Code', monospace; font-size: 0.75rem; white-space: normal; line-height: 1.2; }
+  
+  .media-controls { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+  .ctrl-btn { background: rgba(255,255,255,0.1); border: none; width: 36px; height: 36px; border-radius: 50%; color: #fff; cursor: pointer; display: grid; place-items: center; font-size: 1rem; transition: background 0.2s; padding: 0;}
+  .ctrl-btn:hover { background: rgba(255,255,255,0.2); }
+  .ctrl-btn.active-state { background: var(--safety-orange); }
+  
+  /* Absolute Corner Close Badge */
+  .ctrl-btn-close { 
+    width: 28px; height: 28px; font-size: 0.8rem; background: var(--ink-main); color: #fff; 
+    position: absolute; top: -25px; right: -25px; border-radius: 50%; 
+    border: 2px solid rgba(255,255,255,0.2); cursor: pointer; display: grid; place-items: center; 
+    z-index: 10; transition: transform 0.2s, background 0.2s; 
+  }
+  .ctrl-btn-close:hover { transform: scale(1.1); background: var(--safety-orange); }
+
+  /* Media Progress Bar */
+  .media-progress { display: flex; align-items: center; gap: 10px; width: 100%; }
+  .media-time { color: #888; font-family: 'Fira Code', monospace; font-size: 0.75rem; width: 35px; text-align: center; flex-shrink: 0; }
+  .progress-slider { 
+    flex-grow: 1; -webkit-appearance: none; appearance: none; height: 4px; background: rgba(255,255,255,0.2); 
+    border-radius: 2px; outline: none; cursor: pointer;
+  }
+  .progress-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--safety-orange); cursor: pointer;
+  }
+  .progress-slider::-moz-range-thumb {
+    width: 12px; height: 12px; border-radius: 50%; background: var(--safety-orange); cursor: pointer; border: none;
+  }
+
+  /* FLOATING SHOW MEDIA BUTTON (FAB) */
+  .fab-media {
+    position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; background: var(--safety-orange);
+    color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4); cursor: pointer; z-index: 9998; border: 2px solid var(--ink-main);
+    transform: scale(0); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .fab-media.visible { transform: scale(1); }
+  
+  @keyframes spinAnimation { 100% { transform: rotate(360deg); } }
+  .spin-icon { animation: spinAnimation 2s linear infinite; display: inline-block; }
+
+  /* YOUTUBE CONTAINER */
+  .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: var(--border-heavy); box-shadow: var(--shadow-brutal); margin-bottom: 30px; background: #000; overflow: hidden; }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: auto; }
+  
+  .secondary-videos { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 30px; border-top: 2px dashed var(--ink-main); padding-top: 30px; }
+
+  /* FOOTER */
+  footer {
+    border-top: var(--border-heavy); padding-top: 30px; margin-top: 40px; text-align: center;
+    background: var(--ink-main); color: var(--surface); padding-bottom: 30px;
+  }
+  .sitemap { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-bottom: 15px; font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
+  .sitemap a { color: var(--amazon-yellow); text-decoration: none; text-transform: uppercase; cursor: pointer; }
+  .sitemap a:hover { color: var(--surface); }
+  .footer-branding { font-family: 'Fira Code', monospace; font-weight: bold; font-size: 1.1rem; margin-bottom: 5px; color: var(--surface); }
+  .footer-disclaimer { font-family: 'Karla', sans-serif; font-size: 0.85rem; color: #888; max-width: 600px; margin: 0 auto; padding: 0 20px; }
+
+  /* MOBILE OPTIMIZATION OVERHAULS */
+  @media (max-width: 768px) {
+    .header-left h1 { font-size: 2.8rem; }
+    .hud-container { padding: 20px 15px 10px 15px; }
+    .pre-flight-box h1 { font-size: 2.2rem; }
+    .data-card { padding: 20px; }
+    .home-manifesto h2 { font-size: 2.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .header-left h1 { font-size: 2rem; }
+    .timer-module { font-size: 1rem; padding: 15px; }
+    .nav-console { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .nav-btn { font-size: 0.9rem; padding: 10px; }
+    .home-manifesto h2 { font-size: 2rem; }
+    .home-manifesto .slogan { font-size: 1.4rem; }
+    
+    .media-player-widget {
+      width: calc(100% - 20px); left: 10px; right: 10px; bottom: 15px; padding: 12px; gap: 8px;
+    }
+    .media-thumb { width: 45px; height: 45px; }
+    .media-info .title { font-size: 0.85rem; }
+    .media-info .subtitle { font-size: 0.7rem; }
+    .media-controls { gap: 5px; }
+    .ctrl-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+    /* Corner absolute fix for mobile widget */
+    .ctrl-btn-close { width: 26px; height: 26px; font-size: 0.75rem; top: -15px; right: -5px; }
+    
+    .header-titles .title { font-size: 1.1rem; }
+    .arsenal-header { padding: 12px 15px; }
+    .custom-checkbox { min-width: 26px; height: 26px; margin-right: 15px; }
+    .custom-checkbox:checked::after { font-size: 20px; top: -3px; left: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<div id="pre-flight">
+  <div class="pre-flight-box">
+    <h1>OPERATOR LOGIN</h1>
+    <p>JAKE NEST // STATUS: PENDING</p>
+    <div class="input-grid">
+      <input type="text" id="coffee-log" placeholder="Log today's coffee tasting notes...">
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-orange btn-hover-fx" style="flex: 1; min-width: 140px;" onclick="initializeSystem()">AUTHORIZE</button>
+        <button class="btn btn-hover-fx" style="flex: 1; min-width: 100px;" onclick="initializeSystem()">BYPASS</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fab-media" id="fab-media" onclick="toggleMediaPlayer()">🎵</div>
+
+<div class="media-player-widget" id="media-widget">
+  <div class="media-top-row">
+    <button class="ctrl-btn-close" onclick="toggleMediaPlayer()" title="Minimize Player">▼</button>
+    <img src="https://img.youtube.com/vi/HQLuuEd1fsY/0.jpg" alt="Video Thumbnail" class="media-thumb" id="widget-thumb">
+    <div class="media-info">
+      <div class="title" id="widget-title">Frequent Flyer's EDC</div>
+      <div class="subtitle" id="widget-sub">⏹ Ready to Play</div>
+    </div>
+    <div class="media-controls">
+      <button class="ctrl-btn" onclick="skipActiveVideo(-10)" title="Rewind 10s">⏪</button>
+      <button class="ctrl-btn" id="btn-playpause" onclick="toggleActivePlayPause()" title="Play/Pause">▶</button>
+      <button class="ctrl-btn" onclick="skipActiveVideo(10)" title="Skip 10s">⏩</button>
+      <button class="ctrl-btn" id="btn-mute" onclick="toggleActiveMute()" title="Mute/Unmute">🔊</button>
+    </div>
+  </div>
+  
+  <div class="media-progress">
+    <span class="media-time" id="time-current">0:00</span>
+    <input type="range" class="progress-slider" id="progress-bar" value="0" step="1" max="100">
+    <span class="media-time" id="time-duration">0:00</span>
+  </div>
+</div>
+
+<div class="hud-container" id="main-hud">
+  <header>
+    <div class="header-left" onclick="activatePanel('panel-home')">
+      <h1 title="Return to Basecamp">THE MCLEOD RUN</h1>
+      <p>OP AREA: DHARAMSHALA / MCLEOD GANJ</p>
+    </div>
+    <div class="timer-module" id="countdown-timer">SYNCING CLOCK...</div>
+  </header>
+
+  <nav class="nav-console">
+    <button class="nav-btn active" onclick="activatePanel('panel-home')"><span>00. HOME BASE</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-guide')"><span>01. EDC BRIEFING</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-bag1')"><span>02. SAFARI BASECAMP</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-bag2')"><span>03. DECATHLON CARRY</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-logistics')"><span>04. LOGISTICS & COMMS</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-finances')"><span>05. FINANCES</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-itinerary')"><span>06. THE ITINERARY</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-debating')"><span>07. STILL DEBATING</span></button>
+  </nav>
+
+  <div id="panel-home" class="panel active">
+    <div class="data-card home-manifesto" style="background: var(--ink-main); color: var(--surface); border-color: var(--safety-orange);">
+      <h2 style="color: var(--surface);">LET'S ROCK THE WORLD FREAKING HELL.</h2>
+      <div class="highlight-text">DEPLOYMENT MANIFESTO // JAKE NEST</div>
+      
+      <p style="border-color: var(--safety-orange);">We don't do comfort zones. We do grit, street food, and the raw pulse of the mountains. Travel isn't about escaping life; it's about making sure life doesn't escape us.</p>
+      
+      <p style="border-color: var(--amazon-yellow);">Seek the unknown—in places, in people, in the untamed chaos of it all.</p>
+
+      <div class="quote">
+        "Travel isn’t always pretty. It isn’t always comfortable. Sometimes it hurts, it even breaks your heart. But that’s okay. The journey changes you; it should change you. It leaves marks on your memory, on your consciousness, on your heart, and on your body. You take something with you. Hopefully, you leave something good behind."
+      </div>
+
+      <p class="slogan">Life is short and enjoy it like others think you're mad.</p>
+    </div>
+  </div>
+
+  <div id="panel-guide" class="panel">
+    <div class="data-card">
+      <h2>Frequent Flyer EDC Masterclass</h2>
+      <p>Select any video to begin. The global media widget (bottom right) will sync automatically to control whichever stream is currently active.</p>
+      
+      <div class="video-container"> 
+        <div id="yt-player-0"></div>
+      </div>
+
+      <div class="secondary-videos">
+        <h3>Supplementary Briefings</h3>
+        <div class="video-container">
+          <div id="yt-player-1"></div>
+        </div>
+        <div class="video-container">
+          <div id="yt-player-2"></div>
+        </div>
+        <div class="video-container">
+          <div id="yt-player-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-bag1" class="panel">
+    <div class="data-card" style="background: var(--ink-main); color: var(--surface);">
+      <h2 style="color: var(--safety-orange);">SAFARI SEEK BACKPACK</h2>
+      <p style="font-family: 'Fira Code';">ROLE: Static Storage. Remains in hostel locker.</p>
+    </div>
+    
+    <div class="sop-header" onclick="toggleSOP('sop-safari', this)">
+      <span>[+] VIEW PACKING SOP: SAFARI BAG</span>
+    </div>
+    <div class="sop-body" id="sop-safari">
+      <div class="sop-step">
+        <h4><span class="badge">STEP 1</span> The Base Layer (Heavy/Shoes)</h4>
+        <p>Place your Bata Laceless shoes and Campus floaters at the very bottom of the bag. This grounds the weight and protects the bottom of your backpack.</p>
+      </div>
+      <div class="sop-step">
+        <h4><span class="badge">STEP 2</span> The Ranger Roll (Clothing)</h4>
+        <p>Take your undergarments and outerwear. Tightly Ranger Roll each item. Stack them vertically side by side in the main compartment.</p>
+      </div>
+      <div class="sop-step">
+        <h4><span class="badge">STEP 3</span> The Top Layer (Quick Access)</h4>
+        <p>Place your Toiletry Kit at the very top. When you arrive at goSTOPS, this is the first item you will need to access to freshen up.</p>
+      </div>
+    </div>
+
+    <div id="arsenal-safari"></div>
+  </div>
+
+  <div id="panel-bag2" class="panel">
+    <div class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--safety-orange);">
+      <h2 style="color: var(--safety-orange);">DECATHLON 15L MESSENGER</h2>
+      <p style="font-family: 'Fira Code';">ROLE: 24/7 Tactical Carry.</p>
+    </div>
+    
+    <div style="background: rgba(59, 69, 43, 0.1); color: var(--ink-main); border-left: 4px solid var(--tactical-green); padding: 15px; margin-bottom: 20px; font-family: 'Karla', sans-serif; font-size: 1.1rem;">
+      <strong>INTEL:</strong> This rig and its contents are your primary operational carry. Keep it on your person at all times.
+    </div>
+
+    <div class="sop-header" onclick="toggleSOP('sop-decathlon', this)" style="background: var(--ink-main); color: var(--amazon-yellow); border-color: var(--amazon-yellow);">
+      <span>[+] VIEW PACKING SOP: DECATHLON RIG</span>
+    </div>
+    <div class="sop-body" id="sop-decathlon">
+      <div class="sop-step">
+        <h4><span class="badge">STEP 1</span> The Core (Tech Hub)</h4>
+        <p>Slide the Samsung Galaxy Tab A9 Plus into the flat rear compartment against your body. Drop the Anker Powerbank, Apple 30W Adapter, and MacBook charging cables right to the bottom of the main compartment for weight distribution.</p>
+      </div>
+      <div class="sop-step">
+        <h4><span class="badge">STEP 2</span> Sustainment Pillars</h4>
+        <p>Stand the Borosil Coffeemate (Black) and Borosil Nova (Blue) vertically on the left and right interior edges of the main compartment. Slide the folded MT50 Poncho between them.</p>
+      </div>
+      <div class="sop-step">
+        <h4><span class="badge">STEP 3</span> Nutrition & Literature</h4>
+        <p>Drop Albert Camus's "The Stranger" flat against the front wall. Tuck the Blue Tokai bags, Yoga Bars, Max Protein, Chips, and Oreos into the internal mesh/zip pockets so they don't get crushed.</p>
+      </div>
+      <div class="sop-step">
+        <h4><span class="badge">STEP 4</span> Front Quick Access (Critical)</h4>
+        <p>Load the exterior front pockets with the items you need immediately: Morning/Evening Meds (PRIORITY CHECK), ID, Cash, Nothing Phone 2a, OnePlus Buds, Sennheiser IE 200, DAC, and the Snowsky Echo Mini.</p>
+      </div>
+    </div>
+
+    <div id="arsenal-decathlon"></div>
+  </div>
+
+  <div id="panel-logistics" class="panel">
+    <div class="data-card">
+      <h2>TRANSPORT & LODGING SECURED</h2>
+      
+      <div class="grid-2col" style="margin-top: 20px;">
+        <div class="logistics-box">
+          <div class="logistics-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/HRTCHP.jpg/250px-HRTCHP.jpg" class="log-logo" alt="HRTC">
+            <h3>ONWARD BUS (DELHI -> DHARAMSHALA)</h3>
+          </div>
+          <p><strong>Date:</strong> 27 Jun 2026</p>
+          <p><strong>Boarding:</strong> 17:31 <span class="highlight">Reach by 17:15</span></p>
+          <p><strong>Operator:</strong> HRTC (Non AC seater)</p>
+          <p><strong>PNR:</strong> 20260525000009679523</p>
+          <p><strong>Seat:</strong> 10</p>
+          <p><strong>Boarding Point:</strong> <a href="https://goo.gl/maps/RkVp5aZ2EaY513f56" target="_blank">Delhi ISBT Kashmiri Gate</a></p>
+        </div>
+        
+        <div class="logistics-box">
+          <div class="logistics-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/FlixBus_Logo.png" class="log-logo" alt="FlixBus">
+            <h3>RETURN BUS (MCLEOD -> DELHI)</h3>
+          </div>
+          <p><strong>Date:</strong> 04 Jul 2026</p>
+          <p><strong>Boarding:</strong> 19:15 <span class="highlight">Reach by 19:00</span></p>
+          <p><strong>Operator:</strong> FlixBus (AC seater)</p>
+          <p><strong>PNR:</strong> 6BNN4JJU</p>
+          <p><strong>Seat:</strong> 2A</p>
+          <p><strong>Boarding Point:</strong> <a href="https://maps.app.goo.gl/83M1E7z9dM6P2Wc27" target="_blank">Mcleodganj Main Square (pickup by Cab)</a></p>
+        </div>
+      </div>
+
+      <div class="logistics-box">
+        <div class="logistics-header">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9ZwTPKF917evI9mOkIxru2PcNPPxe7pOVoQ&s" class="log-logo" alt="goSTOPS" style="border-radius: 4px;">
+          <h3>BASECAMP: HOSTEL RESERVATION</h3>
+        </div>
+        <p><strong>Property:</strong> <a href="https://goo.gl/maps/bHjM7xY7q5F5oB898" target="_blank">goSTOPS Mcleodganj Mall Road</a></p>
+        <p><strong>Check in:</strong> Sun 28 Jun 2026 (1:00 PM)</p>
+        <p><strong>Check out:</strong> Sat 04 Jul 2026 (10:00 AM)</p>
+        <p><strong>Details:</strong> 6 Nights | Bed in 6 Bed Mixed Dorm with Ensuite Bathroom</p>
+      </div>
+
+      <div class="logistics-box">
+        <div class="logistics-header">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Delhi_Metro_logo.svg/500px-Delhi_Metro_logo.svg.png?_=20100309023850" class="log-logo" alt="DMRC">
+          <h3>DELHI METRO ROUTING (ISBT KASHMERE GATE)</h3>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+           <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid var(--tactical-green);">
+             <h4 style="color: var(--tactical-green); margin-bottom: 10px; font-family: 'Oswald', sans-serif;">GOING (ONWARD)</h4>
+             <p><strong>From Faridabad (Mewla Maharajpur):</strong> Board Violet Line directly to Kashmere Gate. (0 Interchanges, ~55 mins).</p>
+             <p style="margin-top:10px;"><strong>From Ghaziabad (Vaishali):</strong> Board Blue Line to Mandi House -> Interchange to Violet Line (Platform 3) -> Exit Kashmere Gate. (1 Interchange, ~45 mins).</p>
+           </div>
+           
+           <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid var(--safety-orange);">
+             <h4 style="color: var(--safety-orange); margin-bottom: 10px; font-family: 'Oswald', sans-serif;">COMING BACK (RETURN)</h4>
+             <p><strong>To Faridabad (Mewla Maharajpur):</strong> Board Violet Line from Kashmere Gate towards Raja Nahar Singh, exit Mewla Maharajpur.</p>
+             <p style="margin-top:10px;"><strong>To Ghaziabad (Vaishali):</strong> Board Violet Line from Kashmere Gate to Mandi House -> Interchange to Blue Line towards Vaishali.</p>
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-finances" class="panel">
+    <div class="data-card">
+      <h2>OPERATIONAL FINANCES</h2>
+      <p>Strict budget parameters for the 6 Day deployment. Stay within constraints.</p>
+      
+      <div class="logistics-box" style="margin-top: 20px;">
+        <h3>BUDGET ALLOCATION (₹13,000 TOTAL)</h3>
+        <p><strong>Reserve / Emergency Fund:</strong> ₹1,700 <span class="highlight" style="background:var(--med-alert);">DO NOT TOUCH UNLESS CRITICAL</span></p>
+        <p><strong>Souvenirs:</strong> ₹2,000</p>
+        <p><strong>Unexpected Expenses / Impulse Buys:</strong> ₹2,000</p>
+        <p><strong>Operating Capital (Food/Experiences):</strong> ₹7,300 (Approx ₹1,216 / Day)</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-itinerary" class="panel">
+    <div class="data-card">
+      <h2>THE 6 DAY DEPLOYMENT</h2>
+      <p>Your strategic operating plan balancing culture, coffee, and exploration.</p>
+      <hr style="border: 1px solid #ccc; margin: 20px 0;">
+
+      <div class="itinerary-day">
+        <h3>DAY 1: ARRIVAL & ACCLIMATIZATION (Sun, 28 Jun)</h3>
+        <ul>
+          <li><strong>07:00 AM:</strong> Arrive in Dharamshala/McLeod Ganj via HRTC Bus. Take a shared cab/auto up to the main square.</li>
+          <li><strong>09:00 AM:</strong> Breakfast & First Coffee at <a href="https://maps.app.goo.gl/s1tH3oFMB5gQj6pE6" target="_blank">Shiva Cafe</a>.</li>
+          <li><strong>01:00 PM:</strong> Check in at <a href="https://goo.gl/maps/bHjM7xY7q5F5oB898" target="_blank">goSTOPS Mcleodganj</a>. Drop the Safari bag. Deploy Decathlon rig.</li>
+          <li><strong>03:00 PM:</strong> Light exploration of the Main Square. Late lunch at <a href="https://maps.app.goo.gl/o8YhT4d2N5T1gC1y8" target="_blank">Tibet Kitchen</a>.</li>
+          <li><strong>06:00 PM:</strong> Walk down to <a href="https://maps.app.goo.gl/6pPz6p3s3P6c8b2C6" target="_blank">Illiterati Books & Coffee</a>. Watch the sunset, drink coffee, and read Camus.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>DAY 2: TIBETAN CULTURE & HISTORY (Mon, 29 Jun)</h3>
+        <ul>
+          <li><strong>09:00 AM:</strong> Morning pour over at the hostel from your Blue Tokai stash.</li>
+          <li><strong>10:30 AM:</strong> Visit the <a href="https://maps.app.goo.gl/7g5K4c8R8B5n7W6x9" target="_blank">Dalai Lama Temple Complex (Tsuglagkhang)</a>.</li>
+          <li><strong>12:30 PM:</strong> Explore the <a href="https://maps.app.goo.gl/9y9Y5z5h9b5b9Z8v9" target="_blank">Tibet Museum</a>.</li>
+          <li><strong>02:00 PM:</strong> Lunch at <a href="https://maps.app.goo.gl/2c5Y8f6f5x6m6c7a9" target="_blank">Snow Lion Restaurant</a>.</li>
+          <li><strong>04:00 PM:</strong> Visit the <a href="https://maps.app.goo.gl/8v3M5b4c9n2x5m7b9" target="_blank">Library of Tibetan Works and Archives</a>.</li>
+          <li><strong>07:00 PM:</strong> Dinner at <a href="https://maps.app.goo.gl/8c5K4f9m2x5m6c7a9" target="_blank">Jimmy's Italian Kitchen</a>.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>DAY 3: NATURE & ELEVATION (Tue, 30 Jun)</h3>
+        <ul>
+          <li><strong>08:00 AM:</strong> Trek to <a href="https://maps.app.goo.gl/5c8K4f9m2x5m6c7a9" target="_blank">Bhagsu Waterfall</a> early.</li>
+          <li><strong>11:00 AM:</strong> Continue upward towards <a href="https://maps.app.goo.gl/2v3M5b4c9n2x5m7b9" target="_blank">Gallu Devi Temple</a>.</li>
+          <li><strong>02:00 PM:</strong> Return to town. Stop at <a href="https://maps.app.goo.gl/9c5K4f9m2x5m6c7a9" target="_blank">Woeser Bakery</a>.</li>
+          <li><strong>05:00 PM:</strong> Rest at hostel, listen to the Sennheiser IE 200 stack.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>DAY 4: OBSERVATION & CAFE HOPPING (Wed, 01 Jul)</h3>
+        <ul>
+          <li><strong>10:00 AM:</strong> Take a cab or hike to <a href="https://maps.app.goo.gl/5v3M5b4c9n2x5m7b9" target="_blank">Naddi View Point</a>.</li>
+          <li><strong>01:00 PM:</strong> Head to Dharamkot. Have lunch at <a href="https://maps.app.goo.gl/7c5K4f9m2x5m6c7a9" target="_blank">Morgan's Place</a>.</li>
+          <li><strong>03:30 PM:</strong> Settle in at <a href="https://maps.app.goo.gl/3v3M5b4c9n2x5m7b9" target="_blank">Crepe Pancake Hut</a>.</li>
+          <li><strong>07:00 PM:</strong> Return to Mcleod Ganj. Street food or budget dinner near main square.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>DAY 5: THE BUFFER DAY / UNEXPECTED FINDS (Thu, 02 Jul)</h3>
+        <ul>
+          <li><strong>Open Morning:</strong> Visit <a href="https://maps.app.goo.gl/6v3M5b4c9n2x5m7b9" target="_blank">Norbulingka Institute</a>.</li>
+          <li><strong>Lunch:</strong> Eat at the Norbulingka cafe.</li>
+          <li><strong>Afternoon:</strong> Visit the <a href="https://maps.app.goo.gl/4c5K4f9m2x5m6c7a9" target="_blank">St. John in the Wilderness Church</a>.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>DAY 6: EXTRACTION & SOUVENIRS (Fri & Sat, 03-04 Jul)</h3>
+        <ul>
+          <li><strong>03 Jul / 04 Jul Morning:</strong> Utilize your ₹2,000 Souvenir budget on Temple Road.</li>
+          <li><strong>04 Jul 10:00 AM:</strong> Check out of goSTOPS. Request them to hold your Safari bag.</li>
+          <li><strong>12:00 PM:</strong> Final lunch at <a href="https://maps.app.goo.gl/1c5K4f9m2x5m6c7a9" target="_blank">Kunga Guest House / Nick's Italian Kitchen</a>.</li>
+          <li><strong>05:30 PM:</strong> Retrieve Safari Bag. Repack to deployment standards.</li>
+          <li><strong>06:45 PM:</strong> Proceed to <a href="https://maps.app.goo.gl/83M1E7z9dM6P2Wc27" target="_blank">Mcleodganj Main Square</a> for the cab pickup.</li>
+          <li><strong>07:15 PM:</strong> Extraction. FlixBus departs for Delhi.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="panel-debating" class="panel">
+    <div class="data-card">
+      <h2>STILL DEBATING (THE "MAYBE" PILE)</h2>
+      <p style="font-size: 1.1rem; border-left: 4px solid var(--amazon-yellow); padding-left: 15px;">
+        These are the items we are still thinking about and not confirmed. We want to take them, but not sure. Each has its own pros and cons, that's why we are still thinking.
+      </p>
+    </div>
+    
+    <div id="arsenal-debating"></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="sitemap">
+    <a onclick="activatePanel('panel-home')">Home</a> |
+    <a onclick="activatePanel('panel-guide')">EDC Briefing</a> |
+    <a onclick="activatePanel('panel-bag1')">Safari Basecamp</a> |
+    <a onclick="activatePanel('panel-bag2')">Decathlon Rig</a> |
+    <a onclick="activatePanel('panel-logistics')">Logistics</a> |
+    <a onclick="activatePanel('panel-finances')">Finances</a> |
+    <a onclick="activatePanel('panel-itinerary')">Itinerary</a> |
+    <a onclick="activatePanel('panel-debating')">Still Debating</a>
+  </div>
+  <div class="footer-branding">MADE BY JAKE NEST FOR JAKE NEST</div>
+  <div class="footer-disclaimer">
+    * End product can be different, images are for representation purposes only.
+  </div>
+</footer>
+
+<script>
+  // GLOBAL YOUTUBE API LOGIC & PROGRESS BAR
+  const videoData = [
+    { elementId: 'yt-player-0', videoId: 'HQLuuEd1fsY', title: "Frequent Flyer's EDC" },
+    { elementId: 'yt-player-1', videoId: '4q7fYqIyg4k', title: "Travel EDC | 100 hrs/yr" },
+    { elementId: 'yt-player-2', videoId: 'bA3aX3rOUzA', title: "Premium Travel Kit & EDC" },
+    { elementId: 'yt-player-3', videoId: 'QxMnDqsPwVA', title: "Unique Travel Kit" }
+  ];
+  
+  let players = [];
+  let activePlayerIndex = 0; 
+  let progressInterval;
+  let isDraggingProgress = false;
+
+  function onYouTubeIframeAPIReady() {
+    videoData.forEach((vid, index) => {
+      players[index] = new YT.Player(vid.elementId, {
+        videoId: vid.videoId,
+        playerVars: {
+          'autoplay': 0, 'mute': 0, 'controls': 1, 'rel': 0, 'playsinline': 1
+        },
+        events: {
+          'onStateChange': (event) => onPlayerStateChange(event, index),
+          'onReady': () => { if(index === 0) setupProgressBar(); }
+        }
+      });
+    });
+  }
+
+  function onPlayerStateChange(event, index) {
+    const btn = document.getElementById('btn-playpause');
+    const subtitle = document.getElementById('widget-sub');
+    const title = document.getElementById('widget-title');
+    const thumb = document.getElementById('widget-thumb');
+    
+    updateFabIcon(event.data);
+
+    if (event.data == YT.PlayerState.PLAYING) {
+      activePlayerIndex = index;
+      
+      players.forEach((p, i) => {
+        if (i !== index && p && typeof p.getPlayerState === 'function' && p.getPlayerState() == YT.PlayerState.PLAYING) {
+          p.pauseVideo();
+        }
+      });
+
+      thumb.src = `https://img.youtube.com/vi/${videoData[index].videoId}/0.jpg`;
+      title.textContent = videoData[index].title;
+      btn.textContent = '⏸';
+      subtitle.textContent = players[index].isMuted() ? '▶ Playing (Muted)' : '▶ Playing';
+      
+      clearInterval(progressInterval);
+      progressInterval = setInterval(updateProgressBar, 500);
+
+    } else if (event.data == YT.PlayerState.PAUSED && activePlayerIndex === index) {
+      btn.textContent = '▶';
+      subtitle.textContent = '⏸ Paused';
+      clearInterval(progressInterval);
+      
+    } else if (event.data == YT.PlayerState.ENDED) {
+      clearInterval(progressInterval);
+      document.getElementById('progress-bar').value = 0;
+      document.getElementById('time-current').textContent = "0:00";
+      
+      // Stop auto-play. Give explicit option to trigger Next manually.
+      btn.textContent = '⏭️';
+      subtitle.textContent = '⏹ Ended - Click to play next';
+    }
+  }
+
+  function updateFabIcon(state) {
+    const fab = document.getElementById('fab-media');
+    if (state === YT.PlayerState.PLAYING) {
+      fab.innerHTML = '<div class="spin-icon">💿</div>';
+    } else if (state === YT.PlayerState.ENDED) {
+      fab.innerHTML = '⏭️'; 
+    } else {
+      fab.innerHTML = '🎵';
+    }
+  }
+
+  function toggleActivePlayPause() {
+    let p = players[activePlayerIndex];
+    if (p && typeof p.getPlayerState === 'function') {
+      let state = p.getPlayerState();
+      if (state == YT.PlayerState.PLAYING) {
+        p.pauseVideo();
+      } else if (state == YT.PlayerState.ENDED) {
+        // Explicitly play the next video on click
+        let nextIndex = (activePlayerIndex + 1) % players.length;
+        players[nextIndex].playVideo();
+      } else {
+        p.playVideo();
+      }
+    }
+  }
+
+  function skipActiveVideo(seconds) {
+    let p = players[activePlayerIndex];
+    if (p && typeof p.getCurrentTime === 'function') {
+      var currentTime = p.getCurrentTime();
+      p.seekTo(currentTime + seconds, true);
+      updateProgressBar(); 
+    }
+  }
+
+  function toggleActiveMute() {
+    let p = players[activePlayerIndex];
+    const btn = document.getElementById('btn-mute');
+    const subtitle = document.getElementById('widget-sub');
+    
+    if (p && typeof p.isMuted === 'function') {
+      if (p.isMuted()) {
+        p.unMute();
+        btn.textContent = '🔊';
+        btn.classList.remove('active-state');
+        if(p.getPlayerState() == YT.PlayerState.PLAYING) subtitle.textContent = '▶ Playing';
+      } else {
+        p.mute();
+        btn.textContent = '🔇';
+        btn.classList.add('active-state');
+        if(p.getPlayerState() == YT.PlayerState.PLAYING) subtitle.textContent = '▶ Playing (Muted)';
+      }
+    }
+  }
+
+  // PROGRESS BAR LOGIC
+  function formatTime(sec) {
+    if (isNaN(sec)) return "0:00";
+    sec = Math.floor(sec);
+    let m = Math.floor(sec / 60);
+    let s = sec % 60;
+    return m + ":" + (s < 10 ? "0" + s : s);
+  }
+
+  function updateProgressBar() {
+    if (isDraggingProgress) return;
+    let p = players[activePlayerIndex];
+    if (p && typeof p.getCurrentTime === 'function') {
+      let cur = p.getCurrentTime() || 0;
+      let dur = p.getDuration() || 0;
+      let bar = document.getElementById('progress-bar');
+      bar.max = dur;
+      bar.value = cur;
+      document.getElementById('time-current').textContent = formatTime(cur);
+      document.getElementById('time-duration').textContent = formatTime(dur);
+    }
+  }
+
+  function setupProgressBar() {
+    const bar = document.getElementById('progress-bar');
+    bar.addEventListener('mousedown', () => isDraggingProgress = true);
+    bar.addEventListener('touchstart', () => isDraggingProgress = true, {passive: true});
+    
+    bar.addEventListener('input', function() {
+      document.getElementById('time-current').textContent = formatTime(this.value);
+    });
+
+    const releaseScrub = function() {
+      if(isDraggingProgress) {
+        let p = players[activePlayerIndex];
+        if (p && typeof p.seekTo === 'function') {
+          p.seekTo(bar.value, true);
+        }
+        isDraggingProgress = false;
+      }
+    };
+    bar.addEventListener('mouseup', releaseScrub);
+    bar.addEventListener('touchend', releaseScrub);
+  }
+
+  // MEDIA PLAYER HIDE / SHOW LOGIC
+  function toggleMediaPlayer() {
+    const widget = document.getElementById('media-widget');
+    const fab = document.getElementById('fab-media');
+    
+    if (widget.classList.contains('hidden')) {
+      widget.classList.remove('hidden');
+      fab.classList.remove('visible');
+    } else {
+      widget.classList.add('hidden');
+      fab.classList.add('visible');
+    }
+  }
+
+  // BOOT SEQUENCE
+  window.onload = () => {
+    if(sessionStorage.getItem('systemAuthorized')) {
+      document.getElementById('pre-flight').style.display = 'none';
+      document.getElementById('main-hud').style.display = 'block';
+      setTimeout(() => document.getElementById('media-widget').classList.add('visible'), 1000);
+    }
+  };
+  
+  function initializeSystem() {
+    sessionStorage.setItem('systemAuthorized', 'true');
+    document.getElementById('pre-flight').style.transform = 'translateY(-100%)';
+    document.getElementById('main-hud').style.display = 'block';
+    setTimeout(() => document.getElementById('pre-flight').style.display = 'none', 600);
+    
+    setTimeout(() => {
+      document.getElementById('media-widget').classList.add('visible');
+    }, 1000);
+  }
+
+  // CLOCK
+  const tZero = new Date('June 27, 2026 17:31:00').getTime();
+  function syncClock() {
+    const now = new Date().getTime();
+    const delta = tZero - now;
+    if (delta < 0) return document.getElementById('countdown-timer').innerHTML = "STATUS: DEPLOYED";
+    const d = Math.floor(delta / (1000 * 60 * 60 * 24)), h = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60)), s = Math.floor((delta % (1000 * 60)) / 1000);
+    document.getElementById('countdown-timer').innerHTML = `T MINUS: ${d}D : ${String(h).padStart(2,'0')}H : ${String(m).padStart(2,'0')}M : ${String(s).padStart(2,'0')}S`;
+  }
+  setInterval(syncClock, 1000); syncClock();
+
+  // NAV & SOP TOGGLERS
+  function activatePanel(panelId) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(panelId).classList.add('active');
+    
+    if(event && event.currentTarget && event.currentTarget.classList) {
+        if(event.currentTarget.classList.contains('nav-btn')) {
+            event.currentTarget.classList.add('active');
+        } else {
+            document.querySelectorAll(`.nav-btn[onclick="activatePanel('${panelId}')"]`).forEach(b => b.classList.add('active'));
+        }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleSOP(sopId, headerElement) {
+    const body = document.getElementById(sopId);
+    const span = headerElement.querySelector('span');
+    if (body.classList.contains('open')) {
+      body.classList.remove('open');
+      span.textContent = span.textContent.replace('[-]', '[+]');
+    } else {
+      body.classList.add('open');
+      span.textContent = span.textContent.replace('[+]', '[-]');
+    }
+  }
+
+  // PRODUCT DATABASE
+  const dataSafari = [
+    {
+      id: "saf-med1", title: "CRITICAL: Morning Meds", spec: "Oxcarbazepine 450 mg", priority: true,
+      images: ["https://cdn.platinumrx.in/meds-prescription/2a370f51-bf1a-4d88-96bc-2eb5e8c84afa_wm.png"],
+      desc: "Backup/Primary reserve. DO NOT FORGET. Consume immediately upon waking.",
+      details: "Dosage: 450mg | Schedule: Morning Routine",
+      buyLinks: []
+    },
+    {
+      id: "saf-med2", title: "CRITICAL: Evening Meds", spec: "Oxcarbazepine 600mg & Clobazam 10mg", priority: true,
+      images: [
+        "https://5.imimg.com/data5/SELLER/Default/2024/5/418719156/BB/OW/RV/121550351/oxcarbazepine-600mg-tablet.jpeg",
+        "https://images.dawaadost.com/cdn-cgi/image/fit=cover,height=300,format=webp/https://storage.googleapis.com/dawaadost.appspot.com/main_images/1699249769002_I91793.jpeg"
+      ],
+      desc: "Backup/Primary reserve. DO NOT FORGET. Consume post dinner before sleep.",
+      details: "Dosage: 600mg + 10mg | Schedule: Evening Routine",
+      buyLinks: []
+    },
+    {
+      id: "saf-1", title: "Safari Seek Backpack", spec: "Primary Overnighter Bag",
+      images: ["https://cdn.shopify.com/s/files/1/0651/0847/6121/products/Seek_BP_PDP-02_3000x.jpg?v=1658913811"],
+      desc: "Your main basecamp bag. Stores all clothing and non essential daily items.",
+      details: "Capacity: Approx 30 40L | Features: Laptop compartment, easy access zips.",
+      buyLinks: []
+    },
+    {
+      id: "saf-3", title: "Main Clothing Matrix", spec: "6 Day Outerwear & Undergarments",
+      images: ["https://images.unsplash.com/photo-1544441893-675973e31985?w=400&q=80"], 
+      desc: "<strong>What to pack:</strong> 5x Quick dry t shirts, 2x Lightweight trekking pants, 1x Fleece/Light Jacket, 7x Antimicrobial underwear/socks, 1x Sleep shorts.<br><br><strong>Why:</strong> Quick dry materials are essential as there will be no laundry facilities used during the 6 Day deployment.",
+      details: "Method: Army Ranger Roll (Pack tightly as vertical logs for visual access).",
+      buyLinks: []
+    },
+    {
+      id: "saf-4", title: "Bata Men's Laceless", spec: "Transit Footwear",
+      images: ["https://g.sdlcdn.com/imgs/k/w/j/Bata-Blue-Men-s-Sports-SDL550170051-1-fc94b.jpg"],
+      desc: "Bata slip ons for transit and dry walks. Packed flat at the base of the bag.",
+      details: "Layer: Bottom Base Layer | Protects bag structure.",
+      buyLinks: []
+    },
+    {
+      id: "saf-5", title: "Campus Floaters", spec: "Hostel & Monsoon Footwear",
+      images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0PZqJagvlg-_LqfHjEnOE8osvkZu644jc7A&s"],
+      desc: "<span class='highlight' style='background: var(--med-alert);'>[WORN ALWAYS & ON DEPARTURE]</span> Floaters for constant hostel use and heavy rain conditions.",
+      details: "Status: On Person / Base Layer when packed.",
+      buyLinks: []
+    }
+  ];
+
+  const dataDecathlon = [
+    {
+      id: "dec-med1", title: "CRITICAL: Morning Meds", spec: "Oxcarbazepine 450 mg", priority: true,
+      images: ["https://cdn.platinumrx.in/meds-prescription/2a370f51-bf1a-4d88-96bc-2eb5e8c84afa_wm.png"],
+      desc: "DO NOT FORGET. Consume immediately upon waking.",
+      details: "Dosage: 450mg | Schedule: Morning Routine",
+      buyLinks: []
+    },
+    {
+      id: "dec-med2", title: "CRITICAL: Evening Meds", spec: "Oxcarbazepine 600mg & Clobazam 10mg", priority: true,
+      images: [
+        "https://5.imimg.com/data5/SELLER/Default/2024/5/418719156/BB/OW/RV/121550351/oxcarbazepine-600mg-tablet.jpeg",
+        "https://images.dawaadost.com/cdn-cgi/image/fit=cover,height=300,format=webp/https://storage.googleapis.com/dawaadost.appspot.com/main_images/1699249769002_I91793.jpeg"
+      ],
+      desc: "DO NOT FORGET. Consume post dinner before sleep.",
+      details: "Dosage: 600mg + 10mg | Schedule: Evening Routine",
+      buyLinks: []
+    },
+    {
+      id: "dec-1", title: "Decathlon 15L Messenger", spec: "Tactical EDC Rig",
+      images: ["https://contents.mediadecathlon.com/p2832586/e79587e1de3b48e67f3fc3f55cd6911a/p2832586.jpg"],
+      desc: "Carries all daily essentials. DO NOT leave this bag unattended.",
+      details: "Brand: Decathlon | Capacity: 15L | Form: Compact Messenger.",
+      buyLinks: []
+    },
+    {
+      id: "dec-2", title: "Nothing Phone 2a Plus", spec: "Primary Comms",
+      images: ["https://www.androidcrunch.com/wp-content/uploads/2024/07/Nothing-Phone-2a-Plus-back.webp"],
+      desc: "Houses your Jio SIM, digital tickets, and emergency contacts. Keep in front pocket.",
+      details: "SoC: Dimensity 7350 Pro | OS: Nothing OS | Battery: 5000mAh.",
+      buyLinks: []
+    },
+    {
+      id: "dec-3", title: "Samsung Galaxy Tab A9 Plus 5G", spec: "Offline Media Hub",
+      images: ["https://images.samsung.com/is/image/samsung/p6pim/levant/sm-x216bzaemea/gallery/levant-galaxy-tab-a9-plus-sm-x216-sm-x216bzaemea-538913272?$Q90_2052_1641_JPG$"],
+      desc: "Pack flat against the back panel for structural support.",
+      details: "Connectivity: 5G | Screen: 11 inch | Charging: Type C.",
+      buyLinks: []
+    },
+    {
+      id: "dec-4", title: "OnePlus Buds 2 Pro", spec: "Wireless Audio / ANC",
+      images: ["https://img.tatacliq.com/images/i11/437Wx649H/MP000000017613597_437Wx649H_202305191657424.jpeg"],
+      desc: "Primary wireless audio for bus rides and noise cancellation.",
+      details: "ANC: Up to 48dB | Audio: Spatial Audio Support | Format: TWS.",
+      buyLinks: []
+    },
+    {
+      id: "dec-5", title: "Sennheiser IE 200", spec: "Audiophile IEM",
+      images: ["https://in.sennheiser-hearing.com/cdn/shop/products/IE200_FC04.png?v=1752514125"],
+      desc: "Zero latency, high fidelity audio.",
+      details: "Type: Wired In Ear Monitor | Sound: Diffuse field equalization.",
+      buyLinks: []
+    },
+    {
+      id: "dec-5b", title: "Snowsky Echo Mini", spec: "Digital Audio Player / DAC",
+      images: [], 
+      desc: "Dedicated audio engine. Pair with the IE 200s for focused listening.",
+      details: "Type: DAP / DAC | Connection: Type C / 3.5mm.",
+      buyLinks: []
+    },
+    {
+      id: "dec-5c", title: "Apple USB C to 3.5mm DAC", spec: "Wired Audio Dongle",
+      images: ["https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MU7E2?wid=4000&hei=4000&fmt=jpeg&qlt=90&.v=1539385665732"],
+      desc: "Crucial link for the IE 200s to your mobile devices.",
+      details: "Type: USB C to 3.5mm Headphone Jack Adapter",
+      buyLinks: []
+    },
+    {
+      id: "dec-11", title: "Apple 30W USB C Power Adapter", spec: "Hostel & Transit Charger",
+      images: ["https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MY1W2_AV1_GEO_IN?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=V1FVeXE1ZitZSDBabVJIcnVidEN4VjVBVDNHMHRvbHZSTXg1bWpNejhNRkN3clhsWDdSemNGZnFnN09SWWVTT1hucWFGNXAzNm8zV0g1MDRYaFprVDgxc0ExbHFzL2RCU3pwUVp6b2l1czQ"],
+      desc: "High speed charging block. Kept in the Decathlon rig for emergency quick charges.",
+      details: "Wattage: 30W | Port: USB C | Format: Indian Plug.",
+      buyLinks: []
+    },
+    {
+      id: "dec-6", title: "Blue Tokai Easy Pour", spec: "Monsoon Malabar Mixed Bags",
+      images: ["https://bluetokaicoffee.com/cdn/shop/files/MixedBag__Front_c9b610f1-ce4a-4b53-8b30-f6ca758eb6bb.jpg?v=1717566490&width=1800"],
+      desc: "Daily ration: 3 to 6 bags a day. Keep in internal mesh pockets.",
+      details: "Format: Pour over | Roast: Mixed/Medium | Pack: 10 Bags.",
+      buyLinks: [{ text: "RESTOCK BLUE TOKAI", link: "https://bluetokaicoffee.com/products/easy-pour-mixed-box" }]
+    },
+    {
+      id: "dec-6b", title: "Toffee Coffee Roasters", spec: "Assorted Hot Brew Drip Bags",
+      images: ["https://m.media-amazon.com/images/I/71V2+l2f98L._SX679_.jpg"],
+      desc: "Supplementary coffee reserves. Assorted flavors for variety.",
+      details: "Format: Pour over Drip Bags | Roast: Assorted",
+      buyLinks: [
+        { text: "RESTOCK ON AMAZON", link: "https://www.amazon.in/Toffee-Coffee-Roasters-Assorted-Equipment/dp/B0GL383P6V" },
+        { text: "RESTOCK ON ZEPTO", link: "https://www.zeptonow.com/search?q=toffee%20coffee%20roasters" }
+      ]
+    },
+    {
+      id: "dec-food1", title: "Tactical Rations: Carbs & Sugar", spec: "Lays, Too Yumm & Oreos",
+      images: [
+        "https://m.media-amazon.com/images/I/61KxGZ+eD3L._SL1000_.jpg",
+        "https://www.bbassets.com/media/uploads/p/l/40217413_3-too-yumm-potato-chips-spanish-tomato.jpg",
+        "https://www.quickpantry.in/cdn/shop/products/cadbury-oreo-creame-biscuit-vanilla-46-3-g-quick-pantry.jpg?v=1710538227"
+      ],
+      desc: "Quick carb energy and morale boosters. Keep in outer zip to prevent crushing.",
+      details: "Contents: 1x Lays, 1x Too Yumm (Spanish Tomato/Masala), 1x Oreo Pack",
+      buyLinks: [
+        { text: "RESTOCK LAYS", link: "https://www.amazon.in/s?k=lays+chips" },
+        { text: "RESTOCK TOO YUMM", link: "https://www.zeptonow.com/search?q=too%20yumm" },
+        { text: "RESTOCK OREOS", link: "https://www.amazon.in/s?k=oreo+biscuits" }
+      ]
+    },
+    {
+      id: "dec-food2", title: "Tactical Rations: Protein", spec: "Yoga Bar & Max Protein",
+      images: [
+        "https://www.bbassets.com/media/uploads/p/l/30012170_11-yoga-bar-multigrain-energy-bar-chocolate-chunk-nut.jpg",
+        "https://images.apollo247.in/pub/media/catalog/product/R/I/RIT0154_1-AUG23_1.jpg",
+        "https://m.media-amazon.com/images/I/61rRpxWv7bL._SX679_.jpg"
+      ],
+      desc: "Heavy sustainment for treks. Do not consume casually.",
+      details: "Contents: Yogabar Multigrain (Choco Chunk), Max Protein Daily (Choco Classic), Max Protein Daily (Choco Almond)",
+      buyLinks: [
+        { text: "YOGABAR (ZEPTO)", link: "https://www.zeptonow.com/search?q=yogabar" },
+        { text: "MAX PROTEIN CLASSIC (AMAZON)", link: "https://www.amazon.in/s?k=max+protein+choco+classic" },
+        { text: "MAX PROTEIN ALMOND (AMAZON)", link: "https://www.amazon.in/s?k=max+protein+choco+almond" }
+      ]
+    },
+    {
+      id: "dec-7", title: "Borosil Hydra & Nova Flasks", spec: "Dual Hydration Pillars",
+      images: ["https://rukmini1.flixcart.com/image/1500/1500/xif0q/bottle/w/w/3/400-vacuum-insulated-stainless-steel-tea-coffee-thermos-flask-original-imag9ey2hxruchaj.jpeg?q=70"],
+      desc: "Black 260ml for Coffee. Blue 500ml for Water. Pack vertically on the sides of the messenger bag.",
+      details: "Material: Double Wall Stainless Steel Vacuum Insulated.",
+      buyLinks: []
+    },
+    {
+      id: "dec-8", title: "Anker Zolo Powerbank", spec: "10,000mAh 30W Fast Charging",
+      images: ["https://m.media-amazon.com/images/I/610a0PBoWIL._SL1500_.jpg"],
+      desc: "Pack at the very bottom of the bag for weight distribution.",
+      details: "Capacity: 10,000mAh | Output: 30W USB C PD | Ports: Type C In/Out.",
+      buyLinks: []
+    },
+    {
+      id: "dec-9", title: "Decathlon MT50 Poncho", spec: "Pale Blue Rain Shield",
+      images: ["https://contents.mediadecathlon.com/p2393309/966d9acbce8e559977cf3c42ce6b3177/p2393309.jpg"],
+      desc: "Fold flat and slide between the flasks to prevent rattling.",
+      details: "Fit: Adult | Capacity covering: 0 10L bag | Waterproof.",
+      buyLinks: []
+    }
+  ];
+
+  // DATA FOR "STILL DEBATING" PANEL
+  const dataDebating = [
+    {
+      id: "deb-1", title: "Sony PSP 3000 & Case", spec: "Retro Handheld Gaming", priority: false,
+      images: [
+        "https://m.media-amazon.com/images/I/615gWr9r13L._SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/41czNHD99GL._SL1024_.jpg"
+      ],
+      desc: "PSP 3000 in case, with games loaded and saves. Running Homebrew/CFW. Battery is decent-ish.",
+      details: "Pros: Incredible nostalgia, offline entertainment. Cons: Extra weight, another battery to manage.",
+      buyLinks: []
+    },
+    {
+      id: "deb-2", title: "PSP Charging Cable", spec: "Proprietary Power", priority: false,
+      images: ["https://m.media-amazon.com/images/I/61fTYT1o3xL._SL1500_.jpg"],
+      desc: "Required to keep the PSP alive.",
+      details: "Connection: USB to DC Barrel Jack.",
+      buyLinks: []
+    },
+    {
+      id: "deb-3", title: "Apple 5W USB Adapter", spec: "USA Plug", priority: false,
+      images: ["https://www.bhphotovideo.com/cdn-cgi/image/fit=scale-down,width=500,quality=95/https://www.bhphotovideo.com/images/images500x500/Apple_MB352LL_C_USB_Power_Adapter_for_1313670960_817574.jpg"],
+      desc: "Low-wattage charging block, ideal for not frying the older PSP battery. Requires an Indian plug converter.",
+      details: "Output: 5W / 1A. Plug: US Type A.",
+      buyLinks: []
+    }
+  ];
+
+  function renderArsenal(containerId, items) {
+    const container = document.getElementById(containerId);
+    items.forEach(item => {
+      const dbKey = `chk-${item.id}`;
+      const isChecked = localStorage.getItem(dbKey) === 'true';
+      
+      const priorityClass = item.priority ? 'priority-item' : '';
+      const wrapper = document.createElement('div');
+      wrapper.className = `arsenal-item ${isChecked ? 'checked' : ''} ${priorityClass}`;
+      wrapper.id = `wrap-${item.id}`;
+      
+      let imagesHTML = '';
+      if (item.images && item.images.length > 0) {
+         imagesHTML = `<div class="arsenal-images">${item.images.map(src => `<img src="${src}" alt="${item.title}">`).join('')}</div>`;
+      } else {
+         imagesHTML = `<div style="display:none;"></div>`;
+      }
+      
+      let buyButtonHTML = '';
+      if (item.buyLinks && item.buyLinks.length > 0) {
+         buyButtonHTML = `<div class="buy-links-container">` + 
+           item.buyLinks.map(b => `<a href="${b.link}" target="_blank" class="btn btn-amazon">${b.text}</a>`).join('') + 
+           `</div>`;
+      }
+
+      wrapper.innerHTML = `
+        <div class="arsenal-header" onclick="toggleCard('${item.id}', event)">
+          <input type="checkbox" class="custom-checkbox" id="${dbKey}" ${isChecked ? 'checked' : ''} onclick="handleCheck('${item.id}', '${dbKey}', event)">
+          <div class="header-titles">
+            <span class="title">${item.title}</span>
+            <span class="spec">${item.spec}</span>
+          </div>
+          <span class="expand-icon">+</span>
+        </div>
+        <div class="arsenal-body">
+          ${imagesHTML}
+          <div class="product-details" style="${item.images && item.images.length > 0 ? '' : 'grid-column: 1 / -1;'}">
+            <p>${item.desc}</p>
+            <div class="specs-list">${item.details}</div>
+            ${buyButtonHTML}
+          </div>
+        </div>
+      `;
+      container.appendChild(wrapper);
+    });
+  }
+
+  function toggleCard(id, event) {
+    if(event.target.type === 'checkbox') return;
+    const wrapper = document.getElementById(`wrap-${id}`);
+    wrapper.classList.toggle('open');
+    const icon = wrapper.querySelector('.expand-icon');
+    icon.textContent = wrapper.classList.contains('open') ? '✕' : '+';
+  }
+
+  function handleCheck(id, dbKey, event) {
+    const isChecked = event.target.checked;
+    localStorage.setItem(dbKey, isChecked);
+    const wrapper = document.getElementById(`wrap-${id}`);
+    if (isChecked) {
+      wrapper.classList.add('checked');
+      wrapper.classList.remove('open'); 
+      wrapper.querySelector('.expand-icon').textContent = '+';
+    } else {
+      wrapper.classList.remove('checked');
+    }
+  }
+
+  renderArsenal('arsenal-safari', dataSafari);
+  renderArsenal('arsenal-decathlon', dataDecathlon);
+  renderArsenal('arsenal-debating', dataDebating);
+
+</script>
+</body>
+</html>
