@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jake's Tactical Arsenal</title>
+<title>Jake's Rishikesh Deployment</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/200/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎒</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,7 +73,7 @@
   .btn-hover-fx:hover { box-shadow: 4px 4px 0px var(--surface); transform: translate(-2px, -2px); }
   
   /* MAIN HUD */
-  .hud-container { max-width: 1200px; margin: 0 auto; padding: 30px 30px 100px 30px; display: none; }
+  .hud-container { max-width: 1200px; margin: 0 auto; padding: 30px 30px 100px 30px; display: block; }
   header { border-bottom: var(--border-heavy); padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; }
   
   .header-left h1 { font-size: 4rem; letter-spacing: 1px; cursor: pointer; transition: color 0.2s; }
@@ -568,54 +568,16 @@
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
-<div id="welcome-overlay">
-  <div class="welcome-box">
-    <div class="welcome-greeting" id="wc-greeting">// OPERATOR IDENTITY VERIFIED //</div>
-    <div class="welcome-divider" id="wc-divider"></div>
-    <div class="welcome-pre" id="wc-pre">Welcome,</div>
-    <div class="welcome-name" id="wc-name"><span id="wc-typed"></span><span class="welcome-cursor" id="wc-cursor"></span></div>
-    <div class="welcome-coffee" id="wc-coffee">Hope you have a great cup of coffee today ☕</div>
-    <div class="welcome-dismiss" id="wc-dismiss" onclick="dismissWelcome()">[ tap anywhere to continue ]</div>
-  </div>
-</div>
-
 <!-- OPERATOR BADGE -->
-<div id="operator-badge">
+<div id="operator-badge" class="visible">
   <div class="badge-pill" onclick="toggleBadge(event)">
     <span class="badge-dot"></span>
-    <span class="badge-label" id="badge-short">M. NEST</span>
+    <span class="badge-label" id="badge-short">JAKE</span>
   </div>
   <div class="badge-dropdown" id="badge-dropdown">
-    <div class="badge-full-name" id="badge-full">Master Nest</div>
+    <div class="badge-full-name" id="badge-full">Jake</div>
     <div class="badge-coffee-line">Hope you have a great cup of coffee today ☕</div>
-    <div class="badge-active-line">● OPERATOR ACTIVE</div>
-  </div>
-</div>
-
-<!-- LUXURY LOADING SCREEN -->
-<div id="luxury-loader">
-  <div class="ldr-eyebrow" id="ldr-eyebrow">OP AREA: DHARAMSHALA / MCLEOD GANJ</div>
-  <div class="ldr-title"   id="ldr-title">THE MCLEOD RUN</div>
-  <div class="ldr-sub"     id="ldr-sub">PREPARING YOUR BRIEFING</div>
-  <div class="ldr-track">
-    <div class="ldr-fill" id="ldr-fill"></div>
-  </div>
-  <div class="ldr-pct" id="ldr-pct">LOADING...</div>
-</div>
-
-<div id="pre-flight">
-  <div class="pre-flight-box">
-    <h1>OPERATOR LOGIN</h1>
-    <p>ACCESS RESTRICTED // IDENTIFY YOURSELF</p>
-    <div class="input-grid">
-      <div>
-        <div class="name-label">Operator Name</div>
-        <input type="text" id="operator-name" placeholder="Enter your name..." autocomplete="off"
-          onkeydown="if(event.key==='Enter') initializeSystem()">
-        <div class="pre-error" id="name-error">⚠ UNRECOGNIZED OPERATOR. ACCESS DENIED.</div>
-      </div>
-      <button class="btn btn-orange btn-hover-fx" style="width:100%;" onclick="initializeSystem()">AUTHORIZE</button>
-    </div>
+    <div class="badge-active-line">● ON DEPLOYMENT</div>
   </div>
 </div>
 
@@ -647,8 +609,8 @@
 <div class="hud-container" id="main-hud">
   <header>
     <div class="header-left" onclick="activatePanel('panel-home')">
-      <h1 title="Return to Basecamp">THE MCLEOD RUN</h1>
-      <p style="cursor:pointer;" onclick="activatePanel('panel-home')" title="Return to Home Base">OP AREA: DHARAMSHALA / MCLEOD GANJ</p>
+      <h1 title="Return to Basecamp">RISHIKESH DEPLOYMENT</h1>
+      <p style="cursor:pointer;" onclick="activatePanel('panel-home')" title="Return to Home Base">OP AREA: RISHIKESH, UTTARAKHAND // VOLUNTEERSHIP</p>
     </div>
     <div class="timer-module" id="countdown-timer" onclick="addToCalendar()" style="cursor:pointer;" title="Click to add bus departure to your calendar">SYNCING CLOCK...</div>
   </header>
@@ -657,11 +619,10 @@
     <button class="nav-btn active" onclick="activatePanel('panel-home')"><span>00. HOME BASE</span></button>
     <button class="nav-btn" onclick="activatePanel('panel-guide')"><span>01. EDC BRIEFING</span></button>
     <button class="nav-btn" onclick="activatePanel('panel-bag1')"><span>02. SAFARI BASECAMP</span></button>
-    <button class="nav-btn" onclick="activatePanel('panel-bag2')"><span>03. DECATHLON CARRY</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-bag2')"><span>03. SAFARI DAYPACK</span></button>
     <button class="nav-btn" onclick="activatePanel('panel-logistics')"><span>04. LOGISTICS & COMMS</span></button>
     <button class="nav-btn" onclick="activatePanel('panel-finances')"><span>05. FINANCES</span></button>
     <button class="nav-btn" onclick="activatePanel('panel-itinerary')"><span>06. THE ITINERARY</span></button>
-    <button class="nav-btn" onclick="activatePanel('panel-debating')"><span>07. STILL DEBATING</span></button>
   </nav>
 
   <div id="panel-home" class="panel active">
@@ -734,8 +695,8 @@
 
   <div id="panel-bag2" class="panel">
     <div class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--safety-orange);">
-      <h2 style="color: var(--safety-orange);">DECATHLON 15L MESSENGER</h2>
-      <p style="font-family: 'Fira Code';">ROLE: 24/7 Tactical Carry.</p>
+      <h2 style="color: var(--safety-orange);">SAFARI DAYPACK BACKPACK 15L</h2>
+      <p style="font-family: 'Fira Code';">ROLE: 24/7 Tactical Carry. (Replaces the old Decathlon 15L Messenger.)</p>
     </div>
     
     <div style="background: rgba(59, 69, 43, 0.1); color: var(--ink-main); border-left: 4px solid var(--tactical-green); padding: 15px; margin-bottom: 20px; font-family: 'Karla', sans-serif; font-size: 1.1rem;">
@@ -743,16 +704,16 @@
     </div>
 
     <div class="sop-header" onclick="toggleSOP('sop-decathlon', this)" style="background: var(--ink-main); color: var(--amazon-yellow); border-color: var(--amazon-yellow);">
-      <span>[+] VIEW PACKING SOP: DECATHLON RIG</span>
+      <span>[+] VIEW PACKING SOP: SAFARI DAYPACK RIG</span>
     </div>
     <div class="sop-body" id="sop-decathlon">
       <div class="sop-step">
         <h4><span class="badge">STEP 1</span> The Core (Tech Hub)</h4>
-        <p>Slide the Samsung Galaxy Tab A9 Plus into the flat rear compartment against your body. Drop the Anker Powerbank, Apple 30W Adapter, and MacBook charging cables right to the bottom of the main compartment for weight distribution.</p>
+        <p>Drop the Anker Power Bank (20K/87W), Xiaomi 45W Mini GaN Charger, and MacBook charging cables right to the bottom of the main compartment for weight distribution.</p>
       </div>
       <div class="sop-step">
         <h4><span class="badge">STEP 2</span> Sustainment Pillars</h4>
-        <p>Stand the Borosil Coffeemate (Black) and Borosil Nova (Blue) vertically on the left and right interior edges of the main compartment. Slide the folded MT50 Poncho between them.</p>
+        <p>Stand the Borosil Coffeemate (Black) and Borosil Nova (Blue) vertically on the left and right interior edges of the main compartment. Slide the folded umbrella between them.</p>
       </div>
       <div class="sop-step">
         <h4><span class="badge">STEP 3</span> Nutrition & Literature</h4>
@@ -760,7 +721,7 @@
       </div>
       <div class="sop-step">
         <h4><span class="badge">STEP 4</span> Front Quick Access (Critical)</h4>
-        <p>Load the exterior front pockets with the items you need immediately: Morning/Evening Meds (PRIORITY CHECK), ID, Cash, Nothing Phone 2a, OnePlus Buds, Sennheiser IE 200, DAC, and the Snowsky Echo Mini.</p>
+        <p>Load the exterior front pockets with the items you need immediately: Morning/Evening Meds (PRIORITY CHECK), ID, Cash, Nothing Phone 2a, OnePlus Buds, Sennheiser IE 200, DAC, Snowsky Echo Mini, and the Marshall Milton ANC headphones.</p>
       </div>
     </div>
 
@@ -774,28 +735,30 @@
       <div class="grid-2col" style="margin-top: 20px;">
         <div class="logistics-box">
           <div class="logistics-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/HRTCHP.jpg/250px-HRTCHP.jpg" class="log-logo" alt="HRTC">
-            <h3>ONWARD BUS (DELHI -> DHARAMSHALA)</h3>
+            <img src="https://d1flzashw70bti.cloudfront.net/next-gen/images/zingbus-name-logo.webp" class="log-logo" alt="zingbus">
+            <h3>ONWARD BUS (DELHI -> RISHIKESH)</h3>
           </div>
-          <p><strong>Date:</strong> 27 Jun 2026</p>
-          <p><strong>Boarding:</strong> 17:31 <span class="highlight">Reach by 17:15</span></p>
-          <p><strong>Operator:</strong> HRTC (Non AC seater)</p>
-          <p><strong>PNR:</strong> 20260525000009679523</p>
-          <p><strong>Seat:</strong> 10</p>
-          <p><strong>Boarding Point:</strong> <a href="https://goo.gl/maps/RkVp5aZ2EaY513f56" target="_blank">Delhi ISBT Kashmiri Gate</a></p>
+          <p><strong>Date:</strong> 29 Jul 2026</p>
+          <p><strong>Pickup Time:</strong> 12:10 AM</p>
+          <p><strong>PNR:</strong> ZB260721182119536</p>
+          <p><strong>Seat:</strong> UD5</p>
+          <p><strong>Pickup Point:</strong> Counter number 54, Anand Vihar ISBT</p>
+          <p><strong>Marshal Number:</strong> <a href="tel:8287009889">8287009889</a> (activates 3 hrs before journey)</p>
+          <p><strong>Track Bus:</strong> <a href="https://z.zingbus.com/WuUu" target="_blank">z.zingbus.com/WuUu</a></p>
         </div>
         
         <div class="logistics-box">
           <div class="logistics-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/FlixBus_Logo.png" class="log-logo" alt="FlixBus">
-            <h3>RETURN BUS (MCLEOD -> DELHI)</h3>
+            <img src="https://d1flzashw70bti.cloudfront.net/next-gen/images/zingbus-name-logo.webp" class="log-logo" alt="zingbus">
+            <h3>RETURN BUS (RISHIKESH -> DELHI)</h3>
           </div>
-          <p><strong>Date:</strong> 04 Jul 2026</p>
-          <p><strong>Boarding:</strong> 19:15 <span class="highlight">Reach by 19:00</span></p>
-          <p><strong>Operator:</strong> FlixBus (AC seater)</p>
-          <p><strong>PNR:</strong> 6BNN4JJU</p>
-          <p><strong>Seat:</strong> 2A</p>
-          <p><strong>Boarding Point:</strong> <a href="https://maps.app.goo.gl/83M1E7z9dM6P2Wc27" target="_blank">Mcleodganj Main Square (pickup by Cab)</a></p>
+          <p><strong>Date:</strong> 05 Aug 2026</p>
+          <p><strong>Pickup Time:</strong> 11:25 AM</p>
+          <p><strong>PNR:</strong> ZB2607211827172048</p>
+          <p><strong>Seat:</strong> UD5</p>
+          <p><strong>Pickup Point:</strong> zingbus Lounge Rishikesh</p>
+          <p><strong>Marshal Number:</strong> <a href="tel:8287009889">8287009889</a> (activates 3 hrs before journey)</p>
+          <p><strong>Track Bus:</strong> <a href="https://z.zingbus.com/WuYF" target="_blank">z.zingbus.com/WuYF</a></p>
         </div>
       </div>
 
@@ -807,54 +770,49 @@
 
         <!-- Confirmation Banner -->
         <div style="background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 10px 15px; margin-bottom: 14px; font-family: 'Fira Code', monospace; font-size: 0.85rem;">
-          ✅ <strong style="color:#2e7d32;">BOOKING CONFIRMED &amp; FULLY PAID</strong> — ₹2,639
+          ✅ <strong style="color:#2e7d32;">BOOKING CONFIRMED</strong> — Ref: RISLJ51761
         </div>
 
         <!-- Core Details -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
           <div style="background:#f9f9f9; padding:12px; border:1px solid #ddd;">
             <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888; text-transform:uppercase; margin-bottom:4px;">Check-In</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:1.3rem;">SUN, 28 JUN 2026</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.3rem;">WED, 29 JUL 2026</div>
             <div style="font-family:'Fira Code',monospace; font-size:0.85rem; color:var(--safety-orange); font-weight:bold;">01:00 PM</div>
           </div>
           <div style="background:#f9f9f9; padding:12px; border:1px solid #ddd;">
             <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888; text-transform:uppercase; margin-bottom:4px;">Check-Out</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:1.3rem;">SAT, 04 JUL 2026</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.3rem;">WED, 05 AUG 2026</div>
             <div style="font-family:'Fira Code',monospace; font-size:0.85rem; color:var(--safety-orange); font-weight:bold;">10:00 AM</div>
           </div>
         </div>
 
-        <p><strong>Property:</strong> <a href="https://maps.app.goo.gl/something" target="_blank">goSTOPS Mcleodganj Mall Road</a> — Dalai Lama Temple Rd, near Nagni Mata Mandir, McLeod Ganj, Dharamshala 176219</p>
-        <p><strong>Duration:</strong> 6 Nights Stay</p>
-        <p><strong>Room:</strong> Bed in 6 Bed Mixed Dormitory Room with Ensuite Bathroom</p>
-        <p><strong>Guest:</strong> Mr Tejasv Sopory (Primary Guest)</p>
-        <p><strong>Amenities:</strong> Wi-Fi · Bathroom · Hot &amp; Cold Water · No Meals Included</p>
+        <p><strong>Property:</strong> goSTOPS Rishikesh Lakshaman Jhula — beside Chatsang Cafe, Lakshaman Jhula, Rishikesh 249302, Uttarakhand, India</p>
+        <p><strong>Duration:</strong> 7 Nights Stay</p>
+        <p><strong>Room:</strong> Bed in 6 Bed Mixed AC Dormitory Room with Ensuite Bathroom - EP (Bed Only)</p>
+        <p><strong>Guest:</strong> Tejasv Sopory (1 Adult)</p>
+        <p><strong>Arrival Time:</strong> 01:00 PM</p>
 
         <!-- Booking IDs -->
         <div style="background: var(--surface); border: 1px dashed #aaa; padding: 10px 14px; margin: 12px 0; font-family: 'Fira Code', monospace; font-size: 0.82rem;">
-          <span style="color:#888;">BOOKING ID:</span> <strong>NH21249490497636</strong> &nbsp;|&nbsp; <span style="color:#888;">PNR:</span> <strong>0178267924</strong>
+          <span style="color:#888;">BOOKING REF:</span> <strong>RISLJ51761</strong>
         </div>
 
         <!-- Cancellation Policy -->
         <div style="background: #fff8e1; border-left: 4px solid var(--amazon-yellow); padding: 10px 14px; margin-bottom: 12px; font-family: 'Fira Code', monospace; font-size: 0.82rem;">
-          ⚠️ <strong>FREE CANCELLATION</strong> valid till <span class="highlight">23 Jun 2026, 12:59 PM</span>. After that — 100% charge. Cancellations only before check-in.
+          ⚠️ <strong>FREE CANCELLATION</strong> up to 5 days / 120 hrs before the 1 PM check-in. Early departures are non-refundable. No amendments honoured for reservation errors.
         </div>
 
         <!-- Contact -->
-        <p><strong>Hostel Phone:</strong> 8062190402 / 7428882828</p>
-        <p><strong>Hostel Email:</strong> <a href="mailto:book@gostops.com">book@gostops.com</a></p>
-        <p style="font-size:0.88rem; color: var(--ink-muted);">⚠ Carry valid Photo ID (Aadhaar / Passport / DL / Govt ID). PAN card NOT valid. Request GST invoice at check-in if needed.</p>
+        <p><strong>Hostel Phone:</strong> <a href="tel:7428882828">7428882828</a></p>
+        <p><strong>Hostel Email:</strong> <a href="mailto:hello@gostops.com">hello@gostops.com</a></p>
+        <p style="font-size:0.88rem; color: var(--ink-muted);">⚠ Carry a valid original govt photo ID (PAN cards and local IDs NOT accepted). Guests under 18 cannot be accommodated. No outside food/beverages in the cafe area. Digital door locks need a smartphone with the property app.</p>
 
         <!-- Price Breakup -->
         <div style="margin-top:14px; border-top: 2px dashed #ccc; padding-top:12px;">
           <div style="font-family:'Oswald',sans-serif; font-size:1rem; margin-bottom:8px; color:var(--tactical-green);">PRICE BREAKUP</div>
           <div style="font-family:'Fira Code',monospace; font-size:0.82rem; display:grid; gap:4px;">
-            <div style="display:flex; justify-content:space-between;"><span>Accommodation charges (incl. taxes)</span><span>₹3,242</span></div>
-            <div style="display:flex; justify-content:space-between;"><span>MMT Service Fee</span><span>₹157</span></div>
-            <div style="display:flex; justify-content:space-between; color:#2e7d32;"><span>Hotelier &amp; MMT Discount</span><span>–₹486</span></div>
-            <div style="display:flex; justify-content:space-between; color:#2e7d32;"><span>MMT Service Fee Reversal</span><span>–₹157</span></div>
-            <div style="display:flex; justify-content:space-between; color:#2e7d32;"><span>Effective Discount</span><span>–₹117</span></div>
-            <div style="display:flex; justify-content:space-between; font-weight:bold; border-top:1px solid #ccc; padding-top:6px; margin-top:4px; font-size:0.9rem;"><span>TOTAL PAID</span><span>₹2,639</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:bold; padding-top:6px; font-size:0.9rem;"><span>TOTAL / AMOUNT DUE AT CHECK-IN</span><span>₹0.00</span></div>
           </div>
         </div>
       </div>
@@ -862,131 +820,123 @@
       <div class="logistics-box">
         <div class="logistics-header">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Delhi_Metro_logo.svg/500px-Delhi_Metro_logo.svg.png?_=20100309023850" class="log-logo" alt="DMRC">
-          <h3>DELHI METRO ROUTING (ISBT KASHMERE GATE)</h3>
+          <h3>DELHI METRO ROUTING (ANAND VIHAR ISBT)</h3>
         </div>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid var(--tactical-green);">
              <h4 style="color: var(--tactical-green); margin-bottom: 10px; font-family: 'Oswald', sans-serif;">GOING (ONWARD)</h4>
-             <p><strong>From Faridabad (Mewla Maharajpur):</strong> Board Violet Line directly to Kashmere Gate. (0 Interchanges, ~55 mins).</p>
-             <p style="margin-top:10px;"><strong>From Ghaziabad (Vaishali):</strong> Board Blue Line to Mandi House -> Interchange to Violet Line (Platform 3) -> Exit Kashmere Gate. (1 Interchange, ~45 mins).</p>
+             <p><strong>From Faridabad (Mewla Maharajpur):</strong> Board Violet Line to Mandi House -> Interchange to Blue Line (towards Noida/Vaishali branch) -> Exit Anand Vihar ISBT. (1 Interchange, ~60 mins).</p>
+             <p style="margin-top:10px;"><strong>From Ghaziabad (Vaishali):</strong> Board Blue Line directly towards Dwarka -> Exit Anand Vihar ISBT. (0 Interchanges, ~15 mins).</p>
            </div>
            
            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid var(--safety-orange);">
              <h4 style="color: var(--safety-orange); margin-bottom: 10px; font-family: 'Oswald', sans-serif;">COMING BACK (RETURN)</h4>
-             <p><strong>To Faridabad (Mewla Maharajpur):</strong> Board Violet Line from Kashmere Gate towards Raja Nahar Singh, exit Mewla Maharajpur.</p>
-             <p style="margin-top:10px;"><strong>To Ghaziabad (Vaishali):</strong> Board Violet Line from Kashmere Gate to Mandi House -> Interchange to Blue Line towards Vaishali.</p>
+             <p><strong>To Faridabad (Mewla Maharajpur):</strong> Board Blue Line from Anand Vihar towards Dwarka -> Interchange at Mandi House to Violet Line -> exit Mewla Maharajpur.</p>
+             <p style="margin-top:10px;"><strong>To Ghaziabad (Vaishali):</strong> Board Blue Line from Anand Vihar directly towards Vaishali. (0 Interchanges, ~15 mins).</p>
            </div>
         </div>
+      </div>
+
+      <div class="logistics-box">
+        <div class="logistics-header">
+          <span style="font-size: 1.6rem;">⛈️</span>
+          <h3>WEATHER BRIEFING: RISHIKESH (MONSOON)</h3>
+        </div>
+        <p style="margin-bottom: 10px;">It's peak monsoon season for the full window you're there. Expect warm, humid days with a real chance of rain most afternoons — pack the poncho and umbrella accordingly.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 10px;">
+          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
+            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">WED 29 JUL</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">28-31°C</div>
+            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">65% Rain</div>
+          </div>
+          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
+            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">THU 30 JUL</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">25-29°C</div>
+            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">75% Rain</div>
+          </div>
+          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
+            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">FRI 31 JUL</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">25-30°C</div>
+            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">50% Rain</div>
+          </div>
+          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
+            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">SAT 01 AUG</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">25-31°C</div>
+            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">40% Rain</div>
+          </div>
+          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center; opacity:0.7;">
+            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">02-05 AUG</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">~25-31°C</div>
+            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">Monsoon (est.)</div>
+          </div>
+        </div>
+        <p style="font-size: 0.82rem; color: var(--ink-muted); margin-top: 10px;">Forecast pulled a few days out; the last stretch (02-05 Aug) is beyond reliable forecast range and shown as a monsoon-season estimate. Re-check closer to those dates.</p>
       </div>
     </div>
   </div>
 
   <div id="panel-finances" class="panel">
-    <div class="data-card">
-      <h2>OPERATIONAL FINANCES</h2>
-      <p>Strict budget parameters for the 6 Day deployment. Stay within constraints.</p>
-      
-      <div class="logistics-box" style="margin-top: 20px;">
-        <h3>BUDGET ALLOCATION (₹13,000 TOTAL)</h3>
-        <p><strong>Reserve / Emergency Fund:</strong> ₹1,700 <span class="highlight" style="background:var(--med-alert);">DO NOT TOUCH UNLESS CRITICAL</span></p>
-        <p><strong>Souvenirs:</strong> ₹2,000</p>
-        <p><strong>Unexpected Expenses / Impulse Buys:</strong> ₹2,000</p>
-        <p><strong>Operating Capital (Food/Experiences):</strong> ₹7,300 (Approx ₹1,216 / Day)</p>
-      </div>
+    <div class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--med-alert); text-align:center; padding: 60px 30px;">
+      <div style="font-size: 3.5rem; margin-bottom: 15px;">🔒</div>
+      <h2 style="color: var(--med-alert); letter-spacing: 3px;">ACCESS DENIED</h2>
+      <p style="font-family: 'Fira Code', monospace; color: rgba(245,245,240,0.6); font-size: 0.95rem; max-width: 480px; margin: 15px auto 0;">
+        CLEARANCE INSUFFICIENT // THIS SECTION HAS BEEN RESTRICTED.
+      </p>
     </div>
   </div>
 
   <div id="panel-itinerary" class="panel">
     <div class="data-card">
-      <h2>THE 6 DAY DEPLOYMENT</h2>
-      <p>Your strategic operating plan balancing culture, coffee, and exploration.</p>
+      <h2>THE 8 DAY DEPLOYMENT</h2>
+      <p>Rishikesh, volunteership edition. Structure below is a working draft around the confirmed bus/hostel windows — slot in your actual program schedule as it's confirmed.</p>
       <hr style="border: 1px solid #ccc; margin: 20px 0;">
 
       <div class="itinerary-day">
-        <h3>DAY 1: ARRIVAL & ACCLIMATIZATION (Sun, 28 Jun)</h3>
+        <h3>DAY 1: TRANSIT & ARRIVAL (Wed, 29 Jul)</h3>
         <ul>
-          <li><strong>07:00 AM:</strong> Arrive in Dharamshala/McLeod Ganj via HRTC Bus. Take a shared cab/auto up to the main square.</li>
-          <li><strong>09:00 AM:</strong> Breakfast & First Coffee at <a href="https://maps.app.goo.gl/s1tH3oFMB5gQj6pE6" target="_blank">Shiva Cafe</a>.</li>
-          <li><strong>01:00 PM:</strong> Check in at <a href="https://goo.gl/maps/bHjM7xY7q5F5oB898" target="_blank">goSTOPS Mcleodganj</a>. Drop the Safari bag. Deploy Decathlon rig.</li>
-          <li><strong>03:00 PM:</strong> Light exploration of the Main Square. Late lunch at <a href="https://maps.app.goo.gl/o8YhT4d2N5T1gC1y8" target="_blank">Tibet Kitchen</a>.</li>
-          <li><strong>06:00 PM:</strong> Walk down to <a href="https://maps.app.goo.gl/6pPz6p3s3P6c8b2C6" target="_blank">Illiterati Books & Coffee</a>. Watch the sunset, drink coffee, and read Camus.</li>
+          <li><strong>12:10 AM:</strong> zingbus departs Anand Vihar ISBT (Counter 54) for Rishikesh.</li>
+          <li><strong>Morning:</strong> Arrive in Rishikesh. Grab breakfast/chai near Lakshman Jhula while waiting for check-in.</li>
+          <li><strong>01:00 PM:</strong> Check in at goSTOPS Rishikesh Lakshaman Jhula. Drop the Safari bag, deploy the Safari Daypack.</li>
+          <li><strong>Evening:</strong> Orientation with the volunteer program (confirm point of contact & first work-day timing). Walk to the Ganga ghats for the evening Aarti.</li>
         </ul>
       </div>
 
       <div class="itinerary-day">
-        <h3>DAY 2: TIBETAN CULTURE & HISTORY (Mon, 29 Jun)</h3>
+        <h3>DAY 2-6: VOLUNTEER DUTY (Thu 30 Jul - Mon 3 Aug)</h3>
         <ul>
-          <li><strong>09:00 AM:</strong> Morning pour over at the hostel from your Blue Tokai stash.</li>
-          <li><strong>10:30 AM:</strong> Visit the <a href="https://maps.app.goo.gl/7g5K4c8R8B5n7W6x9" target="_blank">Dalai Lama Temple Complex (Tsuglagkhang)</a>.</li>
-          <li><strong>12:30 PM:</strong> Explore the <a href="https://maps.app.goo.gl/9y9Y5z5h9b5b9Z8v9" target="_blank">Tibet Museum</a>.</li>
-          <li><strong>02:00 PM:</strong> Lunch at <a href="https://maps.app.goo.gl/2c5Y8f6f5x6m6c7a9" target="_blank">Snow Lion Restaurant</a>.</li>
-          <li><strong>04:00 PM:</strong> Visit the <a href="https://maps.app.goo.gl/8v3M5b4c9n2x5m7b9" target="_blank">Library of Tibetan Works and Archives</a>.</li>
-          <li><strong>07:00 PM:</strong> Dinner at <a href="https://maps.app.goo.gl/8c5K4f9m2x5m6c7a9" target="_blank">Jimmy's Italian Kitchen</a>.</li>
+          <li><strong>Daytime:</strong> Volunteer work hours — <em>slot in the program's actual schedule once confirmed by your coordinator.</em></li>
+          <li><strong>Evenings:</strong> Free time — Ganga Aarti at Triveni/Parmarth Ghat, cafes around Lakshman Jhula & Ram Jhula, Beatles Ashram, short walks along the river.</li>
+          <li><strong>Ongoing:</strong> Keep meds on schedule (Priority items in both bags). Poncho + umbrella on standby — high rain chance most afternoons this week.</li>
         </ul>
       </div>
 
       <div class="itinerary-day">
-        <h3>DAY 3: NATURE & ELEVATION (Tue, 30 Jun)</h3>
+        <h3>DAY 7: WRAP-UP (Tue, 4 Aug)</h3>
         <ul>
-          <li><strong>08:00 AM:</strong> Trek to <a href="https://maps.app.goo.gl/5c8K4f9m2x5m6c7a9" target="_blank">Bhagsu Waterfall</a> early.</li>
-          <li><strong>11:00 AM:</strong> Continue upward towards <a href="https://maps.app.goo.gl/2v3M5b4c9n2x5m7b9" target="_blank">Gallu Devi Temple</a>.</li>
-          <li><strong>02:00 PM:</strong> Return to town. Stop at <a href="https://maps.app.goo.gl/9c5K4f9m2x5m6c7a9" target="_blank">Woeser Bakery</a>.</li>
-          <li><strong>05:00 PM:</strong> Rest at hostel, listen to the Sennheiser IE 200 stack.</li>
+          <li><strong>Daytime:</strong> Final volunteer day / handover, if applicable.</li>
+          <li><strong>Evening:</strong> Pack the Safari bag back to deployment standard. Last Ganga-side walk.</li>
         </ul>
       </div>
 
       <div class="itinerary-day">
-        <h3>DAY 4: OBSERVATION & CAFE HOPPING (Wed, 01 Jul)</h3>
+        <h3>DAY 8: EXTRACTION (Wed, 5 Aug)</h3>
         <ul>
-          <li><strong>10:00 AM:</strong> Take a cab or hike to <a href="https://maps.app.goo.gl/5v3M5b4c9n2x5m7b9" target="_blank">Naddi View Point</a>.</li>
-          <li><strong>01:00 PM:</strong> Head to Dharamkot. Have lunch at <a href="https://maps.app.goo.gl/7c5K4f9m2x5m6c7a9" target="_blank">Morgan's Place</a>.</li>
-          <li><strong>03:30 PM:</strong> Settle in at <a href="https://maps.app.goo.gl/3v3M5b4c9n2x5m7b9" target="_blank">Crepe Pancake Hut</a>.</li>
-          <li><strong>07:00 PM:</strong> Return to Mcleod Ganj. Street food or budget dinner near main square.</li>
-        </ul>
-      </div>
-
-      <div class="itinerary-day">
-        <h3>DAY 5: THE BUFFER DAY / UNEXPECTED FINDS (Thu, 02 Jul)</h3>
-        <ul>
-          <li><strong>Open Morning:</strong> Visit <a href="https://maps.app.goo.gl/6v3M5b4c9n2x5m7b9" target="_blank">Norbulingka Institute</a>.</li>
-          <li><strong>Lunch:</strong> Eat at the Norbulingka cafe.</li>
-          <li><strong>Afternoon:</strong> Visit the <a href="https://maps.app.goo.gl/4c5K4f9m2x5m6c7a9" target="_blank">St. John in the Wilderness Church</a>.</li>
-        </ul>
-      </div>
-
-      <div class="itinerary-day">
-        <h3>DAY 6: EXTRACTION & SOUVENIRS (Fri & Sat, 03-04 Jul)</h3>
-        <ul>
-          <li><strong>03 Jul / 04 Jul Morning:</strong> Utilize your ₹2,000 Souvenir budget on Temple Road.</li>
-          <li><strong>04 Jul 10:00 AM:</strong> Check out of goSTOPS. Request them to hold your Safari bag.</li>
-          <li><strong>12:00 PM:</strong> Final lunch at <a href="https://maps.app.goo.gl/1c5K4f9m2x5m6c7a9" target="_blank">Kunga Guest House / Nick's Italian Kitchen</a>.</li>
-          <li><strong>05:30 PM:</strong> Retrieve Safari Bag. Repack to deployment standards.</li>
-          <li><strong>06:45 PM:</strong> Proceed to <a href="https://maps.app.goo.gl/83M1E7z9dM6P2Wc27" target="_blank">Mcleodganj Main Square</a> for the cab pickup.</li>
-          <li><strong>07:15 PM:</strong> Extraction. FlixBus departs for Delhi.</li>
+          <li><strong>10:00 AM:</strong> Check out of goSTOPS Rishikesh.</li>
+          <li><strong>11:25 AM:</strong> zingbus departs from zingbus Lounge Rishikesh, back to Delhi (Anand Vihar ISBT).</li>
         </ul>
       </div>
 
     </div>
   </div>
 
-  <div id="panel-debating" class="panel">
-    <div class="data-card">
-      <h2>STILL DEBATING (THE "MAYBE" PILE)</h2>
-      <p style="font-size: 1.1rem; border-left: 4px solid var(--amazon-yellow); padding-left: 15px;">
-        These are the items we are still thinking about and not confirmed. We want to take them, but not sure. Each has its own pros and cons, that's why we are still thinking.
-      </p>
-    </div>
-    
-    <div id="arsenal-debating"></div>
-  </div>
 
 </div>
 
-<footer id="site-footer" style="display:none;">
+<footer id="site-footer" style="display:block;">
   <div class="footer-logo" onclick="activatePanel('panel-home')" style="cursor:pointer; padding: 25px 20px 5px; text-align:center;">
-    <div style="font-family:'Oswald',sans-serif; font-size:2.2rem; color:var(--surface); letter-spacing:2px; text-transform:uppercase; line-height:1;">THE MCLEOD RUN</div>
-    <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange); letter-spacing:3px; margin-top:5px;">OP AREA: DHARAMSHALA / MCLEOD GANJ</div>
+    <div style="font-family:'Oswald',sans-serif; font-size:2.2rem; color:var(--surface); letter-spacing:2px; text-transform:uppercase; line-height:1;">RISHIKESH DEPLOYMENT</div>
+    <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange); letter-spacing:3px; margin-top:5px;">OP AREA: RISHIKESH, UTTARAKHAND // VOLUNTEERSHIP</div>
   </div>
   <div style="font-family:'Karla',sans-serif; font-style:italic; color:#FFD700; font-size:1.05rem; margin: 12px auto 20px; max-width:500px; text-align:center; padding:0 20px;">
     Life is short and fast, so run and chase every second; be mad.
@@ -995,14 +945,13 @@
     <a onclick="activatePanel('panel-home')">Home</a> |
     <a onclick="activatePanel('panel-guide')">EDC Briefing</a> |
     <a onclick="activatePanel('panel-bag1')">Safari Basecamp</a> |
-    <a onclick="activatePanel('panel-bag2')">Decathlon Rig</a> |
+    <a onclick="activatePanel('panel-bag2')">Safari Daypack</a> |
     <a onclick="activatePanel('panel-logistics')">Logistics</a> |
     <a onclick="activatePanel('panel-finances')">Finances</a> |
     <a onclick="activatePanel('panel-itinerary')">Itinerary</a> |
-    <a onclick="activatePanel('panel-debating')">Still Debating</a> |
-    <a href="mailto:contact.jakenest@gmail.com?subject=Message from THE MCLEOD RUN webpage&body=Hi,%0A%0AI'm reaching out from THE MCLEOD RUN webpage.%0A%0A">Contact Us</a>
+    <a href="mailto:tsopory@gmail.com?subject=Message from RISHIKESH DEPLOYMENT webpage&body=Hi,%0A%0AI'm reaching out from the RISHIKESH DEPLOYMENT webpage.%0A%0A">Contact Us</a>
   </div>
-  <div class="footer-branding">MADE BY JAKE NEST FOR JAKE NEST</div>
+  <div class="footer-branding">MADE BY JAKE FOR JAKE</div>
   <div class="footer-disclaimer">
     This website may or may not be synthetically altered. Copyright to the owner.<br>
     * End product can be different. Images are for representation purposes only.
@@ -1195,171 +1144,12 @@
     }
   }
 
-  // BOOT SEQUENCE
+  // BOOT SEQUENCE (login/loading screens removed — HUD is visible immediately)
   window.onload = () => {
-    if(sessionStorage.getItem('systemAuthorized')) {
-      document.getElementById('pre-flight').style.display = 'none';
-      document.getElementById('main-hud').style.display = 'block';
-      document.getElementById('site-footer').style.display = 'block';
-      setTimeout(() => document.getElementById('media-widget').classList.add('visible'), 1000);
-      const saved = sessionStorage.getItem('operatorLastName');
-      if (saved) setTimeout(() => populateBadge(saved), 400);
-    }
+    setTimeout(() => document.getElementById('media-widget').classList.add('visible'), 800);
   };
-  
-  const AUTHORIZED_NAMES = ['Jake Nest', 'Tejasv Sopory'];
-  let welcomeCallback = null;
-  let welcomeDismissable = false;
-
-  function typeWriter(targetId, text, speed, callback) {
-    const el = document.getElementById(targetId);
-    el.textContent = '';
-    let i = 0;
-    function tick() {
-      if (i < text.length) {
-        el.textContent += text.charAt(i++);
-        setTimeout(tick, speed);
-      } else {
-        if (callback) callback();
-      }
-    }
-    tick();
-  }
-
-  function dismissWelcome() {
-    if (!welcomeDismissable) return;
-    const overlay = document.getElementById('welcome-overlay');
-    overlay.classList.add('fade-out');
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      if (welcomeCallback) welcomeCallback();
-    }, 2200);
-  }
-
-  function showWelcomeAnimation(lastName, callback) {
-    welcomeCallback = callback;
-    welcomeDismissable = false;
-    const overlay = document.getElementById('welcome-overlay');
-    overlay.style.display = 'flex';
-    overlay.classList.remove('fade-out', 'show');
-
-    // Reset all child elements
-    ['wc-greeting','wc-pre','wc-name','wc-coffee','wc-dismiss'].forEach(id => {
-      document.getElementById(id).classList.remove('reveal');
-    });
-    document.getElementById('wc-divider').classList.remove('expand');
-    document.getElementById('wc-cursor').classList.remove('done');
-    document.getElementById('wc-typed').textContent = '';
-
-    // -- TIMING SEQUENCE (total ~13-14s before auto-dismiss) --
-    // t=0:    overlay fades in (1.5s)
-    // t=1200: "// OPERATOR IDENTITY VERIFIED //" lifts in
-    // t=2400: divider glides out
-    // t=3600: "Welcome," rises in
-    // t=4600: name container becomes visible, then typewriter begins
-    // t=done: cursor blinks then fades (1s after typing)
-    // t+1400: coffee line drifts in
-    // t+2800: dismiss hint appears, tap enabled
-    // t+8000: auto-dismiss (2.2s smooth fade)
-
-    requestAnimationFrame(() => {
-      // small rAF gap ensures transition fires
-      requestAnimationFrame(() => {
-        overlay.classList.add('show');
-
-        setTimeout(() => document.getElementById('wc-greeting').classList.add('reveal'), 1200);
-        setTimeout(() => document.getElementById('wc-divider').classList.add('expand'),  2400);
-        setTimeout(() => document.getElementById('wc-pre').classList.add('reveal'),      3600);
-        setTimeout(() => document.getElementById('wc-name').classList.add('reveal'),     3600);
-
-        // Typewriter starts after name container is visible
-        setTimeout(() => {
-          const nameText = 'Master ' + lastName + '.';
-          typeWriter('wc-typed', nameText, 90, () => {
-            // Cursor fades 1s after typing finishes
-            setTimeout(() => document.getElementById('wc-cursor').classList.add('done'), 1000);
-
-            // Coffee line 1400ms after typing done
-            setTimeout(() => document.getElementById('wc-coffee').classList.add('reveal'), 1400);
-
-            // Dismiss hint 2800ms after typing done, tap enabled
-            setTimeout(() => {
-              document.getElementById('wc-dismiss').classList.add('reveal');
-              welcomeDismissable = true;
-            }, 2800);
-
-            // Auto-dismiss 8000ms after typing done
-            setTimeout(dismissWelcome, 8000);
-          });
-        }, 4600);
-      });
-    });
-
-    // Tap anywhere also dismisses (after hint is shown)
-    overlay.addEventListener('click', () => dismissWelcome(), { once: true });
-  }
-
-  function initializeSystem() {
-    const nameInput = document.getElementById('operator-name');
-    const nameError = document.getElementById('name-error');
-    const enteredName = nameInput ? nameInput.value.trim() : '';
-    const isVerified = AUTHORIZED_NAMES.includes(enteredName);
-
-    if (!isVerified) {
-      nameError.style.display = 'block';
-      nameInput.style.borderColor = 'var(--safety-orange)';
-      nameInput.focus();
-      return;
-    }
-
-    nameError.style.display = 'none';
-    sessionStorage.setItem('systemAuthorized', 'true');
-    const lastName = enteredName.split(' ').pop();
-    sessionStorage.setItem('operatorLastName', lastName);
-
-    document.getElementById('pre-flight').style.transform = 'translateY(-100%)';
-    setTimeout(() => document.getElementById('pre-flight').style.display = 'none', 700);
-
-    showWelcomeAnimation(lastName, () => {
-      showLuxuryLoader(lastName);
-    });
-  }
-
-  /* ── LUXURY LOADER ── */
-  function showLuxuryLoader(lastName) {
-    const loader = document.getElementById('luxury-loader');
-    loader.style.display = 'flex';
-    loader.classList.remove('lift');
-
-    // Reveal HUD invisibly behind loader so it's ready
-    document.getElementById('main-hud').style.display = 'block';
-
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      ['ldr-eyebrow','ldr-title','ldr-sub','ldr-pct'].forEach(id => {
-        document.getElementById(id).classList.add('show');
-      });
-      setTimeout(() => document.getElementById('ldr-fill').classList.add('fill'), 80);
-
-      // After bar completes, lift loader away
-      setTimeout(() => {
-        loader.classList.add('lift');
-        setTimeout(() => {
-          loader.style.display = 'none';
-          document.getElementById('site-footer').style.display = 'block';
-          setTimeout(() => document.getElementById('media-widget').classList.add('visible'), 600);
-          populateBadge(lastName);
-        }, 1000);
-      }, 3200);
-    }));
-  }
 
   /* ── OPERATOR BADGE ── */
-  function populateBadge(lastName) {
-    document.getElementById('badge-short').textContent = 'M. ' + lastName.toUpperCase();
-    document.getElementById('badge-full').textContent = 'Master ' + lastName;
-    setTimeout(() => document.getElementById('operator-badge').classList.add('visible'), 200);
-  }
-
   function toggleBadge(e) {
     if (e) e.stopPropagation();
     document.getElementById('badge-dropdown').classList.toggle('open');
@@ -1371,7 +1161,7 @@
   });
 
   // CLOCK
-  const tZero = new Date('June 27, 2026 17:31:00').getTime();
+  const tZero = new Date('July 29, 2026 00:10:00').getTime();
   function syncClock() {
     const now = new Date().getTime();
     const delta = tZero - now;
@@ -1384,10 +1174,10 @@
 
   function addToCalendar() {
     const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=HRTC+Bus+%E2%80%93+Delhi+to+Dharamshala' +
-      '&dates=20260627T151500Z%2F20260627T163100Z' +
-      '&details=HRTC+Non-AC+Seater%0APNR%3A+20260525000009679523%0ASeat%3A+10%0A%F0%9F%9A%8C+REACH+ISBT+BY+17%3A15+%7C+Bus+departs+17%3A31' +
-      '&location=Delhi+ISBT+Kashmiri+Gate%2C+New+Delhi';
+      '&text=zingbus+%E2%80%93+Delhi+to+Rishikesh' +
+      '&dates=20260728T184000Z%2F20260728T191000Z' +
+      '&details=zingbus%0APNR%3A+ZB260721182119536%0ASeat%3A+UD5%0A%F0%9F%9A%8C+Pickup%3A+Counter+54%2C+Anand+Vihar+ISBT+at+12%3A10+AM%0AMarshal%3A+8287009889' +
+      '&location=Anand+Vihar+ISBT%2C+New+Delhi';
     window.open(gcalUrl, '_blank');
   }
 
@@ -1465,6 +1255,27 @@
       desc: "<span class='highlight' style='background: var(--med-alert);'>[WORN ALWAYS & ON DEPARTURE]</span> Floaters for constant hostel use and heavy rain conditions.",
       details: "Status: On Person / Base Layer when packed.",
       buyLinks: []
+    },
+    {
+      id: "saf-6", title: "MacBook Air M2", spec: "16GB RAM / 256GB Storage",
+      images: ["https://inspireonline.in/cdn/shop/files/MacBook_Air_13_in_Midnight_PDP_Image_Position-3_caEN.jpg?v=1730310961&width=2890"],
+      desc: "Main laptop. Stays in the Safari Basecamp bag, not the daily carry — pull it out only when you're actually settled somewhere to work.",
+      details: "Chip: Apple M2 | RAM: 16GB | Storage: 256GB",
+      buyLinks: []
+    },
+    {
+      id: "saf-7", title: "Decathlon MT50 Poncho", spec: "Pale Blue Rain Shield",
+      images: ["https://contents.mediadecathlon.com/p2393309/966d9acbce8e559977cf3c42ce6b3177/p2393309.jpg"],
+      desc: "Moved over from the daypack. Fold flat and store near the top of the bag for quick access on rainy days.",
+      details: "Fit: Adult | Waterproof full-body coverage.",
+      buyLinks: []
+    },
+    {
+      id: "saf-8", title: "Umbrella Poncho", spec: "Combo Rain Cover",
+      images: [],
+      desc: "Backup rain layer alongside the MT50 poncho — monsoon season means you want more than one option.",
+      details: "Type: Poncho-style rain cover.",
+      buyLinks: []
     }
   ];
 
@@ -1487,10 +1298,10 @@
       buyLinks: []
     },
     {
-      id: "dec-1", title: "Decathlon 15L Messenger", spec: "Tactical EDC Rig",
-      images: ["https://contents.mediadecathlon.com/p2832586/e79587e1de3b48e67f3fc3f55cd6911a/p2832586.jpg"],
-      desc: "Carries all daily essentials. DO NOT leave this bag unattended.",
-      details: "Brand: Decathlon | Capacity: 15L | Form: Compact Messenger.",
+      id: "dec-1", title: "Safari Daypack Backpack 15L", spec: "Tactical EDC Rig",
+      images: [],
+      desc: "Carries all daily essentials. Replaces the old Decathlon 15L Messenger. DO NOT leave this bag unattended.",
+      details: "Brand: Safari | Capacity: 15L | Form: Daypack.",
       buyLinks: []
     },
     {
@@ -1498,13 +1309,6 @@
       images: ["https://www.androidcrunch.com/wp-content/uploads/2024/07/Nothing-Phone-2a-Plus-back.webp"],
       desc: "Houses your Jio SIM, digital tickets, and emergency contacts. Keep in front pocket.",
       details: "SoC: Dimensity 7350 Pro | OS: Nothing OS | Battery: 5000mAh.",
-      buyLinks: []
-    },
-    {
-      id: "dec-3", title: "Samsung Galaxy Tab A9 Plus 5G", spec: "Offline Media Hub",
-      images: ["https://images.samsung.com/is/image/samsung/p6pim/levant/sm-x216bzaemea/gallery/levant-galaxy-tab-a9-plus-sm-x216-sm-x216bzaemea-538913272?$Q90_2052_1641_JPG$"],
-      desc: "Pack flat against the back panel for structural support.",
-      details: "Connectivity: 5G | Screen: 11 inch | Charging: Type C.",
       buyLinks: []
     },
     {
@@ -1543,10 +1347,41 @@
       buyLinks: []
     },
     {
-      id: "dec-11", title: "Apple 30W USB C Power Adapter", spec: "Hostel & Transit Charger",
-      images: ["https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MY1W2_AV1_GEO_IN?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=V1FVeXE1ZitZSDBabVJIcnVidEN4VjVBVDNHMHRvbHZSTXg1bWpNejhNRkN3clhsWDdSemNGZnFnN09SWWVTT1hucWFGNXAzNm8zV0g1MDRYaFprVDgxc0ExbHFzL2RCU3pwUVp6b2l1czQ"],
-      desc: "High speed charging block. Kept in the Decathlon rig for emergency quick charges.",
-      details: "Wattage: 30W | Port: USB C | Format: Indian Plug.",
+      id: "dec-marshall", title: "Marshall Milton ANC", spec: "Over-Ear Wireless ANC Headphones",
+      images: ["https://images.ctfassets.net/javen7msabdh/15dV36hVmwdjn4g15QQXh9/5d3c40f3dad73752b5784567ffa8a814/milton-anc_pdp_gallery_desktop_01_2x.jpg?w=2880&fm=avif&q=100"],
+      desc: "Long-haul comfort pick for the overnight zingbus ride and quiet evenings at the hostel.",
+      details: "Type: Over-Ear Wireless | Feature: Active Noise Cancellation",
+      buyLinks: []
+    },
+    {
+      id: "dec-psp", title: "Sony PSP 3000 & Case", spec: "Retro Handheld Gaming",
+      images: [
+        "https://m.media-amazon.com/images/I/615gWr9r13L._SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/41czNHD99GL._SL1024_.jpg"
+      ],
+      desc: "PSP 3000 in case, with games loaded and saves. Running Homebrew/CFW. Confirmed for this trip.",
+      details: "Pros: Offline entertainment for downtime between duty hours. Cons: Extra weight, another battery to manage.",
+      buyLinks: []
+    },
+    {
+      id: "dec-psp-cable", title: "PSP Charging Cable", spec: "Proprietary Power",
+      images: ["https://m.media-amazon.com/images/I/61fTYT1o3xL._SL1500_.jpg"],
+      desc: "Required to keep the PSP alive alongside it.",
+      details: "Connection: USB to DC Barrel Jack.",
+      buyLinks: []
+    },
+    {
+      id: "dec-11", title: "Xiaomi 45W Mini GaN Charger", spec: "Hostel & Transit Charger",
+      images: ["https://i03.appmifile.com/75_item_in/09/02/2026/7d1ebdef99348f9309e89f29dd265514.png?thumb=1&f=webp&q=85"],
+      desc: "Compact high-speed charging block. Replaces the old Apple 30W adapter. Kept in the daypack for emergency quick charges.",
+      details: "Wattage: 45W | Port: USB C | Format: Indian Plug | Type: Mini GaN.",
+      buyLinks: []
+    },
+    {
+      id: "dec-umbrella", title: "Umbrella", spec: "Compact Rain Cover",
+      images: [],
+      desc: "Lives in the daypack for daily carry — the poncho and umbrella poncho stay back in the Safari basecamp bag.",
+      details: "Type: Compact folding umbrella.",
       buyLinks: []
     },
     {
@@ -1602,55 +1437,10 @@
       buyLinks: []
     },
     {
-      id: "dec-8", title: "Anker Zolo Powerbank", spec: "10,000mAh 30W Fast Charging",
-      images: ["https://m.media-amazon.com/images/I/610a0PBoWIL._SL1500_.jpg"],
-      desc: "Pack at the very bottom of the bag for weight distribution.",
-      details: "Capacity: 10,000mAh | Output: 30W USB C PD | Ports: Type C In/Out.",
-      buyLinks: []
-    },
-    {
-      id: "dec-9", title: "Decathlon MT50 Poncho", spec: "Pale Blue Rain Shield",
-      images: ["https://contents.mediadecathlon.com/p2393309/966d9acbce8e559977cf3c42ce6b3177/p2393309.jpg"],
-      desc: "Fold flat and slide between the flasks to prevent rattling.",
-      details: "Fit: Adult | Capacity covering: 0 10L bag | Waterproof.",
-      buyLinks: []
-    }
-  ];
-
-  // DATA FOR "STILL DEBATING" PANEL
-  const dataDebating = [
-    {
-      id: "deb1", title: "<span style='color: var(--ink-muted); font-family: monospace; text-decoration: line-through; text-decoration-color: var(--med-alert);'>Sony PSP 3000 & Case</span> <span style='color: var(--med-alert); font-size: 0.85em;'>[DECIDED NOT TAKING]</span>", spec: "Retro Handheld Gaming", priority: false,
-      images: [
-        "https://m.media-amazon.com/images/I/615gWr9r13L._SL1500_.jpg",
-        "https://m.media-amazon.com/images/I/41czNHD99GL._SL1024_.jpg"
-      ],
-      desc: "PSP 3000 in case, with games loaded and saves. Running Homebrew/CFW. Battery is decent. <br><br><strong style='color: var(--med-alert);'>Once again why doesnt your adhd ass understand we are not going to take it, not even the r36s.</strong>",
-      details: "Pros: Incredible nostalgia, offline entertainment. Cons: Extra weight, another battery to manage.",
-      buyLinks: []
-    },
-    {
-      id: "deb2", title: "<span style='color: var(--ink-muted); font-family: monospace; text-decoration: line-through; text-decoration-color: var(--med-alert);'>PSP Charging Cable</span> <span style='color: var(--med-alert); font-size: 0.85em;'>[DECIDED NOT TAKING]</span>", spec: "Proprietary Power", priority: false,
-      images: ["https://m.media-amazon.com/images/I/61fTYT1o3xL._SL1500_.jpg"],
-      desc: "Required to keep the PSP alive. <br><br><strong style='color: var(--med-alert);'>Once again why doesnt your adhd ass understand we are not going to take this useless wire.</strong>",
-      details: "Connection: USB to DC Barrel Jack.",
-      buyLinks: []
-    },
-    {
-      id: "deb3", title: "<span style='color: var(--ink-muted); font-family: monospace; text-decoration: line-through; text-decoration-color: var(--med-alert);'>Apple 5W USB Adapter</span> <span style='color: var(--med-alert); font-size: 0.85em;'>[DECIDED NOT TAKING]</span>", spec: "USA Plug", priority: false,
-      images: ["https://www.bhphotovideo.com/cdn-cgi/image/fit=scale-down,width=500,quality=95/https://www.bhphotovideo.com/images/images500x500/Apple_MB352LL_C_USB_Power_Adapter_for_1313670960_817574.jpg"],
-      desc: "Low wattage charging block, ideal for not frying the older PSP battery. Requires an Indian plug converter. <br><br><strong style='color: var(--med-alert);'>Once again why doesnt your adhd ass understand we are not going to take this weak plug.</strong>",
-      details: "Output: 5W / 1A. Plug: US Type A.",
-      buyLinks: []
-    },
-    {
-      id: "deb4", title: "Sennheiser HD 400s", spec: "Over Ear Wired Headphones", priority: false,
-      images: [
-        "https://rukminim2.flixcart.com/image/2940/2940/jt4olu80/headphone/c/h/r/sennheiser-hd-400s-original-imafejykscgbvxzq.jpeg?q=90",
-        "https://rukminim2.flixcart.com/image/2940/2940/jt4olu80/headphone/c/h/r/sennheiser-hd-400s-original-imafejyj2ruauy7f.jpeg?q=90"
-      ],
-      desc: "Wired over ear headphones for focused audio sessions.",
-      details: "Pros: Comfort and great soundstage. Cons: Takes up more bag space than IEMs.",
+      id: "dec-8", title: "Anker Power Bank (20K, 87W)", spec: "Built-In USB-C Cable",
+      images: ["https://cdn.shopify.com/s/files/1/0493/9834/9974/files/A1383011-F0_A1383H11_Product_Image.png?v=1773225296&width=1600"],
+      desc: "Pack at the very bottom of the bag for weight distribution. Strong enough to fully charge the MacBook Air once if needed.",
+      details: "Capacity: 20,000mAh | Output: 87W USB-C PD | Built-in USB-C cable.",
       buyLinks: []
     }
   ];
@@ -1725,7 +1515,6 @@
 
   renderArsenal('arsenal-safari', dataSafari);
   renderArsenal('arsenal-decathlon', dataDecathlon);
-  renderArsenal('arsenal-debating', dataDebating);
 
 </script>
 </body>
