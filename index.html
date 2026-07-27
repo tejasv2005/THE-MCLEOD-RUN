@@ -171,6 +171,25 @@
   .product-details .specs-list { font-family: 'Fira Code'; font-size: 0.85rem; background: var(--surface); padding: 10px; border: 1px solid #ccc; margin-bottom: 15px; }
   .buy-links-container { display: flex; flex-wrap: wrap; gap: 10px; }
 
+  /* FAVORITE / MOST-USED GEAR HIGHLIGHT (distinct from red medical priority) */
+  .fav-item { border: 4px solid var(--gold); box-shadow: 6px 6px 0px rgba(201,168,76,0.35); }
+  .fav-item .arsenal-header { background: rgba(201,168,76,0.08); }
+  .fav-item .title { color: #8a6d1f; font-weight: bold; }
+  .fav-item .title::after { content: " ★"; color: var(--gold); }
+  .fav-item .custom-checkbox { border-color: var(--gold); }
+  .fav-item .custom-checkbox:checked { background: var(--gold); border-color: var(--gold); }
+
+  /* WEATHER CARDS */
+  .wx-day-label { font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--tactical-green); font-weight: bold; margin: 16px 0 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .wx-day-label:first-child { margin-top: 4px; }
+  .wx-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .weather-card { display: block; background: #f9f9f9; padding: 10px; border: 1px solid #ddd; text-align: center; text-decoration: none !important; color: var(--ink-main); transition: all 0.25s var(--lux-ease); }
+  .weather-card:hover { background: #fff; border-color: var(--safety-orange); transform: translateY(-3px); box-shadow: 3px 3px 0 rgba(0,0,0,0.12); }
+  .weather-card .wx-loc { font-family: 'Fira Code', monospace; font-size: 0.68rem; color: #888; letter-spacing: 0.5px; }
+  .weather-card .wx-temp { font-family: 'Oswald', sans-serif; font-size: 1.15rem; margin: 2px 0; }
+  .weather-card .wx-cond { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--safety-orange); line-height: 1.3; }
+  .weather-card .wx-rain { font-family: 'Fira Code', monospace; font-size: 0.68rem; color: var(--ink-muted); margin-top: 2px; }
+
   /* NOTIFICATION MEDIA PLAYER */
   .media-player-widget {
     position: fixed; bottom: 20px; right: 20px; width: 380px; /* Widened for desktop text fit */
@@ -623,6 +642,7 @@
     <button class="nav-btn" onclick="activatePanel('panel-logistics')"><span>04. LOGISTICS & COMMS</span></button>
     <button class="nav-btn" onclick="activatePanel('panel-finances')"><span>05. FINANCES</span></button>
     <button class="nav-btn" onclick="activatePanel('panel-itinerary')"><span>06. THE ITINERARY</span></button>
+    <button class="nav-btn" onclick="activatePanel('panel-volunteer')"><span>07. VOLUNTEER PLAYBOOK</span></button>
   </nav>
 
   <div id="panel-home" class="panel active">
@@ -678,7 +698,7 @@
     <div class="sop-body" id="sop-safari">
       <div class="sop-step">
         <h4><span class="badge">STEP 1</span> The Base Layer (Heavy/Shoes)</h4>
-        <p>Place your Bata Laceless shoes and Campus floaters at the very bottom of the bag. This grounds the weight and protects the bottom of your backpack.</p>
+        <p>Place your Woodland Casual Lace-Ups and Miniso Clogs (white) at the very bottom of the bag. This grounds the weight and protects the bottom of your backpack.</p>
       </div>
       <div class="sop-step">
         <h4><span class="badge">STEP 2</span> The Ranger Roll (Clothing)</h4>
@@ -713,7 +733,7 @@
       </div>
       <div class="sop-step">
         <h4><span class="badge">STEP 2</span> Sustainment Pillars</h4>
-        <p>Stand the Borosil Coffeemate (Black) and Borosil Nova (Blue) vertically on the left and right interior edges of the main compartment. Slide the folded umbrella between them.</p>
+        <p>Stand the <strong style="color: var(--gold);">Borosil Hydra (Black) and Borosil Nova (Blue)</strong> vertically on the left and right interior edges of the main compartment. Slide the folded umbrella between them.</p>
       </div>
       <div class="sop-step">
         <h4><span class="badge">STEP 3</span> Nutrition & Literature</h4>
@@ -721,7 +741,7 @@
       </div>
       <div class="sop-step">
         <h4><span class="badge">STEP 4</span> Front Quick Access (Critical)</h4>
-        <p>Load the exterior front pockets with the items you need immediately: Morning/Evening Meds (PRIORITY CHECK), ID, Cash, Nothing Phone 2a, OnePlus Buds, Sennheiser IE 200, DAC, Snowsky Echo Mini, and the Marshall Milton ANC headphones.</p>
+        <p>Load the exterior front pockets with the items you need immediately: Morning/Evening Meds (PRIORITY CHECK), ID, Cash, Nothing Phone 2a, <strong style="color: var(--gold);">OnePlus Buds 2 Pro</strong>, Sennheiser IE 200, DAC, Snowsky Echo Mini, and the <strong style="color: var(--gold);">Marshall Milton ANC</strong> headphones — your daily-driver audio, so keep them easiest to reach.</p>
       </div>
     </div>
 
@@ -841,48 +861,164 @@
       <div class="logistics-box">
         <div class="logistics-header">
           <span style="font-size: 1.6rem;">⛈️</span>
-          <h3>WEATHER BRIEFING: RISHIKESH (MONSOON)</h3>
+          <h3>WEATHER BRIEFING: TRANSIT & RISHIKESH (MONSOON)</h3>
         </div>
-        <p style="margin-bottom: 10px;">It's peak monsoon season for the full window you're there. Expect warm, humid days with a real chance of rain most afternoons — pack the poncho and umbrella accordingly.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 10px;">
-          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
-            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">WED 29 JUL</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">28-31°C</div>
-            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">65% Rain</div>
-          </div>
-          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
-            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">THU 30 JUL</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">25-29°C</div>
-            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">75% Rain</div>
-          </div>
-          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
-            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">FRI 31 JUL</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">25-30°C</div>
-            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">50% Rain</div>
-          </div>
-          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center;">
-            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">SAT 01 AUG</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">25-31°C</div>
-            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">40% Rain</div>
-          </div>
-          <div style="background:#f9f9f9; padding:10px; border:1px solid #ddd; text-align:center; opacity:0.7;">
-            <div style="font-family:'Fira Code',monospace; font-size:0.7rem; color:#888;">02-05 AUG</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:1.1rem;">~25-31°C</div>
-            <div style="font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--safety-orange);">Monsoon (est.)</div>
-          </div>
+        <p style="margin-bottom: 10px;">Peak monsoon for the entire window. Expect warm, humid days with a real chance of a thunderstorm or heavy downpour most afternoons — pack the poncho and umbrella accordingly. <strong>Tap any card below to jump to that spot's live AccuWeather page</strong> for the latest update.</p>
+
+        <div class="wx-day-label">Wed 29 Jul — Departure Day</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/anand-vihar/3588482/daily-weather-forecast/3588482" target="_blank" rel="noopener">
+            <div class="wx-loc">ANAND VIHAR</div>
+            <div class="wx-temp">33° / 27°C</div>
+            <div class="wx-cond">⛈️ Evening thunderstorm likely</div>
+            <div class="wx-rain">~65% rain chance</div>
+          </a>
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">31° / 24°C</div>
+            <div class="wx-cond">🌧️ Rain periods, humid</div>
+            <div class="wx-rain">~65% rain chance</div>
+          </a>
         </div>
-        <p style="font-size: 0.82rem; color: var(--ink-muted); margin-top: 10px;">Forecast pulled a few days out; the last stretch (02-05 Aug) is beyond reliable forecast range and shown as a monsoon-season estimate. Re-check closer to those dates.</p>
+
+        <div class="wx-day-label">Thu 30 Jul</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">29° / 25°C</div>
+            <div class="wx-cond">⛈️ Thunderstorms, heavy at times</div>
+            <div class="wx-rain">~75% rain chance</div>
+          </a>
+        </div>
+
+        <div class="wx-day-label">Fri 31 Jul</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">30° / 25°C</div>
+            <div class="wx-cond">🌦️ Scattered showers</div>
+            <div class="wx-rain">~50% rain chance</div>
+          </a>
+        </div>
+
+        <div class="wx-day-label">Sat 01 Aug</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">31° / 25°C</div>
+            <div class="wx-cond">🌤️ Some sun, isolated shower</div>
+            <div class="wx-rain">~40% rain chance</div>
+          </a>
+        </div>
+
+        <div class="wx-day-label">Sun 02 Aug</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">31° / 25°C</div>
+            <div class="wx-cond">🌦️ Humid, afternoon showers</div>
+            <div class="wx-rain">~45% rain chance (est.)</div>
+          </a>
+        </div>
+
+        <div class="wx-day-label">Mon 03 Aug</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">30° / 25°C</div>
+            <div class="wx-cond">⛈️ Thunderstorm risk returns</div>
+            <div class="wx-rain">~55% rain chance (est.)</div>
+          </a>
+        </div>
+
+        <div class="wx-day-label">Tue 04 Aug — Wrap-Up Day</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">30° / 25°C</div>
+            <div class="wx-cond">🌦️ Rain likely, no severe signal</div>
+            <div class="wx-rain">~50% rain chance (est.)</div>
+          </a>
+        </div>
+
+        <div class="wx-day-label">Wed 05 Aug — Checkout & Return via Delhi</div>
+        <div class="wx-row">
+          <a class="weather-card" href="https://www.accuweather.com/en/in/rishikesh/191356/daily-weather-forecast/191356" target="_blank" rel="noopener">
+            <div class="wx-loc">RISHIKESH</div>
+            <div class="wx-temp">31° / 25°C</div>
+            <div class="wx-cond">🌦️ Morning showers taper</div>
+            <div class="wx-rain">~45% rain chance (est.)</div>
+          </a>
+          <a class="weather-card" href="https://www.accuweather.com/en/in/faridabad/202446/daily-weather-forecast/202446" target="_blank" rel="noopener">
+            <div class="wx-loc">FARIDABAD</div>
+            <div class="wx-temp">35° / 27°C</div>
+            <div class="wx-cond">⛈️ Evening thunderstorm risk</div>
+            <div class="wx-rain">~50% rain chance (est.)</div>
+          </a>
+          <a class="weather-card" href="https://www.accuweather.com/en/in/kashmiri-gate/3588483/daily-weather-forecast/3588483" target="_blank" rel="noopener">
+            <div class="wx-loc">KASHMIRI GATE</div>
+            <div class="wx-temp">35° / 26°C</div>
+            <div class="wx-cond">🌥️ Hazy, humid, patchy rain</div>
+            <div class="wx-rain">~40% rain chance (est.)</div>
+          </a>
+        </div>
+
+        <p style="font-size: 0.82rem; color: var(--ink-muted); margin-top: 14px;">Numbers above are a monsoon-season working estimate pulled from current AccuWeather trends — days marked "(est.)" sit near or past the edge of a reliable forecast window as of today (28 Jul). Delhi/NCR readings (Anand Vihar, Faridabad, Kashmiri Gate) run hotter and more humid than the hill-town readings for Rishikesh — don't pack for the same climate on both ends. Tap through and re-check each card 1-2 days before you actually travel for the live numbers.</p>
       </div>
     </div>
   </div>
 
   <div id="panel-finances" class="panel">
-    <div class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--med-alert); text-align:center; padding: 60px 30px;">
-      <div style="font-size: 3.5rem; margin-bottom: 15px;">🔒</div>
-      <h2 style="color: var(--med-alert); letter-spacing: 3px;">ACCESS DENIED</h2>
-      <p style="font-family: 'Fira Code', monospace; color: rgba(245,245,240,0.6); font-size: 0.95rem; max-width: 480px; margin: 15px auto 0;">
-        CLEARANCE INSUFFICIENT // THIS SECTION HAS BEEN RESTRICTED.
-      </p>
+    <div class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--tactical-green);">
+      <h2 style="color: var(--surface);">DEPLOYMENT BUDGET</h2>
+      <p style="font-family: 'Fira Code'; color: rgba(245,245,240,0.7); font-size: 0.95rem;">Carry a mix of digital + physical cash. Keep the backup reserve separate from the main wallet at all times.</p>
+    </div>
+
+    <div class="data-card">
+      <div class="grid-2col">
+        <div class="logistics-box" style="border-left: 4px solid var(--tactical-green);">
+          <div class="logistics-header" style="border-bottom: none; margin-bottom: 4px;">
+            <span style="font-size: 1.4rem;">💰</span>
+            <h3>MAIN BUDGET</h3>
+          </div>
+          <p style="font-family:'Oswald',sans-serif; font-size: 2rem; margin: 6px 0;">₹3,800</p>
+          <p style="font-size: 0.85rem; color: var(--ink-muted);">Primary spend for the trip — food, local transport, goLOCAL Experiences, incidentals.</p>
+        </div>
+
+        <div class="logistics-box" style="border-left: 4px solid var(--safety-orange);">
+          <div class="logistics-header" style="border-bottom: none; margin-bottom: 4px;">
+            <span style="font-size: 1.4rem;">🎒</span>
+            <h3>BACKUP RESERVE</h3>
+          </div>
+          <p style="font-family:'Oswald',sans-serif; font-size: 2rem; margin: 6px 0;">₹1,250</p>
+          <p style="font-size: 0.85rem; color: var(--ink-muted);">Kept separate from the main wallet — only touched if the main budget runs short.</p>
+        </div>
+
+        <div class="logistics-box" style="border-left: 4px solid var(--med-alert);">
+          <div class="logistics-header" style="border-bottom: none; margin-bottom: 4px;">
+            <span style="font-size: 1.4rem;">🚨</span>
+            <h3>EMERGENCY CASH</h3>
+          </div>
+          <p style="font-family:'Oswald',sans-serif; font-size: 2rem; margin: 6px 0;">₹500</p>
+          <p style="font-size: 0.85rem; color: var(--ink-muted);">Untouched unless it's a genuine emergency. Stash separately from daily spending cash.</p>
+        </div>
+
+        <div class="logistics-box" style="border-left: 4px solid var(--gold);">
+          <div class="logistics-header" style="border-bottom: none; margin-bottom: 4px;">
+            <span style="font-size: 1.4rem;">💵</span>
+            <h3>CASH ON HAND (APPROX)</h3>
+          </div>
+          <p style="font-family:'Oswald',sans-serif; font-size: 2rem; margin: 6px 0;">₹500 – ₹600</p>
+          <p style="font-size: 0.85rem; color: var(--ink-muted);">Loose physical cash for day-to-day use — chai, small vendors, places that don't take UPI.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:14px; border-top: 2px dashed #ccc; padding-top:12px;">
+        <div style="font-family:'Oswald',sans-serif; font-size:1rem; margin-bottom:8px; color:var(--tactical-green);">TOTAL CARRIED</div>
+        <div style="font-family:'Fira Code',monospace; font-size:0.95rem; display:flex; justify-content:space-between; font-weight:bold;">
+          <span>MAIN + BACKUP + EMERGENCY</span><span>₹5,550</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -930,6 +1066,76 @@
     </div>
   </div>
 
+  <div id="panel-volunteer" class="panel">
+    <div class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--tactical-green);">
+      <h2 style="color: var(--surface);">VOLUNTEER PLAYBOOK</h2>
+      <p style="font-family: 'Fira Code'; color: rgba(245,245,240,0.7); font-size: 0.95rem;">goSTOPS Rishikesh, Lakshman Jhula — no assumed prerequisites, no extra equipment. Everything below runs on what's already in the hostel.</p>
+    </div>
+
+    <div class="data-card">
+      <h3 style="color: var(--tactical-green); font-size: 1.4rem; margin-bottom: 12px;">🎯 PROMOTING PROPERTY BOOKINGS & goLOCAL EXPERIENCES</h3>
+      <p style="margin-bottom: 14px;">goSTOPS runs its own version of tour packages under <strong>goLOCAL Experiences</strong> (part of the goEXPERIENCES program) — third-party-vetted activities like the Kunjapuri sunrise trek, Vashisht Cave tour, rafting, and food/heritage walks, bookable through the property or the goSTOPS app's community space, <strong>Caravan</strong>. As a volunteer, the pitch isn't "sell rooms" — it's making guests who are already here book the next thing and tell their friends. A few ways in:</p>
+      <ul style="padding-left: 20px;">
+        <li style="margin-bottom: 10px;"><strong>Common-area concierge hour:</strong> a low-key evening slot where you sit in the common area with the goLOCAL board/menu and talk guests through it over chai — peer recommendation converts far better than a poster on the wall.</li>
+        <li style="margin-bottom: 10px;"><strong>Group-up whiteboard:</strong> a hand-written "who's doing what tomorrow" board near reception so solo travelers self-organize into the same sunrise-trek or rafting slot — bigger groups make the upsell easier and cost the hostel nothing.</li>
+        <li style="margin-bottom: 10px;"><strong>Guest reel capture:</strong> a 10-second phone-camera testimonial right after check-in or after a goLOCAL activity, edited same evening and handed to the property's social/marketing volunteer or posted to Caravan — real footage beats stock photos.</li>
+        <li><strong>Farewell story wall:</strong> handwritten notes from checking-out guests about their favourite experience, pinned near reception — social proof for the next arrival, and a nice keepsake wall for the property itself.</li>
+      </ul>
+    </div>
+
+    <div class="data-card">
+      <h3 style="color: var(--safety-orange); font-size: 1.4rem; margin-bottom: 6px;">🎲 DAILY ENTERTAINMENT ROSTER — MIDDAY & EVENING (TILL 10 PM)</h3>
+      <p style="margin-bottom: 14px;">2-3 options per slot per day, so there's always a backup if the first idea doesn't land. Built for a mixed room — solo backpackers, families, and the more well-read/well-off crowd alike — using only the common area, rooftop, yoga space, games room, and whatever's already lying around.</p>
+
+      <div class="itinerary-day">
+        <h3>VOLUNTEER DAY 1 — THU 30 JUL</h3>
+        <ul>
+          <li><strong>Midday:</strong> "Desk Job Roulette" — guests write one odd skill on a chit, shuffle, redistribute, and guess who wrote what over lunch. <em>Backup:</em> an impromptu rooftop tea-tasting flight using the café's existing chai/coffee menu, with you narrating a story per cup.</li>
+          <li><strong>Evening:</strong> Piggyback on the hostel's existing movie/sports night with a 10-minute "guess the film from 3 emojis" warm-up round. <em>Backup:</em> a self-seeded billiards/pool-table knockout ladder on the whiteboard — scales from 4 to 40 people.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>VOLUNTEER DAY 2 — FRI 31 JUL</h3>
+        <ul>
+          <li><strong>Midday:</strong> "Postcard You'll Never Send" — spare paper, guests write to their past/future self, a few read anonymously later. <em>Backup:</em> a 10-minute guided breathing/stretch session in the existing yoga space, no instructor required.</li>
+          <li><strong>Evening:</strong> goLOCAL pitch session over chai (ties directly into the promotion ideas above). <em>Backup:</em> board-game speed-swap — tables rotate games from the existing games-room stock every 15 minutes.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>VOLUNTEER DAY 3 — SAT 01 AUG</h3>
+        <ul>
+          <li><strong>Midday:</strong> A 20-minute Ganga ghat walk with one real question per person ("best decision you made this year") to spark conversation among strangers. <em>Backup:</em> common-area trivia — Rishikesh/Himalaya/Beatles Ashram facts, written up in the Classmate notebook, zero internet needed.</li>
+          <li><strong>Evening:</strong> Live-jamming night (already scheduled) with you MC-ing a 2-song "audience requests only" segment to pull in non-musicians. <em>Backup:</em> a Silent Reading Party — everyone reads whatever they've got (or borrows from the hostel shelf) for 30 minutes, then a 10-minute share-out — a hit with the quieter, well-read crowd.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>VOLUNTEER DAY 4 — SUN 02 AUG</h3>
+        <ul>
+          <li><strong>Midday:</strong> A "watch me get this wrong" cook-along with the café staff (chai or a simple snack) that guests can join. <em>Backup:</em> a photo scavenger hunt confined entirely to hostel property — rooftop, courtyard, signage — so it works for every fitness level.</li>
+          <li><strong>Evening:</strong> Sports night (existing) plus a low-stakes "hostel Olympics" round — arm wrestling, paper-plane distance throw, one-leg balance. <em>Backup:</em> "Debate Club Lite" — a harmless topic like "is a hot dog a sandwich", two random guests argue it for 3 minutes each — scales well for the sharper, more argumentative crowd without alienating anyone else.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>VOLUNTEER DAY 5 — MON 03 AUG</h3>
+        <ul>
+          <li><strong>Midday:</strong> An informal sun-salutation/stretch session in the yoga space, framed as a "pre-lunch reset." <em>Backup:</em> a quiet rooftop journaling hour, using your own notebook as the visual prompt — good for solo travelers who'd rather not join a group activity.</li>
+          <li><strong>Evening:</strong> Movie night (existing) with a "predict the ending" side bet on paper before the film starts. <em>Backup:</em> an "Ask a Local(ish)" open Q&A where you and any long-stay guests field newcomers' questions about Rishikesh — genuinely useful and good goodwill for the property.</li>
+        </ul>
+      </div>
+
+      <div class="itinerary-day">
+        <h3>VOLUNTEER DAY 6 — TUE 04 AUG (WRAP-UP)</h3>
+        <ul>
+          <li><strong>Midday:</strong> A "pack-and-swap" table where departing guests leave unwanted-but-useful items (chargers, snacks, guidebooks) for others. <em>Backup:</em> the rooftop farewell photo/note wall from the promotion section above.</li>
+          <li><strong>Evening:</strong> Lights-dimmed "campfire stories" in the common area — no fire needed, just chairs and one real travel story per person. <em>Backup:</em> an acoustic sing-along using whatever guests can hum or remember the words to — no mic or backing track required.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
 </div>
 
@@ -949,6 +1155,7 @@
     <a onclick="activatePanel('panel-logistics')">Logistics</a> |
     <a onclick="activatePanel('panel-finances')">Finances</a> |
     <a onclick="activatePanel('panel-itinerary')">Itinerary</a> |
+    <a onclick="activatePanel('panel-volunteer')">Volunteer Playbook</a> |
     <a href="mailto:tsopory@gmail.com?subject=Message from RISHIKESH DEPLOYMENT webpage&body=Hi,%0A%0AI'm reaching out from the RISHIKESH DEPLOYMENT webpage.%0A%0A">Contact Us</a>
   </div>
   <div class="footer-branding">MADE BY JAKE FOR JAKE</div>
@@ -1236,23 +1443,29 @@
       buyLinks: []
     },
     {
-      id: "saf-3", title: "Main Clothing Matrix", spec: "6 Day Outerwear & Undergarments",
+      id: "saf-3", title: "Main Clothing Matrix", spec: "8 Day Outerwear & Undergarments",
       images: ["https://images.unsplash.com/photo-1544441893-675973e31985?w=400&q=80"], 
-      desc: "<strong>What to pack:</strong> 5x Quick dry t shirts, 2x Lightweight trekking pants, 1x Fleece/Light Jacket, 7x Antimicrobial underwear/socks, 1x Sleep shorts.<br><br><strong>Why:</strong> Quick dry materials are essential as there will be no laundry facilities used during the 6 Day deployment.",
+      desc: "<strong>What to pack:</strong> 5-6x Quick dry t-shirts & shirts, 3x Shorts/knickers, 5-6x Underwear, 5-6x Undershirts (vests), 2-3x Cut-sleeve t-shirts, 1x Pajama, 2-3x Pairs of socks.<br><br><strong>Why:</strong> Quick dry materials are essential as there will be no laundry facilities used during the deployment.",
       details: "Method: Army Ranger Roll (Pack tightly as vertical logs for visual access).",
       buyLinks: []
     },
     {
-      id: "saf-4", title: "Bata Men's Laceless", spec: "Transit Footwear",
-      images: ["https://g.sdlcdn.com/imgs/k/w/j/Bata-Blue-Men-s-Sports-SDL550170051-1-fc94b.jpg"],
-      desc: "Bata slip ons for transit and dry walks. Packed flat at the base of the bag.",
+      id: "saf-4", title: "Woodland Casual Lace-Up", spec: "Transit Footwear",
+      images: [],
+      desc: "Woodland lace-ups for transit and dry walks — same wearing pattern as before (Bata slot). Packed flat at the base of the bag.",
       details: "Layer: Bottom Base Layer | Protects bag structure.",
-      buyLinks: []
+      buyLinks: [
+        { text: "VIEW ON WOODLAND", link: "https://www.woodlandworldwide.com/collections/men/casuals_lace_up" },
+        { text: "SEARCH ON AMAZON", link: "https://www.amazon.in/s?k=woodland+casual+lace+up+shoes+men" }
+      ]
     },
     {
-      id: "saf-5", title: "Campus Floaters", spec: "Hostel & Monsoon Footwear",
-      images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0PZqJagvlg-_LqfHjEnOE8osvkZu644jc7A&s"],
-      desc: "<span class='highlight' style='background: var(--med-alert);'>[WORN ALWAYS & ON DEPARTURE]</span> Floaters for constant hostel use and heavy rain conditions.",
+      id: "saf-5", title: "Miniso Clogs (White)", spec: "Hostel & Monsoon Footwear — Miniso's Crocs-style Clogs",
+      images: [
+        "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT7TfadX05mNNX1Py900pFPurzNF01mtvbwmLGqG5z9NA8tuIOjULR-q8qDjv7tIXko9bJhZqRj4q3MqpjzVqHhyAvDePGIEGQEEXb0cZba0hXgbpyAas3gKQ",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIjmc5w0w50lkDy6_hLTCdX77d6NKKvQyH3mMM2iOwu7fTJvqaaSzV4bA&s=10"
+      ],
+      desc: "<span class='highlight' style='background: var(--med-alert);'>[WORN ALWAYS & ON DEPARTURE]</span> White clogs for constant hostel use and heavy rain conditions — Miniso's own version of the Crocs-style clog.",
       details: "Status: On Person / Base Layer when packed.",
       buyLinks: []
     },
@@ -1268,13 +1481,6 @@
       images: ["https://contents.mediadecathlon.com/p2393309/966d9acbce8e559977cf3c42ce6b3177/p2393309.jpg"],
       desc: "Moved over from the daypack. Fold flat and store near the top of the bag for quick access on rainy days.",
       details: "Fit: Adult | Waterproof full-body coverage.",
-      buyLinks: []
-    },
-    {
-      id: "saf-8", title: "Umbrella Poncho", spec: "Combo Rain Cover",
-      images: [],
-      desc: "Backup rain layer alongside the MT50 poncho — monsoon season means you want more than one option.",
-      details: "Type: Poncho-style rain cover.",
       buyLinks: []
     }
   ];
@@ -1312,7 +1518,7 @@
       buyLinks: []
     },
     {
-      id: "dec-4", title: "OnePlus Buds 2 Pro", spec: "Wireless Audio / ANC",
+      id: "dec-4", title: "OnePlus Buds 2 Pro", spec: "Wireless Audio / ANC", freq: true,
       images: ["https://img.tatacliq.com/images/i11/437Wx649H/MP000000017613597_437Wx649H_202305191657424.jpeg"],
       desc: "Primary wireless audio for bus rides and noise cancellation.",
       details: "ANC: Up to 48dB | Audio: Spatial Audio Support | Format: TWS.",
@@ -1347,7 +1553,7 @@
       buyLinks: []
     },
     {
-      id: "dec-marshall", title: "Marshall Milton ANC", spec: "Over-Ear Wireless ANC Headphones",
+      id: "dec-marshall", title: "Marshall Milton ANC", spec: "Over-Ear Wireless ANC Headphones", freq: true,
       images: ["https://images.ctfassets.net/javen7msabdh/15dV36hVmwdjn4g15QQXh9/5d3c40f3dad73752b5784567ffa8a814/milton-anc_pdp_gallery_desktop_01_2x.jpg?w=2880&fm=avif&q=100"],
       desc: "Long-haul comfort pick for the overnight zingbus ride and quiet evenings at the hostel.",
       details: "Type: Over-Ear Wireless | Feature: Active Noise Cancellation",
@@ -1371,6 +1577,13 @@
       buyLinks: []
     },
     {
+      id: "dec-notebook", title: "Classmate Long Notebook + Pen & Mechanical Pencil", spec: "Field Journal / Notes",
+      images: ["https://m.media-amazon.com/images/I/71eUzzHnzEL._SL1500_.jpg"],
+      desc: "For volunteer notes, journaling, and jotting down research/book ideas on the go. Keep with the pen and mechanical pencil in the same pocket as the Camus book.",
+      details: "Format: Classmate Long Notebook | Includes: 1x Pen, 1x Mechanical Pencil",
+      buyLinks: [{ text: "RESTOCK ON AMAZON", link: "https://www.amazon.in/s?k=classmate+long+notebook" }]
+    },
+    {
       id: "dec-11", title: "Xiaomi 45W Mini GaN Charger", spec: "Hostel & Transit Charger",
       images: ["https://i03.appmifile.com/75_item_in/09/02/2026/7d1ebdef99348f9309e89f29dd265514.png?thumb=1&f=webp&q=85"],
       desc: "Compact high-speed charging block. Replaces the old Apple 30W adapter. Kept in the daypack for emergency quick charges.",
@@ -1380,9 +1593,16 @@
     {
       id: "dec-umbrella", title: "Umbrella", spec: "Compact Rain Cover",
       images: [],
-      desc: "Lives in the daypack for daily carry — the poncho and umbrella poncho stay back in the Safari basecamp bag.",
+      desc: "Lives in the daypack for daily carry — the MT50 poncho stays back in the Safari basecamp bag.",
       details: "Type: Compact folding umbrella.",
       buyLinks: []
+    },
+    {
+      id: "dec-tote", title: "Decathlon 15L Foldable Tote", spec: "Emergency / Extras Shopping Bag",
+      images: ["https://contents.mediadecathlon.com/p1757608/a8125e8c825ce24150b4399cfc9d5a00/p1757608.jpg"],
+      desc: "Packs flat inside the daypack, unfolds when you need extra carry capacity — overflow shopping, wet clothes, extra snacks, whatever comes up. <br><br><span style='font-size:0.8rem; color: var(--ink-muted); font-style: italic;'>★ Reference image only — actual bag is grey and blue in colour. Same function/use, could be a different model or slightly different from what's pictured.</span>",
+      details: "Capacity: 15L | Form: Foldable Tote / Shopping Bag | Colour: Grey & Blue",
+      buyLinks: [{ text: "VIEW ON DECATHLON", link: "https://www.decathlon.in/" }]
     },
     {
       id: "dec-6", title: "Blue Tokai Easy Pour", spec: "Monsoon Malabar Mixed Bags",
@@ -1390,15 +1610,6 @@
       desc: "Daily ration: 3 to 6 bags a day. Keep in internal mesh pockets.",
       details: "Format: Pour over | Roast: Mixed/Medium | Pack: 10 Bags.",
       buyLinks: [{ text: "RESTOCK BLUE TOKAI", link: "https://bluetokaicoffee.com/products/easy-pour-mixed-box" }]
-    },
-    {
-      id: "dec-6b", title: "Toffee Coffee Roasters", spec: "Assorted Hot Brew Drip Bags",
-      desc: "Supplementary coffee reserves. Assorted flavors for variety.",
-      details: "Format: Pour over Drip Bags | Roast: Assorted",
-      buyLinks: [
-        { text: "RESTOCK ON AMAZON", link: "https://www.amazon.in/Toffee-Coffee-Roasters-Assorted-Equipment/dp/B0GL383P6V" },
-        { text: "RESTOCK ON ZEPTO", link: "https://www.zeptonow.com/search?q=toffee%20coffee%20roasters" }
-      ]
     },
     {
       id: "dec-food1", title: "Tactical Rations: Carbs & Sugar", spec: "Lays, Too Yumm & Oreos",
@@ -1430,7 +1641,7 @@
       ]
     },
     {
-      id: "dec-7", title: "Borosil Hydra & Nova Flasks", spec: "Dual Hydration Pillars",
+      id: "dec-7", title: "Borosil Hydra & Nova Flasks", spec: "Dual Hydration Pillars", freq: true,
       images: ["https://rukmini1.flixcart.com/image/1500/1500/xif0q/bottle/w/w/3/400-vacuum-insulated-stainless-steel-tea-coffee-thermos-flask-original-imag9ey2hxruchaj.jpeg?q=70"],
       desc: "Black 260ml for Coffee. Blue 500ml for Water. Pack vertically on the sides of the messenger bag.",
       details: "Material: Double Wall Stainless Steel Vacuum Insulated.",
@@ -1452,8 +1663,9 @@
       const isChecked = localStorage.getItem(dbKey) === 'true';
       
       const priorityClass = item.priority ? 'priority-item' : '';
+      const favClass = item.freq ? 'fav-item' : '';
       const wrapper = document.createElement('div');
-      wrapper.className = `arsenal-item ${isChecked ? 'checked' : ''} ${priorityClass}`;
+      wrapper.className = `arsenal-item ${isChecked ? 'checked' : ''} ${priorityClass} ${favClass}`;
       wrapper.id = `wrap-${item.id}`;
       
       let imagesHTML = '';
@@ -1516,6 +1728,36 @@
   renderArsenal('arsenal-safari', dataSafari);
   renderArsenal('arsenal-decathlon', dataDecathlon);
 
+  // ─── hidden, harmless. type it if you ever think to. ───
+  (function() {
+    let buf = '';
+    const secrets = {
+      'pug': "Somewhere a pug is narrating this exact moment as a minor act of philosophical significance. Walk on.",
+      'kapi': "The beans are roasting whether you're watching or not. Go build the thing, Jake."
+    };
+    window.addEventListener('keydown', function(e) {
+      if (e.key && e.key.length === 1) {
+        buf = (buf + e.key.toLowerCase()).slice(-12);
+        for (const word in secrets) {
+          if (buf.endsWith(word)) {
+            const t = document.createElement('div');
+            t.textContent = secrets[word];
+            t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);' +
+              'background:var(--ink-main);color:var(--gold);font-family:"Karla",sans-serif;font-style:italic;' +
+              'font-size:0.95rem;padding:14px 22px;border-radius:8px;max-width:80vw;text-align:center;' +
+              'box-shadow:0 8px 24px rgba(0,0,0,0.4);z-index:99999;opacity:0;transition:opacity 0.8s ease,transform 0.8s ease;';
+            document.body.appendChild(t);
+            requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
+            setTimeout(() => {
+              t.style.opacity = '0';
+              setTimeout(() => t.remove(), 900);
+            }, 4200);
+            buf = '';
+          }
+        }
+      }
+    });
+  })();
 </script>
 </body>
 </html>
