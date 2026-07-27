@@ -56,6 +56,49 @@
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     z-index: 10000; transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
   }
+
+  /* SAVE SLOT / RESUME PROMPT */
+  .resume-gate {
+    position: fixed; inset: 0; z-index: 21000;
+    display: grid; place-items: center;
+    background: rgba(18, 18, 18, 0.86);
+    backdrop-filter: blur(8px);
+    padding: 20px;
+  }
+  .resume-gate[hidden] { display: none !important; }
+  .resume-card {
+    width: min(520px, 100%);
+    background: var(--tactical-green);
+    color: var(--surface);
+    border: 4px solid var(--safety-orange);
+    box-shadow: 12px 12px 0 rgba(0,0,0,0.55);
+    padding: 34px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .resume-card h2 {
+    font-size: clamp(2rem, 8vw, 3.4rem);
+    color: var(--surface);
+    margin-bottom: 10px;
+  }
+  .resume-card p {
+    font-family: 'Fira Code', monospace;
+    color: var(--gold-light);
+    margin: 0 0 24px;
+  }
+  .resume-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .resume-actions .btn {
+    width: 100%;
+    box-shadow: 4px 4px 0 var(--ink-main);
+  }
+  @media (max-width: 480px) {
+    .resume-card { padding: 26px 20px; }
+    .resume-actions { grid-template-columns: 1fr; }
+  }
   
   .pre-flight-box {
     background: var(--ink-main); border: 4px solid var(--safety-orange); padding: 40px;
@@ -594,6 +637,17 @@
 </style>
 </head>
 <body>
+
+<div class="resume-gate" id="resume-gate" hidden>
+  <div class="resume-card">
+    <h2>Save Slot Found</h2>
+    <p id="resume-copy">Resume where you left off, or start fresh from Home Base.</p>
+    <div class="resume-actions">
+      <button class="btn" onclick="startOverDeployment()">Start Over</button>
+      <button class="btn btn-orange" onclick="resumeDeployment()">Resume</button>
+    </div>
+  </div>
+</div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
@@ -1361,9 +1415,150 @@
     }
   }
 
+  // SAVE SLOT / RESUME LOGIC
+  const SAVE_SLOT_KEY = 'rishikesh-deployment-save-slot-v1';
+  let saveSlotReady = false;
+  let pendingSaveSlot = null;
+  let scrollSaveTimer = null;
+
+  function getActivePanelId() {
+    const activePanel = document.querySelector('.panel.active');
+    return activePanel ? activePanel.id : 'panel-home';
+  }
+
+  function getOpenIds(selector, prefixToRemove = '') {
+    return Array.from(document.querySelectorAll(selector)).map((node) => {
+      return prefixToRemove && node.id.startsWith(prefixToRemove)
+        ? node.id.slice(prefixToRemove.length)
+        : node.id;
+    }).filter(Boolean);
+  }
+
+  function readSaveSlot() {
+    try {
+      const raw = localStorage.getItem(SAVE_SLOT_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+      localStorage.removeItem(SAVE_SLOT_KEY);
+      return null;
+    }
+  }
+
+  function writeSaveSlot() {
+    if (!saveSlotReady) return;
+
+    const saveData = {
+      panelId: getActivePanelId(),
+      scrollY: Math.max(0, Math.round(window.scrollY || 0)),
+      openCards: getOpenIds('.arsenal-item.open', 'wrap-'),
+      openSops: getOpenIds('.sop-body.open'),
+      savedAt: new Date().toISOString()
+    };
+
+    localStorage.setItem(SAVE_SLOT_KEY, JSON.stringify(saveData));
+  }
+
+  function showResumeGate(saveData) {
+    pendingSaveSlot = saveData;
+
+    const panelName = saveData.panelId
+      ? saveData.panelId.replace('panel-', '').replace(/-/g, ' ').toUpperCase()
+      : 'HOME BASE';
+    const copy = document.getElementById('resume-copy');
+    copy.textContent = `Last checkpoint: ${panelName}. Resume where you left off, or start fresh from Home Base.`;
+
+    document.getElementById('resume-gate').hidden = false;
+  }
+
+  function hideResumeGate() {
+    document.getElementById('resume-gate').hidden = true;
+  }
+
+  function restoreOpenState(saveData) {
+    document.querySelectorAll('.arsenal-item.open').forEach((card) => {
+      card.classList.remove('open');
+      const icon = card.querySelector('.expand-icon');
+      if (icon) icon.textContent = '+';
+    });
+
+    (saveData.openCards || []).forEach((id) => {
+      const card = document.getElementById(`wrap-${id}`);
+      if (!card) return;
+      card.classList.add('open');
+      const icon = card.querySelector('.expand-icon');
+      if (icon) icon.textContent = '✕';
+    });
+
+    document.querySelectorAll('.sop-body.open').forEach((sop) => sop.classList.remove('open'));
+    document.querySelectorAll('.sop-header span').forEach((span) => {
+      span.textContent = span.textContent.replace('[-]', '[+]');
+    });
+
+    (saveData.openSops || []).forEach((id) => {
+      const sop = document.getElementById(id);
+      if (!sop) return;
+      sop.classList.add('open');
+
+      const header = document.querySelector(`.sop-header[onclick*="${id}"]`);
+      const span = header ? header.querySelector('span') : null;
+      if (span) span.textContent = span.textContent.replace('[+]', '[-]');
+    });
+  }
+
+  function startOverDeployment() {
+    localStorage.removeItem(SAVE_SLOT_KEY);
+    pendingSaveSlot = null;
+    hideResumeGate();
+    saveSlotReady = true;
+    activatePanel('panel-home', { scroll: false, persist: false });
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    writeSaveSlot();
+  }
+
+  function resumeDeployment() {
+    const saveData = pendingSaveSlot || readSaveSlot();
+    hideResumeGate();
+    saveSlotReady = true;
+
+    if (!saveData || !document.getElementById(saveData.panelId)) {
+      startOverDeployment();
+      return;
+    }
+
+    activatePanel(saveData.panelId, { scroll: false, persist: false });
+    restoreOpenState(saveData);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: saveData.scrollY || 0, behavior: 'auto' });
+      writeSaveSlot();
+    });
+  }
+
+  function bootSaveSlot() {
+    const saveData = readSaveSlot();
+    if (saveData && document.getElementById(saveData.panelId)) {
+      showResumeGate(saveData);
+    } else {
+      localStorage.removeItem(SAVE_SLOT_KEY);
+      saveSlotReady = true;
+      writeSaveSlot();
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!saveSlotReady) return;
+    clearTimeout(scrollSaveTimer);
+    scrollSaveTimer = setTimeout(writeSaveSlot, 180);
+  }, { passive: true });
+
+  window.addEventListener('beforeunload', writeSaveSlot);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') writeSaveSlot();
+  });
+
   // BOOT SEQUENCE (login/loading screens removed — HUD is visible immediately)
   window.onload = () => {
     setTimeout(() => document.getElementById('media-widget').classList.add('visible'), 800);
+    bootSaveSlot();
   };
 
   /* ── OPERATOR BADGE ── */
@@ -1399,19 +1594,28 @@
   }
 
   // NAV & SOP TOGGLERS
-  function activatePanel(panelId) {
+  function activatePanel(panelId, options = {}) {
+    const targetPanel = document.getElementById(panelId) || document.getElementById('panel-home');
+    panelId = targetPanel.id;
+
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(panelId).classList.add('active');
+    targetPanel.classList.add('active');
     
-    if(event && event.currentTarget && event.currentTarget.classList) {
-        if(event.currentTarget.classList.contains('nav-btn')) {
-            event.currentTarget.classList.add('active');
-        } else {
-            document.querySelectorAll(`.nav-btn[onclick="activatePanel('${panelId}')"]`).forEach(b => b.classList.add('active'));
-        }
+    const triggerEvent = options.event || window.event;
+    if(triggerEvent && triggerEvent.currentTarget && triggerEvent.currentTarget.classList && triggerEvent.currentTarget.classList.contains('nav-btn')) {
+      triggerEvent.currentTarget.classList.add('active');
+    } else {
+      document.querySelectorAll(`.nav-btn[onclick="activatePanel('${panelId}')"]`).forEach(b => b.classList.add('active'));
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (options.scroll !== false) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (options.persist !== false) {
+      requestAnimationFrame(writeSaveSlot);
+    }
   }
 
   function toggleSOP(sopId, headerElement) {
@@ -1424,6 +1628,7 @@
       body.classList.add('open');
       span.textContent = span.textContent.replace('[+]', '[-]');
     }
+    requestAnimationFrame(writeSaveSlot);
   }
 
   // PRODUCT DATABASE
@@ -1720,6 +1925,7 @@
     wrapper.classList.toggle('open');
     const icon = wrapper.querySelector('.expand-icon');
     icon.textContent = wrapper.classList.contains('open') ? '✕' : '+';
+    requestAnimationFrame(writeSaveSlot);
   }
 
   function handleCheck(id, dbKey, event) {
@@ -1733,6 +1939,7 @@
     } else {
       wrapper.classList.remove('checked');
     }
+    requestAnimationFrame(writeSaveSlot);
   }
 
   renderArsenal('arsenal-safari', dataSafari);
