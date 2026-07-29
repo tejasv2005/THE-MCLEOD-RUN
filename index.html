@@ -150,6 +150,7 @@
   .data-card { background: var(--surface); border: var(--border-heavy); padding: 30px; box-shadow: var(--shadow-brutal); margin-bottom: 30px; position: relative; }
   .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 768px) { .grid-2col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { #expense-form-row { grid-template-columns: 1fr; } }
 
   /* HOME PANEL TYPOGRAPHY */
   .home-manifesto h2 { font-size: 3.5rem; color: var(--ink-main); margin-bottom: 20px; line-height: 1; }
@@ -653,7 +654,7 @@
 
 <!-- OPERATOR BADGE -->
 <div id="operator-badge" class="visible">
-  <div class="badge-pill" onclick="toggleBadge(event)">
+  <div class="badge-pill" onclick="toggleBadge(event); handleSecretTap(event, 'kapi')">
     <span class="badge-dot"></span>
     <span class="badge-label" id="badge-short">JAKE</span>
   </div>
@@ -692,7 +693,7 @@
 <div class="hud-container" id="main-hud">
   <header>
     <div class="header-left" onclick="activatePanel('panel-home')">
-      <h1 title="Return to Basecamp">RISHIKESH DEPLOYMENT</h1>
+      <h1 title="Return to Basecamp" onclick="handleSecretTap(event, 'pug')">RISHIKESH DEPLOYMENT</h1>
       <p style="cursor:pointer;" onclick="activatePanel('panel-home')" title="Return to Home Base">OP AREA: RISHIKESH, UTTARAKHAND // VOLUNTEERSHIP</p>
     </div>
     <div class="timer-module" id="countdown-timer" onclick="addToCalendar()" style="cursor:pointer;" title="Click to add bus departure to your calendar">SYNCING CLOCK...</div>
@@ -724,7 +725,32 @@
 
       <p class="slogan">Life is short and fast, so run and chase every second; be mad and you have ADHD asshole.</p>
     </div>
+
+    <div class="data-card">
+      <h2>FIELD NOTES</h2>
+      <p style="font-family:'Fira Code',monospace; font-size:0.82rem; color: var(--ink-muted); margin-bottom:12px;">Quick scratchpad — jot anything down. Only lives in this tab, clears on refresh.</p>
+      <textarea id="field-notes" placeholder="Type here..." style="width:100%; min-height:100px; padding:12px; border:2px solid var(--ink-main); font-family:'Karla',sans-serif; font-size:0.95rem; box-sizing:border-box; resize:vertical;"></textarea>
+    </div>
+
+    <div class="data-card">
+      <h2>CALL IT</h2>
+      <p style="font-family:'Fira Code',monospace; font-size:0.82rem; color: var(--ink-muted); margin-bottom:14px;">Can't decide? Let the deployment gods decide for you.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn btn-orange" onclick="flipCoin()">FLIP A COIN</button>
+        <button class="btn btn-orange" onclick="rollDice()">ROLL A D6</button>
+      </div>
+      <p id="decision-result" style="font-family:'Oswald',sans-serif; font-size:1.8rem; margin-top:16px; min-height:1.2em; color: var(--tactical-green);"></p>
+    </div>
   </div>
+
+  <script>
+    function flipCoin() {
+      document.getElementById('decision-result').textContent = Math.random() < 0.5 ? 'HEADS' : 'TAILS';
+    }
+    function rollDice() {
+      document.getElementById('decision-result').textContent = 'ROLLED: ' + (Math.floor(Math.random() * 6) + 1);
+    }
+  </script>
 
   <div id="panel-guide" class="panel">
     <div class="data-card">
@@ -837,12 +863,14 @@
             <h3>RETURN BUS (RISHIKESH -> DELHI)</h3>
           </div>
           <p><strong>Date:</strong> 05 Aug 2026</p>
-          <p><strong>Pickup Time:</strong> 11:25 AM</p>
-          <p><strong>PNR:</strong> ZB2607211827172048</p>
-          <p><strong>Seat:</strong> UD5</p>
+          <p><strong>Pickup Time:</strong> 12:00 PM</p>
+          <p><strong>PNR:</strong> ZB260729125703825</p>
+          <p><strong>Seat:</strong> UD8</p>
           <p><strong>Pickup Point:</strong> zingbus Lounge Rishikesh</p>
           <p><strong>Marshal Number:</strong> <a href="tel:8287009889">8287009889</a> (activates 3 hrs before journey)</p>
-          <p><strong>Track Bus:</strong> <a href="https://z.zingbus.com/WuYF" target="_blank">z.zingbus.com/WuYF</a></p>
+          <p><strong>Track Bus:</strong> <a href="https://z.zingbus.com/X09k" target="_blank">z.zingbus.com/X09k</a></p>
+          <p><strong>Cancellation & Luggage Policy:</strong> <a href="https://z.zingbus.com/cl/X09k" target="_blank">z.zingbus.com/cl/X09k</a></p>
+          <p style="font-size:0.85rem; color: var(--ink-muted);">🛺 goSTOPS → zingbus Lounge Rishikesh by auto: approx ₹100–150. Budget 15-20 min buffer.</p>
         </div>
       </div>
 
@@ -854,7 +882,7 @@
 
         <!-- Confirmation Banner -->
         <div style="background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 10px 15px; margin-bottom: 14px; font-family: 'Fira Code', monospace; font-size: 0.85rem;">
-          ✅ <strong style="color:#2e7d32;">BOOKING CONFIRMED</strong> — Ref: RISLJ51761
+          ✅ <strong style="color:#2e7d32;">BOOKING CONFIRMED — PAID IN FULL</strong> — Ref: RISLJ51761
         </div>
 
         <!-- Core Details -->
@@ -896,7 +924,7 @@
         <div style="margin-top:14px; border-top: 2px dashed #ccc; padding-top:12px;">
           <div style="font-family:'Oswald',sans-serif; font-size:1rem; margin-bottom:8px; color:var(--tactical-green);">PRICE BREAKUP</div>
           <div style="font-family:'Fira Code',monospace; font-size:0.82rem; display:grid; gap:4px;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; padding-top:6px; font-size:0.9rem;"><span>TOTAL / AMOUNT DUE AT CHECK-IN</span><span>₹0.00</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:bold; padding-top:6px; font-size:0.9rem;"><span>TOTAL — PAID IN FULL, NOTHING DUE AT CHECK-IN</span><span>₹0.00</span></div>
           </div>
         </div>
       </div>
@@ -1033,6 +1061,16 @@
   </div>
 
   <div id="panel-finances" class="panel">
+    <div id="finances-lock" class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--safety-orange); text-align:center;">
+      <h2 style="color: var(--safety-orange);">🔒 RESTRICTED</h2>
+      <p style="font-family: 'Fira Code'; color: rgba(245,245,240,0.7); font-size: 0.95rem;">Enter the passphrase to view finances.</p>
+      <input type="text" id="finances-pin" placeholder="passphrase" onkeydown="if(event.key==='Enter') checkFinancesPin()" style="padding:12px; border:2px solid var(--surface); background:transparent; color:var(--surface); font-family:'Fira Code',monospace; font-size:1rem; text-align:center; margin: 10px auto; display:block; width: 220px;">
+      <br>
+      <button class="btn btn-orange" onclick="checkFinancesPin()">UNLOCK</button>
+      <p id="finances-pin-error" style="color: var(--safety-orange); font-family:'Fira Code',monospace; font-size:0.85rem; height: 1em; margin-top:12px;"></p>
+    </div>
+
+    <div id="finances-content" style="display:none;">
     <div class="data-card" style="background: var(--ink-main); color: var(--surface); border-color: var(--tactical-green);">
       <h2 style="color: var(--surface);">DEPLOYMENT BUDGET</h2>
       <p style="font-family: 'Fira Code'; color: rgba(245,245,240,0.7); font-size: 0.95rem;">Carry a mix of digital + physical cash. Keep the backup reserve separate from the main wallet at all times.</p>
@@ -1084,7 +1122,96 @@
         </div>
       </div>
     </div>
+
+    <div class="data-card">
+      <h2>QUICK EXPENSE LOG</h2>
+      <p style="font-family:'Fira Code',monospace; font-size:0.82rem; color: var(--ink-muted); margin-bottom:16px;">A general scratchpad for tracking spend against any budget — set your own cap below. Lives only in this tab; refreshing the page clears it.</p>
+
+      <div id="expense-form-row" style="display:grid; grid-template-columns: 2fr 1fr 1fr auto; gap:10px; margin-bottom:16px;">
+        <input type="text" id="exp-name" placeholder="What'd you spend on?" style="padding:10px; border:2px solid var(--ink-main); font-family:'Karla',sans-serif; font-size:0.95rem; box-sizing:border-box; width:100%;">
+        <input type="number" id="exp-amount" placeholder="₹ amount" onkeydown="if(event.key==='Enter') addExpense()" style="padding:10px; border:2px solid var(--ink-main); font-family:'Fira Code',monospace; font-size:0.95rem; box-sizing:border-box; width:100%;">
+        <select id="exp-category" style="padding:10px; border:2px solid var(--ink-main); font-family:'Karla',sans-serif; font-size:0.9rem; box-sizing:border-box; width:100%;">
+          <option>Food</option>
+          <option>Transport</option>
+          <option>Experience</option>
+          <option>Gear</option>
+          <option>Other</option>
+        </select>
+        <button class="btn btn-orange" onclick="addExpense()">ADD</button>
+      </div>
+
+      <div id="expense-list" style="display:grid; gap:8px; margin-bottom: 16px;">
+        <p style="font-size:0.85rem; color: var(--ink-muted);">Nothing logged yet.</p>
+      </div>
+
+      <div style="border-top: 2px dashed #ccc; padding-top:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div style="font-family:'Fira Code',monospace; font-size:0.95rem; font-weight:bold; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          LOGGED: <span id="expense-total">₹0</span>
+          <span style="color: var(--ink-muted); font-weight:normal;">/ ₹</span>
+          <input type="number" id="expense-cap" value="3800" oninput="renderExpenseLog()" style="width:80px; padding:4px 6px; border:2px solid var(--ink-main); font-family:'Fira Code',monospace; font-size:0.9rem;">
+          <span style="color: var(--ink-muted); font-weight:normal;">budget</span>
+        </div>
+        <div style="flex: 1 1 200px; background:#dcdcdc; height:14px; border:2px solid var(--ink-main); position:relative; min-width:150px;">
+          <div id="expense-bar" style="background: var(--tactical-green); height:100%; width:0%; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
+
+  <script>
+    function checkFinancesPin() {
+      const val = document.getElementById('finances-pin').value.trim().toLowerCase();
+      if (val === 'jake nest') {
+        document.getElementById('finances-lock').style.display = 'none';
+        document.getElementById('finances-content').style.display = 'block';
+      } else {
+        document.getElementById('finances-pin-error').textContent = 'Wrong passphrase. Try again.';
+      }
+    }
+
+    let expenseLog = [];
+
+    function addExpense() {
+      const nameEl = document.getElementById('exp-name');
+      const amtEl = document.getElementById('exp-amount');
+      const catEl = document.getElementById('exp-category');
+      const name = nameEl.value.trim();
+      const amount = parseFloat(amtEl.value);
+      if (!name || !amount || amount <= 0) return;
+      expenseLog.push({ name, amount, category: catEl.value });
+      nameEl.value = '';
+      amtEl.value = '';
+      nameEl.focus();
+      renderExpenseLog();
+    }
+
+    function removeExpense(index) {
+      expenseLog.splice(index, 1);
+      renderExpenseLog();
+    }
+
+    function renderExpenseLog() {
+      const listEl = document.getElementById('expense-list');
+      listEl.innerHTML = expenseLog.length ? expenseLog.map((e, i) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--surface); border:2px solid var(--ink-main); padding:8px 12px; font-family:'Fira Code',monospace; font-size:0.88rem;">
+          <span>${e.name} <span style="color: var(--ink-muted); font-size:0.78rem;">(${e.category})</span></span>
+          <span style="display:flex; align-items:center; gap:10px;">
+            ₹${e.amount.toLocaleString('en-IN')}
+            <span onclick="removeExpense(${i})" style="cursor:pointer; color: var(--safety-orange); font-weight:bold;" title="Remove">✕</span>
+          </span>
+        </div>
+      `).join('') : `<p style="font-size:0.85rem; color: var(--ink-muted);">Nothing logged yet.</p>`;
+
+      const total = expenseLog.reduce((sum, e) => sum + e.amount, 0);
+      document.getElementById('expense-total').textContent = `₹${total.toLocaleString('en-IN')}`;
+      const cap = parseFloat(document.getElementById('expense-cap').value) || 1;
+      const pct = Math.min(100, (total / cap) * 100);
+      const bar = document.getElementById('expense-bar');
+      bar.style.width = pct + '%';
+      bar.style.background = pct >= 100 ? 'var(--med-alert)' : (pct >= 75 ? 'var(--safety-orange)' : 'var(--tactical-green)');
+    }
+  </script>
 
   <div id="panel-itinerary" class="panel">
     <div class="data-card">
@@ -1123,7 +1250,8 @@
         <h3>DAY 8: EXTRACTION (Wed, 5 Aug)</h3>
         <ul>
           <li><strong>10:00 AM:</strong> Check out of goSTOPS Rishikesh.</li>
-          <li><strong>11:25 AM:</strong> zingbus departs from zingbus Lounge Rishikesh, back to Delhi (Anand Vihar ISBT).</li>
+          <li><strong>~11:30 AM:</strong> Auto from goSTOPS to zingbus Lounge Rishikesh — approx ₹100–150, budget 15-20 min buffer.</li>
+          <li><strong>12:00 PM:</strong> zingbus departs from zingbus Lounge Rishikesh, back to Delhi (Anand Vihar ISBT).</li>
         </ul>
       </div>
 
@@ -1945,36 +2073,56 @@
   renderArsenal('arsenal-safari', dataSafari);
   renderArsenal('arsenal-decathlon', dataDecathlon);
 
-  // ─── hidden, harmless. type it if you ever think to. ───
+  // ─── hidden, harmless. type it on desktop, or tap it on mobile. ───
+  const secrets = {
+    'pug': "Somewhere a pug is narrating this exact moment as a minor act of philosophical significance. Walk on.",
+    'kapi': "The beans are roasting whether you're watching or not. Go build the thing, Jake."
+  };
+
+  function showSecretToast(msg) {
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);' +
+      'background:var(--ink-main);color:var(--gold);font-family:"Karla",sans-serif;font-style:italic;' +
+      'font-size:0.95rem;padding:14px 22px;border-radius:8px;max-width:80vw;text-align:center;' +
+      'box-shadow:0 8px 24px rgba(0,0,0,0.4);z-index:99999;opacity:0;transition:opacity 0.8s ease,transform 0.8s ease;';
+    document.body.appendChild(t);
+    requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
+    setTimeout(() => {
+      t.style.opacity = '0';
+      setTimeout(() => t.remove(), 900);
+    }, 4200);
+  }
+
+  // Desktop: type the word anywhere on the page.
   (function() {
     let buf = '';
-    const secrets = {
-      'pug': "Somewhere a pug is narrating this exact moment as a minor act of philosophical significance. Walk on.",
-      'kapi': "The beans are roasting whether you're watching or not. Go build the thing, Jake."
-    };
     window.addEventListener('keydown', function(e) {
       if (e.key && e.key.length === 1) {
         buf = (buf + e.key.toLowerCase()).slice(-12);
         for (const word in secrets) {
           if (buf.endsWith(word)) {
-            const t = document.createElement('div');
-            t.textContent = secrets[word];
-            t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);' +
-              'background:var(--ink-main);color:var(--gold);font-family:"Karla",sans-serif;font-style:italic;' +
-              'font-size:0.95rem;padding:14px 22px;border-radius:8px;max-width:80vw;text-align:center;' +
-              'box-shadow:0 8px 24px rgba(0,0,0,0.4);z-index:99999;opacity:0;transition:opacity 0.8s ease,transform 0.8s ease;';
-            document.body.appendChild(t);
-            requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
-            setTimeout(() => {
-              t.style.opacity = '0';
-              setTimeout(() => t.remove(), 900);
-            }, 4200);
+            showSecretToast(secrets[word]);
             buf = '';
           }
         }
       }
     });
   })();
+
+  // Mobile: tap the matching element 3 times within 1.2s.
+  const tapState = {};
+  function handleSecretTap(event, word) {
+    const now = Date.now();
+    const s = tapState[word] || { count: 0, last: 0 };
+    s.count = (now - s.last < 1200) ? s.count + 1 : 1;
+    s.last = now;
+    tapState[word] = s;
+    if (s.count >= 3) {
+      showSecretToast(secrets[word]);
+      s.count = 0;
+    }
+  }
 </script>
 </body>
 </html>
